@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+  <meta charset="UTF-8">
+  <title>Простий інтерфейс</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    input { margin: 5px 0; }
+    button { margin-top: 10px; }
+    pre { background: #f0f0f0; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Введіть свої дані</h1>
+<!-- Основна інформація -->
+  <input id="age" placeholder="Вік" type="number">
+  <input id="height" placeholder="Зріст(у СМ)" type="number">
+  <input id="weight" placeholder="Вага(у КГ)" type="number">
+  <input id="allergy" placeholder="Алергії">
+  <input id="health" placeholder="Нюанси зі здоров'ям">
+<!-- Стать людини для формули ккалорій -->
+  <p>Стать:</p>
+  <label><input type="radio" name="gender" value="male" checked> Чоловік</label>
+  <label><input type="radio" name="gender" value="female"> Жінка</label><br>
+ <!-- Підрахунок активності для формул-->
+  <p>Активність життя:</p>
+  <label><input type="radio" name="activity" value="very_high" checked> Дуже Висока Активність</label>
+  <label><input type="radio" name="activity" value="high"> Висока Активність</label>
+  <label><input type="radio" name="activity" value="medium"> Середня Активність</label>
+  <label><input type="radio" name="activity" value="small"> Мала Активність</label>
+  <label><input type="radio" name="activity" value="low"> Низька Активність</label><br>
+<!-- Кнопка для підрахунку -->
+  <button onclick="showData()">Показати мої дані</button>
+
+<button id="correctBtn" style="display:none;" onclick="clearResult(); showData();">Вони правильні</button>
+<button id="wrongBtn" style="display:none;" onclick="reTry()"> Вони Помилкові </button>
+
+
+  <h2>Ваші дані:</h2>
+  <pre id="result"></pre>
+<!-- код для підрахунку -->
+  <script>
+    let ReTryBut = 0;
+    function clearResult() {
+      document.getElementById("result").innerText = "";
+      document.getElementById("correctBtn").style.display = "none";
+    }
+    function reTry() {
+      ReTryBut = 0;
+      document.getElementById("result").innerText = "";
+      document.getElementById("wrongBtn").style.display = "none";
+      document.getElementById("correctBtn").style.display = "none";
+    }
+
+    function IMT() {
+      const height = document.getElementById("height").value;
+      const weight = document.getElementById("weight").value;
+      const imt = weight / ((height / 100) ** 2);
+      return imt.toFixed(2);
+    }
+
+    function BMR(age, height, weight, gender, activity) {
+      let bmr;
+        if (gender === "male") {
+          bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+        } else {
+          bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+        }
+
+        const multipliers = {
+        very_high: 1.9,
+        high: 1.725,
+        medium: 1.55,
+        small: 1.375,
+        low: 1.2
+        };
+        const brm_last = bmr * multipliers[activity];
+        return brm_last;
+    }
+
+    function squirrels(activity, weight) {
+    const multipliers = {
+    very_high: 2,
+    high: 1.8,
+    medium: 1.4,
+    small: 1.2,
+    low: 0.8
+    };
+
+    return Number(weight) * (multipliers[activity] || 0.8);
+    }
+    function fat(brm_last) {
+      return (0.3 * brm_last) / 7;
+    }
+
+    function carb(brm_last) {
+      return (0.4 * brm_last) / 4;
+    }
+
+    function showData() {
+      const age = document.getElementById("age").value;
+      const height = document.getElementById("height").value;
+      const weight = document.getElementById("weight").value;
+      const gender = document.querySelector('input[name="gender"]:checked').value;
+      const activity = document.querySelector('input[name="activity"]:checked').value;
+
+      let output = ``;
+      if (!age || !height || !weight) {
+        output += `Будь ласка, заповніть всі поля`;
+        document.getElementById("result").innerText = output;
+        return;
+      } else if (((age > 100 || height > 210 || weight > 300) || (age <= 5 || height <= 50 || weight <= 20)) && ReTryBut == 0){
+        output += `Будь ласка, введіть коректні значення для віку, зросту та ваги.`;
+        document.getElementById("correctBtn").style.display = "inline-block";
+        ReTryBut = 1;
+        document.getElementById("wrongBtn").style.display = "inline-block";
+      } else
+      if (age && height && weight && activity) {
+        ReTryBut = 0;
+        document.getElementById("correctBtn").style.display = "none";
+        document.getElementById("wrongBtn").style.display = "none";
+
+        const brm_last = BMR(age, height, weight, gender, activity);
+        output += `\nПриблизна норма калорій з урахуванням активності: ${brm_last.toFixed(0)} ккал`;
+    
+        const squirrel = squirrels(activity, weight);
+        output += `\nРекомендована кількість білків на день: ${squirrel.toFixed(0)} г`;
+
+        const fats = fat(brm_last);
+        output += `\nРекомендована кількість жирів на день: ${fats.toFixed(0)} г`;
+
+        const carbs = carb(brm_last);
+        output += `\nРекомендована кількість вуглеводів на день: ${carbs.toFixed(0)} г`;
+    }
+    IMT(height, weight);
+    const imt_value = IMT();
+    output += `\nІндекс маси тіла: ${imt_value}`;
+    document.getElementById("result").innerText = output;
+    }
+  </script>
+</body>
+</html>
