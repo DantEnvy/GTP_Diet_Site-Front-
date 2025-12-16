@@ -454,8 +454,8 @@ s<!DOCTYPE html>
         function reinitializeAdmin() {
             // Оскільки body перезаписується, треба заново знайти елементи адмінки
             document.getElementById('admin-toggle').onclick = () => {
-                const pass = prompt("Пароль (admin):", "admin");
-                if (pass === "admin") toggleAdmin(true);
+                const pass = prompt("Пароль:", "");
+                if (pass === "Admin_GPT") toggleAdmin(true);
             };
             document.getElementById('btn-close-admin').onclick = () => toggleAdmin(false);
             
