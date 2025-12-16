@@ -867,10 +867,27 @@ s<!DOCTYPE html>
         output += `Рекомендована кількість жирів на день: ${Number(fat(brm_last)).toFixed(0)} г\n`;
         output += `Рекомендована кількість вуглеводів на день: ${Number(carb(brm_last)).toFixed(0)} г\n\n`;
 
-        const vitamin = vitamins(age,gender,weight,activity);
-        output += 'Рекомендована добова норма вітамінів:\n';
-        for(const key in vitamin){output += `${key}: ${isFinite(vitamin[key])?Number(vitamin[key]).toFixed(2):'—'}\n`}
+// ---------------------------------------------------------------------------------------
+        const vitaminInfo = {
+        Vitamin_C:  { name: "Вітамін C", unit: "мг" },
+        Vitamin_D:  { name: "Вітамін D", unit: "IU" },
+        Vitamin_A:  { name: "Вітамін A", unit: "мкг" },
+        Vitamin_B1: { name: "Вітамін B1", unit: "мг" },
+        Vitamin_B6: { name: "Вітамін B6", unit: "мг" },
+        Vitamin_B12:{ name: "Вітамін B12", unit: "мкг" }
+        };
+// ---------------------------------------------------------------------------------------
+        const vitamin = vitamins(age, gender, weight, activity);
 
+        output += "Рекомендована добова норма вітамінів:\n";
+
+        for (const key in vitamin) {
+          const value = vitamin[key];
+          const { name, unit } = vitaminInfo[key];
+
+          output += `${name}: ${value.toFixed(2)} ${unit}\n`;
+        }
+// ---------------------------------------------------------------------------------------
         const imt_value = IMT();
         output += `\nІндекс маси тіла (ІМТ): ${isFinite(imt_value)?imt_value:'—'}\n`;
         output += `Інтерпретація ІМТ: ${IMT_Interpretation(imt_value)}\n`;
