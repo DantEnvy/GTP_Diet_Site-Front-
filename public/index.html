@@ -1,142 +1,201 @@
 <!DOCTYPE html>
-<html lang="ua">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Простий інтерфейс</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; }
-    input { margin: 5px 0; }
-    button { margin-top: 10px; }
-    pre { background: #f0f0f0; padding: 10px; }
+    :root{
+      --accent: #111;
+      --muted: #efefef;
+      --text: #111;
+      --container-left: 60px; /* відступ ліворуч як на фото */
+    }
+    body{font-family: 'Segoe UI', Roboto, Arial, sans-serif; color:var(--text);}
+    .page{
+      max-width:1200px;
+      margin:20px 40px 80px var(--container-left);
+    }
+    h1{
+      font-size:48px;
+      margin:10px 0 24px 0;
+      font-weight:700;
+      letter-spacing: -1px;
+    }
+
+    /* Форма — горизонтальне розміщення полів як на фото */
+    .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .inputs-row{display:flex;gap:12px;align-items:center;flex-wrap:nowrap;margin-bottom:18px}
+    input[type="number"], input[type="text"]{
+      width:150px;
+      padding:6px 8px;
+      border:1px solid #ccc;border-radius:4px;
+      font-size:14px;
+    }
+    .radio-group{margin:14px 0;}
+    .radio-line{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+    label{font-size:15px}
+
+    button{padding:8px 12px;border:1px solid #999;background:white;border-radius:4px;cursor:pointer}
+    button:active{transform:translateY(1px)}
+
+    /* Результат — велика світло-сіра панель як на фото */
+    .result-wrap{margin-top:18px}
+    pre#result{
+      background: linear-gradient(#f3f3f3,#f3f3f3);
+      border:1px solid #e3e3e3;
+      padding:22px;
+      min-height:120px;
+      white-space:pre-wrap;
+      box-sizing:border-box;
+      font-size:14px;
+      color:#222;
+    }
+
+    /* Налаштування відступів подібно до скріна */
+    .controls{margin-top:14px}
+
+    @media (max-width:800px){
+      h1{font-size:32px}
+      .inputs-row{flex-wrap:wrap}
+      input[type="number"], input[type="text"]{width:140px}
+    }
   </style>
 </head>
 <body>
-  <h1>Введіть свої дані</h1>
-<!-- Основна інформація -->
-  <input id="age" placeholder="Вік" type="number">
-  <input id="height" placeholder="Зріст(у СМ)" type="number">
-  <input id="weight" placeholder="Вага(у КГ)" type="number">
-  <input id="allergy" placeholder="Алергії">
-  <input id="health" placeholder="Нюанси зі здоров'ям">
-<!-- Стать людини для формули ккалорій -->
-  <p>Стать:</p>
-  <label><input type="radio" name="gender" value="male" checked> Чоловік</label>
-  <label><input type="radio" name="gender" value="female"> Жінка</label><br>
- <!-- Підрахунок активності для формул-->
-  <p>Активність життя:</p>
-  <label><input type="radio" name="activity" value="very_high" checked> Дуже Висока Активність</label>
-  <label><input type="radio" name="activity" value="high"> Висока Активність</label>
-  <label><input type="radio" name="activity" value="medium"> Середня Активність</label>
-  <label><input type="radio" name="activity" value="small"> Мала Активність</label>
-  <label><input type="radio" name="activity" value="low"> Низька Активність</label><br>
-<!-- Кнопка для підрахунку -->
-  <button onclick="showData()">Показати мої дані</button>
+  <div class="page">
+    <h1>Введіть свої дані</h1>
 
-<button id="correctBtn" style="display:none;" onclick="clearResult(); showData();">Вони правильні</button>
-<button id="wrongBtn" style="display:none;" onclick="reTry()"> Вони Помилкові </button>
+    <div class="inputs-row">
+      <input id="age" placeholder="Вік" type="number" min="0" value="16">
+      <input id="height" placeholder="Зріст(у см)" type="number" min="0" value="164">
+      <input id="weight" placeholder="Вага(у кг)" type="number" min="0" value="52">
+      <input id="allergy" placeholder="Алергії" type="text">
+      <input id="health" placeholder="Нюанси зі здоров'ям" type="text">
+    </div>
 
+    <div class="radio-group">
+      <p style="margin:6px 0 6px 0">Стать:</p>
+      <div class="radio-line">
+        <label><input type="radio" name="gender" value="male" checked> Чоловік</label>
+        <label><input type="radio" name="gender" value="female"> Жінка</label>
+      </div>
 
-  <h2>Ваші дані:</h2>
-  <pre id="result"></pre>
-<!-- код для підрахунку -->
+      <p style="margin:12px 0 6px 0">Активність життя:</p>
+      <div class="radio-line">
+        <label><input type="radio" name="activity" value="very_high" checked> Дуже Висока Активність</label>
+        <label><input type="radio" name="activity" value="high"> Висока Активність</label>
+        <label><input type="radio" name="activity" value="medium"> Середня Активність</label>
+        <label><input type="radio" name="activity" value="small"> Мала Активність</label>
+        <label><input type="radio" name="activity" value="low"> Низька Активність</label>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="showBtn" onclick="showData()">Показати мої дані</button>
+      <button id="correctBtn" style="display:none;margin-left:8px" onclick="clearResult(); showData();">Вони правильні</button>
+      <button id="wrongBtn" style="display:none;margin-left:8px" onclick="reTry()">Вони помилкові</button>
+    </div>
+
+    <h2 style="margin-top:28px">Ваші дані:</h2>
+    <div class="result-wrap"><pre id="result"></pre></div>
+  </div>
+
   <script>
     let ReTryBut = 0;
-    function clearResult() {
-      document.getElementById("result").innerText = "";
-      document.getElementById("correctBtn").style.display = "none";
-    }
-    function reTry() {
-      ReTryBut = 0;
-      document.getElementById("result").innerText = "";
-      document.getElementById("wrongBtn").style.display = "none";
-      document.getElementById("correctBtn").style.display = "none";
-    }
+    function clearResult(){document.getElementById('result').innerText='';document.getElementById('correctBtn').style.display='none'}
+    function reTry(){ReTryBut=0;document.getElementById('result').innerText='';document.getElementById('wrongBtn').style.display='none';document.getElementById('correctBtn').style.display='none'}
 
-    function IMT() {
-      const height = document.getElementById("height").value;
-      const weight = document.getElementById("weight").value;
-      const imt = weight / ((height / 100) ** 2);
-      return imt.toFixed(2);
+    function IMT(){
+      const height = Number(document.getElementById('height').value);
+      const weight = Number(document.getElementById('weight').value);
+      if(!height||!weight) return NaN;
+      return Number((weight/((height/100)**2)).toFixed(2));
     }
 
-    function BMR(age, height, weight, gender, activity) {
-      let bmr;
-        if (gender === "male") {
-          bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
-        } else {
-          bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
-        }
-
-        const multipliers = {
-        very_high: 1.9,
-        high: 1.725,
-        medium: 1.55,
-        small: 1.375,
-        low: 1.2
-        };
-        const brm_last = bmr * multipliers[activity];
-        return brm_last;
+    function IMT_Interpretation(imt_value){
+      if(!isFinite(imt_value)) return 'Немає даних для інтерпретації';
+      if(imt_value<16) return 'Виражений дефіцит маси тіла';
+      if(imt_value<18.5) return 'Недостатня (дефіцит) маса тіла';
+      if(imt_value<25) return 'Нормальна маса тіла';
+      if(imt_value<30) return 'Надмірна маса тіла (предожиріння)';
+      if(imt_value<35) return 'Ожиріння I ступеня';
+      if(imt_value<40) return 'Ожиріння II ступеня';
+      return 'Ожиріння III ступеня';
     }
 
-    function squirrels(activity, weight) {
-    const multipliers = {
-    very_high: 2,
-    high: 1.8,
-    medium: 1.4,
-    small: 1.2,
-    low: 0.8
-    };
-
-    return Number(weight) * (multipliers[activity] || 0.8);
-    }
-    function fat(brm_last) {
-      return (0.3 * brm_last) / 7;
+    function BMR(age,height,weight,gender,activity){
+      age=Number(age);height=Number(height);weight=Number(weight);
+      const multipliers={very_high:1.9,high:1.725,medium:1.55,small:1.375,low:1.2};
+      let bmr = (10*weight)+(6.25*height)-(5*age)+(gender==='male'?5:-161);
+      return bmr*(multipliers[activity]??1.55);
     }
 
-    function carb(brm_last) {
-      return (0.4 * brm_last) / 4;
+    function proteins(activity,weight){const m={very_high:2,high:1.8,medium:1.4,small:1.2,low:0.8}; return Number(weight)*(m[activity]??1.4)}
+    function fat(brm_last){return (0.3*brm_last)/9}
+    function carb(brm_last){return (0.4*brm_last)/4}
+
+    function vitamins(age,gender,weight,activity){
+      age=Number(age);weight=Number(weight);
+      const multipliers={very_high:1.4,high:1.2,medium:1.1,small:1,low:0.8};
+      const vitaminRDA={Vitamin_C:90,Vitamin_D:800,Vitamin_A:700,Vitamin_B1:1.1,Vitamin_B6:1.3,Vitamin_B12:2.4};
+      const genderFactor={male:1,female:0.9};
+      let ageFactor = age<=3?0.8:age<=8?0.9:age<=13?1:age<=18?1.1:age<=50?1:1.2;
+      const activityMultiplier = multipliers[activity] ?? 1.1;
+      const gFactor = genderFactor[gender] ?? 1;
+      const weightFactor = (weight>0)?(weight/70):1;
+      return {
+        Vitamin_D: vitaminRDA.Vitamin_D * ageFactor * gFactor * activityMultiplier * weightFactor,
+        Vitamin_C: vitaminRDA.Vitamin_C * ageFactor * gFactor * activityMultiplier * weightFactor,
+        Vitamin_B12: vitaminRDA.Vitamin_B12 * ageFactor * gFactor * activityMultiplier * weightFactor,
+        Vitamin_A: vitaminRDA.Vitamin_A * ageFactor * gFactor * activityMultiplier * weightFactor,
+        Vitamin_B1: vitaminRDA.Vitamin_B1 * ageFactor * gFactor * activityMultiplier * weightFactor,
+        Vitamin_B6: vitaminRDA.Vitamin_B6 * ageFactor * gFactor * activityMultiplier * weightFactor
+      };
     }
 
-    function showData() {
-      const age = document.getElementById("age").value;
-      const height = document.getElementById("height").value;
-      const weight = document.getElementById("weight").value;
-      const gender = document.querySelector('input[name="gender"]:checked').value;
-      const activity = document.querySelector('input[name="activity"]:checked').value;
+    function showData(){
+      const ageRaw = document.getElementById('age').value;
+      const heightRaw = document.getElementById('height').value;
+      const weightRaw = document.getElementById('weight').value;
+      const age = Number(ageRaw), height = Number(heightRaw), weight = Number(weightRaw);
+      const gender = document.querySelector('input[name="gender"]:checked')?.value || 'male';
+      const activity = document.querySelector('input[name="activity"]:checked')?.value || 'medium';
 
-      let output = ``;
-      if (!age || !height || !weight) {
-        output += `Будь ласка, заповніть всі поля`;
-        document.getElementById("result").innerText = output;
-        return;
-      } else if (((age > 100 || height > 210 || weight > 300) || (age <= 5 || height <= 50 || weight <= 20)) && ReTryBut == 0){
-        output += `Будь ласка, введіть коректні значення для віку, зросту та ваги.`;
-        document.getElementById("correctBtn").style.display = "inline-block";
-        ReTryBut = 1;
-        document.getElementById("wrongBtn").style.display = "inline-block";
-      } else
-      if (age && height && weight && activity) {
-        ReTryBut = 0;
-        document.getElementById("correctBtn").style.display = "none";
-        document.getElementById("wrongBtn").style.display = "none";
+      let output = '';
+      if(!ageRaw||!heightRaw||!weightRaw){document.getElementById('result').innerText='Будь ласка, заповніть поля Вік, Зріст та Вага.';return}
+      if((!isFinite(age)||!isFinite(height)||!isFinite(weight))||age<=0||height<=0||weight<=0){document.getElementById('result').innerText='Некоректні числові значення. Перевірте введені дані.';return}
 
-        const brm_last = BMR(age, height, weight, gender, activity);
-        output += `\nПриблизна норма калорій з урахуванням активності: ${brm_last.toFixed(0)} ккал`;
-    
-        const squirrel = squirrels(activity, weight);
-        output += `\nРекомендована кількість білків на день: ${squirrel.toFixed(0)} г`;
+      if(((age>100||height>250||weight>400)||(age<=5||height<=50||weight<=20))&&ReTryBut==0){
+        output='Будь ласка, введіть коректні значення для віку, зросту та ваги.';
+        document.getElementById('correctBtn').style.display='inline-block';
+        document.getElementById('wrongBtn').style.display='inline-block';
+        ReTryBut=1;document.getElementById('result').innerText=output;return;
+      }
 
-        const fats = fat(brm_last);
-        output += `\nРекомендована кількість жирів на день: ${fats.toFixed(0)} г`;
+      ReTryBut=0;document.getElementById('correctBtn').style.display='none';document.getElementById('wrongBtn').style.display='none';
 
-        const carbs = carb(brm_last);
-        output += `\nРекомендована кількість вуглеводів на день: ${carbs.toFixed(0)} г`;
+      try{
+        const brm_last = BMR(age,height,weight,gender,activity);
+        output += `Приблизна норма калорій з урахуванням активності: ${Number(brm_last).toFixed(0)} ккал\n`;
+        output += `Рекомендована кількість білків на день: ${Number(proteins(activity,weight)).toFixed(0)} г\n`;
+        output += `Рекомендована кількість жирів на день: ${Number(fat(brm_last)).toFixed(0)} г\n`;
+        output += `Рекомендована кількість вуглеводів на день: ${Number(carb(brm_last)).toFixed(0)} г\n\n`;
+
+        const vitamin = vitamins(age,gender,weight,activity);
+        output += 'Рекомендована добова норма вітамінів:\n';
+        for(const key in vitamin){output += `${key}: ${isFinite(vitamin[key])?Number(vitamin[key]).toFixed(2):'—'}\n`}
+
+        const imt_value = IMT();
+        output += `\nІндекс маси тіла (ІМТ): ${isFinite(imt_value)?imt_value:'—'}\n`;
+        output += `Інтерпретація ІМТ: ${IMT_Interpretation(imt_value)}\n`;
+      }catch(err){console.error(err);output='Сталася помилка при обчисленнях.'}
+
+      document.getElementById('result').innerText = output;
     }
-    IMT(height, weight);
-    const imt_value = IMT();
-    output += `\nІндекс маси тіла: ${imt_value}`;
-    document.getElementById("result").innerText = output;
-    }
+
+    // Запуск з дефолтними значеннями при завантаженні
+    window.addEventListener('load', ()=>{showData()});
   </script>
 </body>
 </html>

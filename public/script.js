@@ -7,8 +7,8 @@ async function send() {
     allergy: document.getElementById("allergy").value,
     health: document.getElementById("health").value
   };
-  
-  const res = await fetch("/api/diet", {
+
+  const res = await fetch("https://gtp-diet-site-back.vercel.app/api/diet", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
