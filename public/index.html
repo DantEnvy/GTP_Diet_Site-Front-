@@ -1,903 +1,903 @@
-s<!DOCTYPE html>
-<html lang="uk">
-<head>
+  s<!DOCTYPE html>
+  <html lang="uk">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title> FastDiet | Master Editor</title>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Play:wght@400;700&family=Oswald:wght@400;700&family=Pacifico&family=Lobster&family=Amatic+SC&family=Merriweather&family=Comfortaa&display=swap" rel="stylesheet">
+      
+      <style>
+          /* --- 1. БАЗА ТА КОЛЬОРИ --- */
+          :root {
+              --color-blue: rgb(66, 135, 245);
+              --color-green: rgb(28, 201, 115);
+              --primary: var(--color-green); 
+              --secondary: var(--color-blue);
+              --bg-card: rgba(255, 255, 255, 0.95);
+              --text-main: #333333;
+              --shadow: 0 10px 25px rgba(0,0,0,0.2);
+              --font-main: 'Montserrat', sans-serif;
+          }
+
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          
+          body {
+              font-family: var(--font-main);
+              color: var(--text-main);
+              line-height: 1.6;
+              min-height: 100vh;
+              display: flex; flex-direction: column;
+              overflow-x: hidden;
+              background: linear-gradient(135deg, var(--color-blue), var(--color-green));
+              background-attachment: fixed;
+          }
+
+          a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+          /* --- 2. ХЕДЕР --- */
+          header {
+              background: var(--bg-card);
+              box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+              position: sticky; top: 0; z-index: 1000;
+              padding: 15px 0;
+              border-bottom: 3px solid var(--primary);
+          }
+          .container { width: 90%; max-width: 1200px; margin: 0 auto; position: relative; }
+          .card img { pointer-events: auto; }
+          .container { position: relative; }
+
+          .flex-between { display: flex; justify-content: space-between; align-items: center; }
+          
+          .logo { font-size: 26px; font-weight: 800; color: var(--secondary); cursor: pointer; text-transform: uppercase; }
+          .nav-links a { margin-left: 20px; font-weight: 600; cursor: pointer; color: #444; }
+          .nav-links a.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
+          
+          .header-btn {
+              background: transparent; border: 2px solid var(--secondary); 
+              color: var(--secondary); padding: 6px 18px; border-radius: 25px; 
+              cursor: pointer; font-weight: bold; margin-left: 15px; transition: 0.3s;
+          }
+          .header-btn:hover { background: var(--secondary); color: white; }
+
+          /* --- 3. СТРУКТУРА СТОРІНОК --- */
+          .page-section { display: none; animation: fadeIn 0.5s ease; flex: 1; padding-bottom: 50px; }
+          .page-section.active { display: block; }
+          @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+          /* Hero */
+          .hero {
+              background: rgba(255,255,255,0.15);
+              backdrop-filter: blur(5px);
+              color: white; text-align: center;
+              padding: 80px 0; margin: 30px 0;
+              border-radius: 20px; border: 1px solid rgba(255,255,255,0.3);
+          }
+          .hero h1 { font-size: 3rem; margin-bottom: 15px; text-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
+
+          /* Grid Layout (СІТКА) */
+          .grid-3 {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+              gap: 30px;
+              margin-top: 40px;
+              /* Це важливо, щоб ми могли додавати сюди елементи через JS */
+              align-items: start; 
+          }
+
+          /* CARD (ОКНО ДЛЯ ТЕКСТА) */
+          .card {
+              background: var(--bg-card);
+              padding: 20px;
+              border-radius: 15px;
+              box-shadow: var(--shadow);
+              border-top: 5px solid var(--secondary);
+              transition: transform 0.3s;
+              position: relative;
+              display: flex; flex-direction: column;
+          }
+          .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; pointer-events: none; }
+          
+          .card h3 { margin-bottom: 10px; color: var(--primary); }
+          .editable-wrapper {
+              position: relative; display: inline-block;
+              border: 1px dashed transparent; 
+              min-width: 50px; min-height: 50px;
+          }
+          .editable-wrapper.floating { position: absolute; cursor: move; z-index: 500; }
+          
+          .btn-main {
+              display: inline-block; padding: 10px 30px; margin-top: 10px;
+              background: white; color: var(--secondary); font-weight: 700;
+              border-radius: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+              cursor: pointer;
+          }
+
+          /* --- 4. РЕДАГУВАННЯ --- */
+          
+          /* Цей клас додається до вибраного елемента (рамка) */
+          .editing-active {
+              outline: 2px dashed #ffeb3b;
+              outline-offset: 2px;
+              cursor: text;
+          }
+          
+          /* Для картинок, які можна ресайзити примусово (Ctrl+Shift) */
+          .resizable-img-wrapper {
+              display: inline-block;
+              position: relative;
+          }
+
+          /* --- 5. АДМІН ПАНЕЛЬ --- */
+          #admin-panel {
+              position: fixed; top: 0; right: -360px;
+              width: 340px; height: 100vh;
+              background: rgba(44, 62, 80, 0.98); 
+              color: #ecf0f1; padding: 20px; 
+              box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+              z-index: 9999; transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+              overflow-y: auto; font-family: 'Roboto', sans-serif;
+          }
+          #admin-panel.active { right: 0; }
+
+          .admin-row { display: flex; gap: 10px; margin-bottom: 15px; }
+          
+          .btn-tool { 
+              background: #34495e; color: white; border: 1px solid #5d6d7e; 
+              cursor: pointer; padding: 10px; margin-top: 5px; width: 100%; 
+              text-align: left; border-radius: 5px; transition: 0.2s;
+          }
+          .btn-tool:hover { background: #415b76; transform: translateX(5px); }
+          
+          .btn-history { flex: 1; text-align: center; font-size: 1.2em; padding: 8px; background: #e67e22; border: none; border-radius: 5px; cursor: pointer; }
+          .btn-history:hover { background: #d35400; }
+          .btn-history:disabled { opacity: 0.5; cursor: not-allowed; }
+
+          label { color: #bdc3c7; font-size: 0.8em; text-transform: uppercase; font-weight: bold; margin-top: 15px; display: block; }
+          input[type="color"], select { width: 100%; height: 35px; border: none; border-radius: 4px; margin-top: 5px; }
+
+          #style-controls { opacity: 0.3; pointer-events: none; transition: 0.3s; margin-top: 20px; border-top: 1px solid #555; padding-top: 10px;}
+          #style-controls.active { opacity: 1; pointer-events: auto; }
+
+          footer { background: rgba(0,0,0,0.3); color: white; padding: 30px; text-align: center; margin-top: auto; }
+      </style>
+  </head>
+  <body id="main-body">
+
+      <header>
+          <div class="container flex-between">
+              <div class="logo" onclick="switchPage('home')">FastDiet</div>
+              <nav class="nav-links">
+                  <a onclick="switchPage('home')" class="nav-item active" id="nav-home">Головна</a>
+                  <a onclick="switchPage('features')" class="nav-item" id="nav-features">Переваги</a>
+                  <a onclick="switchPage('recipes')" class="nav-item" id="nav-recipes">Рецепти</a>
+                  <a onclick="switchPage('contact')" class="nav-item" id="nav-contact">Вирахування</a>
+              </nav>
+              <button class="header-btn" id="admin-toggle">Адмін</button>
+          </div>
+      </header>
+
+      <main id="content-area">
+          <section id="page-home" class="page-section active">
+              <div class="container">
+                  <div class="hero">
+                      <h1 class="editable-text">Здорове харчування</h1>
+                      <p class="editable-text">Ваш шлях до ідеальної форми.</p>
+                  </div>
+                  <div class="grid-3">
+                      <div class="card">
+                          <h3 class="editable-text">Привіт!</h3>
+                          <p class="editable-text">Це стандартна картка. Ви можете редагувати її, не ламаючи структуру.</p>
+                      </div>
+                  </div>
+              </div>
+          </section>
+
+          <section id="page-features" class="page-section">
+              <div class="container">
+                  <h2 style="color: white; text-align: center;" class="editable-text">Переваги</h2>
+                  <div class="grid-3">
+                      <div class="card">
+                          <h3 class="editable-text">🌿 Еко</h3>
+                          <p class="editable-text">100% натурально.</p>
+                      </div>
+                      <div class="card">
+                          <h3 class="editable-text">⚡ Швидко</h3>
+                          <p class="editable-text">Доставка за 30 хв.</p>
+                      </div>
+                  </div>
+              </div>
+          </section>
+
+          <section id="page-recipes" class="page-section">
+              <div class="container">
+                  <h2 style="color: white; text-align: center;" class="editable-text">Меню</h2>
+                  <div class="grid-3">
+                      <div class="card">
+                          <img src="https://source.unsplash.com/400x300/?salad" alt="Img">
+                          <h3 class="editable-text">Салат Цезар</h3>
+                          <p class="editable-text">Класичний рецепт.</p>
+                      </div>
+                  </div>
+              </div>
+          </section>
+
+          <section id="page-contact" class="page-section">
+              <!DOCTYPE html>
+  <html lang="uk">
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> FastDiet | Master Editor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Play:wght@400;700&family=Oswald:wght@400;700&family=Pacifico&family=Lobster&family=Amatic+SC&family=Merriweather&family=Comfortaa&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Простий інтерфейс</title>
     <style>
-        /* --- 1. БАЗА ТА КОЛЬОРИ --- */
-        :root {
-            --color-blue: rgb(66, 135, 245);
-            --color-green: rgb(28, 201, 115);
-            --primary: var(--color-green); 
-            --secondary: var(--color-blue);
-            --bg-card: rgba(255, 255, 255, 0.95);
-            --text-main: #333333;
-            --shadow: 0 10px 25px rgba(0,0,0,0.2);
-            --font-main: 'Montserrat', sans-serif;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: var(--font-main);
-            color: var(--text-main);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-            overflow-x: hidden;
-            background: linear-gradient(135deg, var(--color-blue), var(--color-green));
-            background-attachment: fixed;
-        }
-
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-
-        /* --- 2. ХЕДЕР --- */
-        header {
-            background: var(--bg-card);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky; top: 0; z-index: 1000;
-            padding: 15px 0;
-            border-bottom: 3px solid var(--primary);
-        }
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; position: relative; }
-        .card img { pointer-events: auto; }
-        .container { position: relative; }
-
-        .flex-between { display: flex; justify-content: space-between; align-items: center; }
-        
-        .logo { font-size: 26px; font-weight: 800; color: var(--secondary); cursor: pointer; text-transform: uppercase; }
-        .nav-links a { margin-left: 20px; font-weight: 600; cursor: pointer; color: #444; }
-        .nav-links a.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
-        
-        .header-btn {
-            background: transparent; border: 2px solid var(--secondary); 
-            color: var(--secondary); padding: 6px 18px; border-radius: 25px; 
-            cursor: pointer; font-weight: bold; margin-left: 15px; transition: 0.3s;
-        }
-        .header-btn:hover { background: var(--secondary); color: white; }
-
-        /* --- 3. СТРУКТУРА СТОРІНОК --- */
-        .page-section { display: none; animation: fadeIn 0.5s ease; flex: 1; padding-bottom: 50px; }
-        .page-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Hero */
-        .hero {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(5px);
-            color: white; text-align: center;
-            padding: 80px 0; margin: 30px 0;
-            border-radius: 20px; border: 1px solid rgba(255,255,255,0.3);
-        }
-        .hero h1 { font-size: 3rem; margin-bottom: 15px; text-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
-
-        /* Grid Layout (СІТКА) */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-            /* Це важливо, щоб ми могли додавати сюди елементи через JS */
-            align-items: start; 
-        }
-
-        /* CARD (ОКНО ДЛЯ ТЕКСТА) */
-        .card {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            border-top: 5px solid var(--secondary);
-            transition: transform 0.3s;
-            position: relative;
-            display: flex; flex-direction: column;
-        }
-        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; pointer-events: none; }
-        
-        .card h3 { margin-bottom: 10px; color: var(--primary); }
-        .editable-wrapper {
-            position: relative; display: inline-block;
-            border: 1px dashed transparent; 
-            min-width: 50px; min-height: 50px;
-        }
-        .editable-wrapper.floating { position: absolute; cursor: move; z-index: 500; }
-        
-        .btn-main {
-            display: inline-block; padding: 10px 30px; margin-top: 10px;
-            background: white; color: var(--secondary); font-weight: 700;
-            border-radius: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            cursor: pointer;
-        }
-
-        /* --- 4. РЕДАГУВАННЯ --- */
-        
-        /* Цей клас додається до вибраного елемента (рамка) */
-        .editing-active {
-            outline: 2px dashed #ffeb3b;
-            outline-offset: 2px;
-            cursor: text;
-        }
-        
-        /* Для картинок, які можна ресайзити примусово (Ctrl+Shift) */
-        .resizable-img-wrapper {
-            display: inline-block;
-            position: relative;
-        }
-
-        /* --- 5. АДМІН ПАНЕЛЬ --- */
-        #admin-panel {
-            position: fixed; top: 0; right: -360px;
-            width: 340px; height: 100vh;
-            background: rgba(44, 62, 80, 0.98); 
-            color: #ecf0f1; padding: 20px; 
-            box-shadow: -5px 0 20px rgba(0,0,0,0.5);
-            z-index: 9999; transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow-y: auto; font-family: 'Roboto', sans-serif;
-        }
-        #admin-panel.active { right: 0; }
-
-        .admin-row { display: flex; gap: 10px; margin-bottom: 15px; }
-        
-        .btn-tool { 
-            background: #34495e; color: white; border: 1px solid #5d6d7e; 
-            cursor: pointer; padding: 10px; margin-top: 5px; width: 100%; 
-            text-align: left; border-radius: 5px; transition: 0.2s;
-        }
-        .btn-tool:hover { background: #415b76; transform: translateX(5px); }
-        
-        .btn-history { flex: 1; text-align: center; font-size: 1.2em; padding: 8px; background: #e67e22; border: none; border-radius: 5px; cursor: pointer; }
-        .btn-history:hover { background: #d35400; }
-        .btn-history:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        label { color: #bdc3c7; font-size: 0.8em; text-transform: uppercase; font-weight: bold; margin-top: 15px; display: block; }
-        input[type="color"], select { width: 100%; height: 35px; border: none; border-radius: 4px; margin-top: 5px; }
-
-        #style-controls { opacity: 0.3; pointer-events: none; transition: 0.3s; margin-top: 20px; border-top: 1px solid #555; padding-top: 10px;}
-        #style-controls.active { opacity: 1; pointer-events: auto; }
-
-        footer { background: rgba(0,0,0,0.3); color: white; padding: 30px; text-align: center; margin-top: auto; }
-    </style>
-</head>
-<body id="main-body">
-
-    <header>
-        <div class="container flex-between">
-            <div class="logo" onclick="switchPage('home')">FastDiet</div>
-            <nav class="nav-links">
-                <a onclick="switchPage('home')" class="nav-item active" id="nav-home">Головна</a>
-                <a onclick="switchPage('features')" class="nav-item" id="nav-features">Переваги</a>
-                <a onclick="switchPage('recipes')" class="nav-item" id="nav-recipes">Рецепти</a>
-                <a onclick="switchPage('contact')" class="nav-item" id="nav-contact">Вирахування</a>
-            </nav>
-            <button class="header-btn" id="admin-toggle">Адмін</button>
-        </div>
-    </header>
-
-    <main id="content-area">
-        <section id="page-home" class="page-section active">
-            <div class="container">
-                <div class="hero">
-                    <h1 class="editable-text">Здорове харчування</h1>
-                    <p class="editable-text">Ваш шлях до ідеальної форми.</p>
-                </div>
-                <div class="grid-3">
-                    <div class="card">
-                         <h3 class="editable-text">Привіт!</h3>
-                         <p class="editable-text">Це стандартна картка. Ви можете редагувати її, не ламаючи структуру.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="page-features" class="page-section">
-            <div class="container">
-                <h2 style="color: white; text-align: center;" class="editable-text">Переваги</h2>
-                <div class="grid-3">
-                    <div class="card">
-                        <h3 class="editable-text">🌿 Еко</h3>
-                        <p class="editable-text">100% натурально.</p>
-                    </div>
-                    <div class="card">
-                        <h3 class="editable-text">⚡ Швидко</h3>
-                        <p class="editable-text">Доставка за 30 хв.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="page-recipes" class="page-section">
-            <div class="container">
-                <h2 style="color: white; text-align: center;" class="editable-text">Меню</h2>
-                <div class="grid-3">
-                    <div class="card">
-                        <img src="https://source.unsplash.com/400x300/?salad" alt="Img">
-                        <h3 class="editable-text">Салат Цезар</h3>
-                        <p class="editable-text">Класичний рецепт.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="page-contact" class="page-section">
-            <!DOCTYPE html>
-<html lang="uk">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Простий інтерфейс</title>
-  <style>
-    :root{
-      --accent: #111;
-      --muted: #efefef;
-      --text: #111;
-      --container-left: 60px; /* відступ ліворуч як на фото */
-    }
-    body{font-family: 'Segoe UI', Roboto, Arial, sans-serif; color:var(--text);}
-    .page{
-      max-width:1200px;
-      margin:20px 40px 80px var(--container-left);
-    }
-    h1{
-      font-size:48px;
-      margin:10px 0 24px 0;
-      font-weight:700;
-      letter-spacing: -1px;
-    }
-
-    /* Форма — горизонтальне розміщення полів як на фото */
-    .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    .inputs-row{display:flex;gap:12px;align-items:center;flex-wrap:nowrap;margin-bottom:18px}
-    input[type="number"], input[type="text"]{
-      width:150px;
-      padding:6px 8px;
-      border:1px solid #ccc;border-radius:4px;
-      font-size:14px;
-    }
-    .radio-group{margin:14px 0;}
-    .radio-line{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
-    label{font-size:15px}
-
-    button{padding:8px 12px;border:1px solid #999;background:white;border-radius:4px;cursor:pointer}
-    button:active{transform:translateY(1px)}
-
-    /* Результат — велика світло-сіра панель як на фото */
-    .result-wrap{margin-top:18px}
-    pre#result{
-      background: linear-gradient(#f3f3f3,#f3f3f3);
-      border:1px solid #e3e3e3;
-      padding:22px;
-      min-height:120px;
-      white-space:pre-wrap;
-      box-sizing:border-box;
-      font-size:14px;
-      color:#222;
-    }
-
-    /* Налаштування відступів подібно до скріна */
-    .controls{margin-top:14px}
-
-    @media (max-width:800px){
-      h1{font-size:32px}
-      .inputs-row{flex-wrap:wrap}
-      input[type="number"], input[type="text"]{width:140px}
-    }
-  </style>
-  <div class="page">
-    <h1>Введіть свої дані</h1>
-
-    <div class="inputs-row">
-      <input id="age" placeholder="Вік" type="number" min="0">
-      <input id="height" placeholder="Зріст(у см)" type="number" min="0">
-      <input id="weight" placeholder="Вага(у кг)" type="number" min="0">
-      <input id="allergy" placeholder="Алергії" type="text">
-      <input id="health" placeholder="Нюанси зі здоров'ям" type="text">
-    </div>
-
-    <div class="radio-group">
-      <p style="margin:6px 0 6px 0">Стать:</p>
-      <div class="radio-line">
-        <label><input type="radio" name="gender" value="male" checked> Чоловік</label>
-        <label><input type="radio" name="gender" value="female"> Жінка</label>
-      </div>
-
-      <p style="margin:12px 0 6px 0">Активність життя:</p>
-      <div class="radio-line">
-        <label><input type="radio" name="activity" value="very_high" checked> Дуже Висока Активність</label>
-        <label><input type="radio" name="activity" value="high"> Висока Активність</label>
-        <label><input type="radio" name="activity" value="medium"> Середня Активність</label>
-        <label><input type="radio" name="activity" value="small"> Мала Активність</label>
-        <label><input type="radio" name="activity" value="low"> Низька Активність</label>
-      </div>
-    </div>
-
-    <div class="controls">
-      <button id="showBtn" onclick="showData()">Показати мої дані</button>
-      <button id="correctBtn" style="display:none;margin-left:8px" onclick="clearResult(); showData();">Вони правильні</button>
-      <button id="wrongBtn" style="display:none;margin-left:8px" onclick="reTry()">Вони помилкові</button>
-    </div>
-
-    <h2 style="margin-top:28px">Ваші дані:</h2>
-    <div class="result-wrap"><pre id="result"></pre></div>
-  </div>
-        </section>
-    </main>
-
-    <footer>
-        <p class="editable-text">&copy; 2025 DietPro.</p>
-    </footer>
-
-    <div id="admin-panel">
-        <h3>⚙️ Панель Керування</h3>
-        
-        <div class="admin-row">
-            <button class="btn-history" id="btn-undo" title="Назад (Ctrl+Z)">⬅️</button>
-            <button class="btn-history" id="btn-redo" title="Вперед (Ctrl+Y)">➡️</button>
-        </div>
-
-        <label>Створення</label>
-        <button class="btn-tool" id="add-card-struct">📄 + Додати Картку (Структура)</button>
-        <button class="btn-tool" id="add-text-float">💬 + Текст (Плавучий)</button>
-        <button class="btn-tool" id="add-img">🖼️ + Картинка (плаваюча)</button>
-        <!--if (target.closest('.editable-wrapper')) {
-                elToSelect = target.closest('.editable-wrapper');
-                
-                // Если это плавающий элемент, готовим к Drag
-                if (elToSelect.classList.contains('floating')) {
-                    isDragging = true;
-                    startX = e.clientX; startY = e.clientY;
-                    startL = elToSelect.offsetLeft; startT = elToSelect.offsetTop;
-                }
-            } 
-            // b) Текстовый блок (Editable)
-            else if (target.classList.contains('editable-text-block') || target.closest('.editable-text-block')) {
-                elToSelect = target.classList.contains('editable-text-block') ? target : target.closest('.editable-text-block');
-                if (elToSelect && elToSelect.tagName !== 'IMG') {
-                    // Редактируемый текст
-                    elToSelect.contentEditable = "true";
-                }
-            }
-
-            НАДО ИФ В "ИГНОР АДМИНКИ"
-         -->
-
-        <div id="style-controls">
-            <label style="color: #f1c40f;">✏️ Редактор</label>
-
-            <label>Розмір шрифту (px):</label>
-            <input type="number" id="font-size-input" value="16">
-
-            <label>italics:</label>
-            <select id="font-italic"></select>
-
-            <label>Bold:</label>
-            <select id="font-bold"></select>
-
-            <label>Шрифт:</label>
-            <select id="font-select"></select>
-            
-            <label>Колір тексту:</label>
-            <input type="color" id="color-text">
-            
-            <label>Фон елемента:</label>
-            <div style="display: flex; gap: 5px;">
-                <input type="color" id="color-bg" value="#ffffff">
-                <button class="btn-tool" style="width: auto; margin: 5px 0 0;" id="btn-no-bg">Прозорий</button>
-            </div>
-
-            <button class="btn-tool" style="background: #c0392b; margin-top: 20px;" id="btn-delete">🗑️ Видалити елемент</button>
-        </div>
-
-        <button class="btn-tool" style="background: #7f8c8d; margin-top: 30px;" id="btn-close-admin">Закрити</button>
-    </div>
-
-    <script>
-        // --- 1. ІСТОРІЯ ЗМІН (UNDO/REDO) ---
-        const historyStack = [];
-        let historyIndex = -1;
-        const maxHistory = 50;
-
-        function saveState() {
-            // Зберігаємо HTML контенту
-            const content = document.getElementById('main-body').innerHTML;
-            
-            // Якщо ми "в минулому", відрізаємо "майбутнє"
-            if (historyIndex < historyStack.length - 1) {
-                historyStack.splice(historyIndex + 1);
-            }
-            
-            historyStack.push(content);
-            if (historyStack.length > maxHistory) historyStack.shift();
-            else historyIndex++;
-
-            updateHistoryButtons();
-        }
-
-        function restoreState(index) {
-            if (index >= 0 && index < historyStack.length) {
-                // Перед відновленням треба зберегти глобальні змінні (якщо є), але тут ми зберігаємо весь body
-                document.getElementById('main-body').innerHTML = historyStack[index];
-                historyIndex = index;
-                
-                // Після відновлення DOM треба наново навісити обробники подій, 
-                // АБО використовувати делегування подій (що ми і робимо).
-                // Але посилання на елементи (DOM references) втрачаються, тому:
-                deselectElement(); 
-                reinitializeAdmin(); // Перепідключення кнопок адмінки, бо вони теж всередині body
-            }
-            updateHistoryButtons();
-        }
-
-        function undo() { if (historyIndex > 0) restoreState(historyIndex - 1); }
-        function redo() { if (historyIndex < historyStack.length - 1) restoreState(historyIndex + 1); }
-
-        function updateHistoryButtons() {
-            // Оскільки кнопки перемальовуються при restoreState, їх треба шукати наново
-            const btnUndo = document.getElementById('btn-undo');
-            const btnRedo = document.getElementById('btn-redo');
-            if(btnUndo) btnUndo.disabled = historyIndex <= 0;
-            if(btnRedo) btnRedo.disabled = historyIndex >= historyStack.length - 1;
-        }
-
-        // Гарячі клавіші
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undo(); }
-            if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redo(); }
-        });
-
-        // --- 2. ЛОГІКА АДМІНКИ ---
-        let isAdmin = false;
-        let selectedEl = null;
-        
-        function reinitializeAdmin() {
-            // Оскільки body перезаписується, треба заново знайти елементи адмінки
-            document.getElementById('admin-toggle').onclick = () => {
-                const pass = prompt("Пароль:", "");
-                if (pass === "Admin_GPT") toggleAdmin(true);
-            };
-            document.getElementById('btn-close-admin').onclick = () => toggleAdmin(false);
-            
-            document.getElementById('btn-undo').onclick = undo;
-            document.getElementById('btn-redo').onclick = redo;
-
-            document.getElementById('add-card-struct').onclick = addCardStructure;
-            document.getElementById('add-text-float').onclick = addFloatingText;
-            document.getElementById('add-img').onclick = () => addFloating('img');
-            document.getElementById('btn-delete').onclick = deleteSelected;
-
-            // Стилі
-            document.getElementById('font-size-input').onchange = (e) => applyStyle('fontSize', e.target.value + 'px');
-            document.getElementById('font-select').onchange = (e) => applyStyle('fontFamily', e.target.value);
-            document.getElementById('color-text').oninput = (e) => applyStyle('color', e.target.value);
-            document.getElementById('color-bg').oninput = (e) => applyStyle('backgroundColor', e.target.value);
-            document.getElementById('btn-no-bg').onclick = () => applyStyle('backgroundColor', 'transparent');
-
-            initFonts();
-            
-            // Навігація
-            setupNav();
-            
-        }
-        document.addEventListener('mousedown', (e) => {
-            if (!isAdmin) return;
-            const target = e.target;
-            let elToSelect = null;
-
-            // 1. Если клик по ручке ресайза
-            if (target.classList.contains('resize-handle')) {
-                isResizing = true;
-                resizeDir = target.className.match(/rh-(\w+)/)[1];
-                selectedEl = target.parentElement; // editable-wrapper
-                
-                startX = e.clientX; startY = e.clientY;
-                startW = selectedEl.offsetWidth; startH = selectedEl.offsetHeight;
-                startRatio = startW / startH;
-                
-                e.stopPropagation(); e.preventDefault();
-                return;
-            }
-
-            // Игнор админки и хедера
-            if (target.closest('#admin-panel') || target.closest('header')) return;
-
-            // 2. Логика выбора:
-
-            // a) Плавающий или Картинка (Resizable/Draggable)
-            if (target.closest('.editable-wrapper')) {
-                elToSelect = target.closest('.editable-wrapper');
-                
-                // Если это плавающий элемент, готовим к Drag
-                if (elToSelect.classList.contains('floating')) {
-                    isDragging = true;
-                    startX = e.clientX; startY = e.clientY;
-                    startL = elToSelect.offsetLeft; startT = elToSelect.offsetTop;
-                }
-            } 
-            // b) Текстовый блок (Editable)
-            else if (target.classList.contains('editable-text-block') || target.closest('.editable-text-block')) {
-                elToSelect = target.classList.contains('editable-text-block') ? target : target.closest('.editable-text-block');
-                if (elToSelect && elToSelect.tagName !== 'IMG') {
-                    // Редактируемый текст
-                    elToSelect.contentEditable = "true";
-                }
-            }
-            
-            if (elToSelect) {
-                selectElement(elToSelect);
-            } else {
-                deselect();
-            }
-        });
-
-        function toggleAdmin(active) {
-            isAdmin = active;
-            const panel = document.getElementById('admin-panel');
-            if (active) {
-                panel.classList.add('active');
-                document.body.classList.add('admin-mode');
-                // Зберегти початковий стан при вході
-                if(historyStack.length === 0) saveState();
-                alert("Режим Адміна.\n• Клік по тексту/картці -> Редагувати.\n• Кнопки Undo/Redo працюють.\n• Структура зберігається.");
-            } else {
-                panel.classList.remove('active');
-                document.body.classList.remove('admin-mode');
-                deselectElement();
-            }
-        }
-
-        // --- 3. ФУНКЦІОНАЛ РЕДАГУВАННЯ ---
-        
-        // Делегування подій (Click) для вибору елементів
-        document.addEventListener('click', (e) => {
-            if (!isAdmin) return;
-            // Ігноруємо кліки по адмін-панелі
-            if (e.target.closest('#admin-panel') || e.target.closest('.header-btn')) return;
-
-            e.preventDefault(); // Щоб не переходило за посиланнями в адмінці
-            
-            // Знаходимо найближчий цікавий елемент
-            let target = e.target;
-            
-            // Якщо клік по картинці всередині картки - вибираємо картку або картинку
-            if (target.tagName === 'IMG' && target.closest('.card')) {
-                // Вибираємо картинку для заміни (поки що просто рамка)
-                selectElement(target);
-                return;
-            }
-
-            // Якщо клік по тексту
-            if (['H1','H2','H3','P','A','SPAN','DIV'].includes(target.tagName)) {
-                // Якщо це картка, вибираємо саму картку, якщо клікнули на фон картки
-                if (target.classList.contains('card')) {
-                    selectElement(target);
-                    return;
-                }
-                // Інакше вибираємо текст
-                selectElement(target);
-            }
-        });
-
-        // Делегування "input" для збереження історії при зміні тексту
-        document.addEventListener('input', (e) => {
-            if(isAdmin && selectedEl && selectedEl.contains(e.target)) {
-                // Можна додати debounce (затримку), щоб не зберігати кожну букву
-                // Тут спрощено: зберігаємо при втраті фокусу (blur) або вручну
-            }
-        });
-        
-        // Зберігаємо історію при завершенні редагування тексту
-        document.addEventListener('focusout', (e) => {
-            if(isAdmin && e.target.isContentEditable) {
-                saveState();
-            }
-        });
-
-        function selectElement(el) {
-            if (selectedEl) deselectElement();
-            
-            selectedEl = el;
-            selectedEl.classList.add('editing-active');
-            
-            // Активуємо панель
-            document.getElementById('style-controls').classList.add('active');
-            if (selectedEl.tagName === 'IMG') {
-                selectedEl.contentEditable = "false";
-             // ❌ не включати text tools
-            }
-
-            // Увімкнення редагування тексту (якщо це не картинка)
-            if (selectedEl.tagName !== 'IMG') {
-                selectedEl.contentEditable = "true";
-                selectedEl.focus();
-            } else {
-                // Якщо картинка - пропонуємо змінити URL
-                if(confirm("Змінити посилання на картинку?")) {
-                    const newUrl = prompt("URL картинки:", selectedEl.src);
-                    if(newUrl) {
-                        selectedEl.src = newUrl;
-                        saveState();
-                    }
-                }
-            }
-
-            // Синхронізація значень в адмінці
-            const computed = window.getComputedStyle(selectedEl);
-            document.getElementById('color-text').value = rgbToHex(computed.color);
-            document.getElementById('color-bg').value = rgbToHex(computed.backgroundColor);
-        }
-
-        function deselectElement() {
-            if (selectedEl) {
-                selectedEl.contentEditable = "false";
-                selectedEl.classList.remove('editing-active');
-                selectedEl = null;
-                const controls = document.getElementById('style-controls');
-                if(controls) controls.classList.remove('active');
-            }
-        }
-
-        function applyStyle(prop, val) {
-            if (selectedEl) {
-                selectedEl.style[prop] = val;
-                saveState();
-            }
-        }
-
-        function deleteSelected() {
-            if (selectedEl && confirm("Видалити?")) {
-                selectedEl.remove();
-                deselectElement();
-                saveState();
-            }
-        }
-
-        // --- 4. СТВОРЕННЯ ЕЛЕМЕНТІВ ---
-
-        // Функція 1: Додати КАРТКУ (в структуру)
-        function addCardStructure() {
-            // Знаходимо активну секцію
-            const activeSection = document.querySelector('.page-section.active');
-            // Знаходимо в ній grid (якщо є)
-            let grid = activeSection.querySelector('.grid-3');
-            
-            if (!grid) {
-                // Якщо сітки немає, створюємо або додаємо в контейнер
-                const container = activeSection.querySelector('.container');
-                if(!container) return alert("Помилка структури");
-                
-                // Спробуємо додати grid, якщо його нема
-                grid = document.createElement('div');
-                grid.className = 'grid-3';
-                container.appendChild(grid);
-            }
-
-            // Створюємо HTML картки
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <img src="https://source.unsplash.com/400x300/?food" alt="New Dish">
-                <h3>Нова страва</h3>
-                <p>Опис страви або послуги.</p>
-            `;
-            
-            grid.appendChild(card);
-            saveState(); // Зберігаємо в історію
-            
-            // Одразу скролимо до неї
-            card.scrollIntoView({behavior: "smooth"});
-        }
-
-        // Функція 2: Додати плавучий текст (якщо треба поверх усього)
-        function addFloatingText() {
-            const activeSection = document.querySelector('.page-section.active .container');
-            const div = document.createElement('div');
-            div.innerText = "Ваш текст";
-            div.style.position = "absolute";
-            div.style.top = "50px";
-            div.style.left = "50px";
-            div.style.background = "white";
-            div.style.padding = "10px";
-            div.style.cursor = "move";
-            // Додаємо drag логіку тільки для цього типу, якщо треба (спрощено тут)
-            activeSection.appendChild(div);
-            saveState();
-        }
-        
-        function addFloating(type) {
-            const container = document.querySelector('.page-section.active .container');
-            const wrap = document.createElement('div');
-            wrap.className = 'editable-wrapper floating';
-            wrap.style.left = '50px'; wrap.style.top = '50px';
-
-            if (type === 'text') {
-                wrap.innerHTML = `<div class="editable-text-block" style="padding:10px; background:rgba(255,255,255,0.9); border:1px solid #ddd; min-width:150px;">Ваш текст</div>`;
-            } else {
-                const url = prompt("URL картинки:", "https://source.unsplash.com/250x250/?food");
-                if(!url) return;
-                card.innerHTML = `
-                <div class="editable-wrapper"><img src="https://source.unsplash.com/400x300/?pasta" alt="img"></div>
-                <h3 class="editable-text-block">Новая запись</h3>
-                <p class="editable-text-block">Описание.</p>`;
-                wrap.style.width = '200px'; wrap.style.height = '200px';
-            }
-            
-            addHandles(wrap);
-            container.appendChild(wrap);
-            selectElement(wrap);
-            saveState();
-        }
-        // --- 5. ДОДАТКОВІ ФУНКЦІЇ ---
-
-        function initFonts() {
-        const fonts = [
-        "Montserrat", "Roboto", "Open Sans", "Oswald", "Pacifico",
-        "Lobster", "Comfortaa", "Arial", "Helvetica",
-        "Times New Roman", "Courier New", "Georgia",
-        "Play", "Merriweather", "Amatic SC",
-        "Lucida Sans Unicode", "Segoe UI",
-        // универсальні
-        "Inter", "Poppins", "Lato", "Nunito", "Raleway",
-        "Ubuntu", "DM Sans", "Manrope",
-        // заголовки
-        "Bebas Neue", "Anton", "Playfair Display", "Cinzel",
-        // декоративні
-        "Dancing Script", "Great Vibes", "Indie Flower",
-        // моно
-        "JetBrains Mono", "Fira Code",
-        // системні
-        "Verdana", "Tahoma", "Calibri", "Consolas"];
-            const sel = document.getElementById('font-select');
-            sel.innerHTML = "";
-            fonts.forEach(f => {
-                const opt = document.createElement('option');
-                opt.value = f; opt.innerText = f;
-                sel.appendChild(opt);
-            });
-        }
-
-        function rgbToHex(rgb) {
-            if(!rgb || rgb.includes('rgba(0, 0, 0, 0)')) return "#ffffff";
-            if(rgb.startsWith('#')) return rgb;
-            let sep = rgb.indexOf(",") > -1 ? "," : " ";
-            let rgbArr = rgb.substr(4).split(")")[0].split(sep);
-            let r = (+rgbArr[0]).toString(16), g = (+rgbArr[1]).toString(16), b = (+rgbArr[2]).toString(16);
-            if(r.length==1)r="0"+r; if(g.length==1)g="0"+g; if(b.length==1)b="0"+b;
-            return "#" + r + g + b;
-        }
-
-        // Навігація
-        function setupNav() {
-            window.switchPage = function(pageId) {
-                document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-                
-                const p = document.getElementById('page-'+pageId);
-                const n = document.getElementById('nav-'+pageId);
-                if(p) p.classList.add('active');
-                if(n) n.classList.add('active');
-            }
-        }
-
-        // Запуск
-        reinitializeAdmin();
-
-        // Функція для Ctrl+Shift (Пропорційна картинка - приклад реалізації через CSS класи)
-        // Тут ми просто блокуємо `object-fit` при натисканні клавіш, якщо треба, 
-        // але в цьому коді картинки і так адаптивні (width 100%).
-        
-    let ReTryBut = 0;
-    function clearResult(){document.getElementById('result').innerText='';document.getElementById('correctBtn').style.display='none'}
-    function reTry(){ReTryBut=0;document.getElementById('result').innerText='';document.getElementById('wrongBtn').style.display='none';document.getElementById('correctBtn').style.display='none'}
-
-    function IMT(){
-      const height = Number(document.getElementById('height').value);
-      const weight = Number(document.getElementById('weight').value);
-      if(!height||!weight) return NaN;
-      return Number((weight/((height/100)**2)).toFixed(2));
-    }
-
-    function IMT_Interpretation(imt_value){
-      if(!isFinite(imt_value)) return 'Немає даних для інтерпретації';
-      if(imt_value<16) return 'Виражений дефіцит маси тіла';
-      if(imt_value<18.5) return 'Недостатня (дефіцит) маса тіла';
-      if(imt_value<25) return 'Нормальна маса тіла';
-      if(imt_value<30) return 'Надмірна маса тіла (предожиріння)';
-      if(imt_value<35) return 'Ожиріння I ступеня';
-      if(imt_value<40) return 'Ожиріння II ступеня';
-      return 'Ожиріння III ступеня';
-    }
-
-    function BMR(age,height,weight,gender,activity){
-      age=Number(age);height=Number(height);weight=Number(weight);
-      const multipliers={very_high:1.9,high:1.725,medium:1.55,small:1.375,low:1.2};
-      let bmr = (10*weight)+(6.25*height)-(5*age)+(gender==='male'?5:-161);
-      return bmr*(multipliers[activity]??1.55);
-    }
-
-    function proteins(activity,weight){const m={very_high:2,high:1.8,medium:1.4,small:1.2,low:0.8}; return Number(weight)*(m[activity]??1.4)}
-    function fat(brm_last){return (0.3*brm_last)/9}
-    function carb(brm_last){return (0.4*brm_last)/4}
-
-    function vitamins(age,gender,weight,activity){
-      age=Number(age);weight=Number(weight);
-      const multipliers={very_high:1.4,high:1.2,medium:1.1,small:1,low:0.8};
-      const vitaminRDA={Vitamin_C:90,Vitamin_D:800,Vitamin_A:700,Vitamin_B1:1.1,Vitamin_B6:1.3,Vitamin_B12:2.4};
-      const genderFactor={male:1,female:0.9};
-      let ageFactor = age<=3?0.8:age<=8?0.9:age<=13?1:age<=18?1.1:age<=50?1:1.2;
-      const activityMultiplier = multipliers[activity] ?? 1.1;
-      const gFactor = genderFactor[gender] ?? 1;
-      const weightFactor = (weight>0)?(weight/70):1;
-      return {
-        Vitamin_D: vitaminRDA.Vitamin_D * ageFactor * gFactor * activityMultiplier * weightFactor,
-        Vitamin_C: vitaminRDA.Vitamin_C * ageFactor * gFactor * activityMultiplier * weightFactor,
-        Vitamin_B12: vitaminRDA.Vitamin_B12 * ageFactor * gFactor * activityMultiplier * weightFactor,
-        Vitamin_A: vitaminRDA.Vitamin_A * ageFactor * gFactor * activityMultiplier * weightFactor,
-        Vitamin_B1: vitaminRDA.Vitamin_B1 * ageFactor * gFactor * activityMultiplier * weightFactor,
-        Vitamin_B6: vitaminRDA.Vitamin_B6 * ageFactor * gFactor * activityMultiplier * weightFactor
-      };
-    }
-
-    function showData(){
-      const ageRaw = document.getElementById('age').value;
-      const heightRaw = document.getElementById('height').value;
-      const weightRaw = document.getElementById('weight').value;
-      const age = Number(ageRaw), height = Number(heightRaw), weight = Number(weightRaw);
-      const gender = document.querySelector('input[name="gender"]:checked')?.value || 'male';
-      const activity = document.querySelector('input[name="activity"]:checked')?.value || 'medium';
-
-      let output = '';
-      if(!ageRaw||!heightRaw||!weightRaw){document.getElementById('result').innerText='Будь ласка, заповніть поля Вік, Зріст та Вага.';return}
-      if((!isFinite(age)||!isFinite(height)||!isFinite(weight))||age<=0||height<=0||weight<=0){document.getElementById('result').innerText='Некоректні числові значення. Перевірте введені дані.';return}
-
-      if(((age>100||height>250||weight>400)||(age<=5||height<=50||weight<=20))&&ReTryBut==0){
-        output='Будь ласка, введіть коректні значення для віку, зросту та ваги.';
-        document.getElementById('correctBtn').style.display='inline-block';
-        document.getElementById('wrongBtn').style.display='inline-block';
-        ReTryBut=1;document.getElementById('result').innerText=output;return;
+      :root{
+        --accent: #111;
+        --muted: #efefef;
+        --text: #111;
+        --container-left: 60px; /* відступ ліворуч як на фото */
+      }
+      body{font-family: 'Segoe UI', Roboto, Arial, sans-serif; color:var(--text);}
+      .page{
+        max-width:1200px;
+        margin:20px 40px 80px var(--container-left);
+      }
+      h1{
+        font-size:48px;
+        margin:10px 0 24px 0;
+        font-weight:700;
+        letter-spacing: -1px;
       }
 
-      ReTryBut=0;document.getElementById('correctBtn').style.display='none';document.getElementById('wrongBtn').style.display='none';
+      /* Форма — горизонтальне розміщення полів як на фото */
+      .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+      .inputs-row{display:flex;gap:12px;align-items:center;flex-wrap:nowrap;margin-bottom:18px}
+      input[type="number"], input[type="text"]{
+        width:150px;
+        padding:6px 8px;
+        border:1px solid #ccc;border-radius:4px;
+        font-size:14px;
+      }
+      .radio-group{margin:14px 0;}
+      .radio-line{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+      label{font-size:15px}
 
-      try{
-        const brm_last = BMR(age,height,weight,gender,activity);
-        output += `Приблизна норма калорій з урахуванням активності: ${Number(brm_last).toFixed(0)} ккал\n`;
-        output += `Рекомендована кількість білків на день: ${Number(proteins(activity,weight)).toFixed(0)} г\n`;
-        output += `Рекомендована кількість жирів на день: ${Number(fat(brm_last)).toFixed(0)} г\n`;
-        output += `Рекомендована кількість вуглеводів на день: ${Number(carb(brm_last)).toFixed(0)} г\n\n`;
+      button{padding:8px 12px;border:1px solid #999;background:white;border-radius:4px;cursor:pointer}
+      button:active{transform:translateY(1px)}
 
-// ---------------------------------------------------------------------------------------
-        const vitaminInfo = {
-        Vitamin_C:  { name: "Вітамін C", unit: "мг" },
-        Vitamin_D:  { name: "Вітамін D", unit: "IU" },
-        Vitamin_A:  { name: "Вітамін A", unit: "мкг" },
-        Vitamin_B1: { name: "Вітамін B1", unit: "мг" },
-        Vitamin_B6: { name: "Вітамін B6", unit: "мг" },
-        Vitamin_B12:{ name: "Вітамін B12", unit: "мкг" }
+      /* Результат — велика світло-сіра панель як на фото */
+      .result-wrap{margin-top:18px}
+      pre#result{
+        background: linear-gradient(#f3f3f3,#f3f3f3);
+        border:1px solid #e3e3e3;
+        padding:22px;
+        min-height:120px;
+        white-space:pre-wrap;
+        box-sizing:border-box;
+        font-size:14px;
+        color:#222;
+      }
+
+      /* Налаштування відступів подібно до скріна */
+      .controls{margin-top:14px}
+
+      @media (max-width:800px){
+        h1{font-size:32px}
+        .inputs-row{flex-wrap:wrap}
+        input[type="number"], input[type="text"]{width:140px}
+      }
+    </style>
+    <div class="page">
+      <h1>Введіть свої дані</h1>
+
+      <div class="inputs-row">
+        <input id="age" placeholder="Вік" type="number" min="0">
+        <input id="height" placeholder="Зріст(у см)" type="number" min="0">
+        <input id="weight" placeholder="Вага(у кг)" type="number" min="0">
+        <input id="allergy" placeholder="Алергії" type="text">
+        <input id="health" placeholder="Нюанси зі здоров'ям" type="text">
+      </div>
+
+      <div class="radio-group">
+        <p style="margin:6px 0 6px 0">Стать:</p>
+        <div class="radio-line">
+          <label><input type="radio" name="gender" value="male" checked> Чоловік</label>
+          <label><input type="radio" name="gender" value="female"> Жінка</label>
+        </div>
+
+        <p style="margin:12px 0 6px 0">Активність життя:</p>
+        <div class="radio-line">
+          <label><input type="radio" name="activity" value="very_high" checked> Дуже Висока Активність</label>
+          <label><input type="radio" name="activity" value="high"> Висока Активність</label>
+          <label><input type="radio" name="activity" value="medium"> Середня Активність</label>
+          <label><input type="radio" name="activity" value="small"> Мала Активність</label>
+          <label><input type="radio" name="activity" value="low"> Низька Активність</label>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="showBtn" onclick="showData()">Показати мої дані</button>
+        <button id="correctBtn" style="display:none;margin-left:8px" onclick="clearResult(); showData();">Вони правильні</button>
+        <button id="wrongBtn" style="display:none;margin-left:8px" onclick="reTry()">Вони помилкові</button>
+      </div>
+
+      <h2 style="margin-top:28px">Ваші дані:</h2>
+      <div class="result-wrap"><pre id="result"></pre></div>
+    </div>
+          </section>
+      </main>
+
+      <footer>
+          <p class="editable-text">&copy; 2025 DietPro.</p>
+      </footer>
+
+      <div id="admin-panel">
+          <h3>⚙️ Панель Керування</h3>
+          
+          <div class="admin-row">
+              <button class="btn-history" id="btn-undo" title="Назад (Ctrl+Z)">⬅️</button>
+              <button class="btn-history" id="btn-redo" title="Вперед (Ctrl+Y)">➡️</button>
+          </div>
+
+          <label>Створення</label>
+          <button class="btn-tool" id="add-card-struct">📄 + Додати Картку (Структура)</button>
+          <button class="btn-tool" id="add-text-float">💬 + Текст (Плавучий)</button>
+          <button class="btn-tool" id="add-img">🖼️ + Картинка (плаваюча)</button>
+          <!--if (target.closest('.editable-wrapper')) {
+                  elToSelect = target.closest('.editable-wrapper');
+                  
+                  // Если это плавающий элемент, готовим к Drag
+                  if (elToSelect.classList.contains('floating')) {
+                      isDragging = true;
+                      startX = e.clientX; startY = e.clientY;
+                      startL = elToSelect.offsetLeft; startT = elToSelect.offsetTop;
+                  }
+              } 
+              // b) Текстовый блок (Editable)
+              else if (target.classList.contains('editable-text-block') || target.closest('.editable-text-block')) {
+                  elToSelect = target.classList.contains('editable-text-block') ? target : target.closest('.editable-text-block');
+                  if (elToSelect && elToSelect.tagName !== 'IMG') {
+                      // Редактируемый текст
+                      elToSelect.contentEditable = "true";
+                  }
+              }
+
+              НАДО ИФ В "ИГНОР АДМИНКИ"
+          -->
+
+          <div id="style-controls">
+              <label style="color: #f1c40f;">✏️ Редактор</label>
+
+              <label>Розмір шрифту (px):</label>
+              <input type="number" id="font-size-input" value="16">
+
+              <label>italics:</label>
+              <select id="font-italic"></select>
+
+              <label>Bold:</label>
+              <select id="font-bold"></select>
+
+              <label>Шрифт:</label>
+              <select id="font-select"></select>
+              
+              <label>Колір тексту:</label>
+              <input type="color" id="color-text">
+              
+              <label>Фон елемента:</label>
+              <div style="display: flex; gap: 5px;">
+                  <input type="color" id="color-bg" value="#ffffff">
+                  <button class="btn-tool" style="width: auto; margin: 5px 0 0;" id="btn-no-bg">Прозорий</button>
+              </div>
+
+              <button class="btn-tool" style="background: #c0392b; margin-top: 20px;" id="btn-delete">🗑️ Видалити елемент</button>
+          </div>
+
+          <button class="btn-tool" style="background: #7f8c8d; margin-top: 30px;" id="btn-close-admin">Закрити</button>
+      </div>
+
+      <script>
+          // --- 1. ІСТОРІЯ ЗМІН (UNDO/REDO) ---
+          const historyStack = [];
+          let historyIndex = -1;
+          const maxHistory = 50;
+
+          function saveState() {
+              // Зберігаємо HTML контенту
+              const content = document.getElementById('main-body').innerHTML;
+              
+              // Якщо ми "в минулому", відрізаємо "майбутнє"
+              if (historyIndex < historyStack.length - 1) {
+                  historyStack.splice(historyIndex + 1);
+              }
+              
+              historyStack.push(content);
+              if (historyStack.length > maxHistory) historyStack.shift();
+              else historyIndex++;
+
+              updateHistoryButtons();
+          }
+
+          function restoreState(index) {
+              if (index >= 0 && index < historyStack.length) {
+                  // Перед відновленням треба зберегти глобальні змінні (якщо є), але тут ми зберігаємо весь body
+                  document.getElementById('main-body').innerHTML = historyStack[index];
+                  historyIndex = index;
+                  
+                  // Після відновлення DOM треба наново навісити обробники подій, 
+                  // АБО використовувати делегування подій (що ми і робимо).
+                  // Але посилання на елементи (DOM references) втрачаються, тому:
+                  deselectElement(); 
+                  reinitializeAdmin(); // Перепідключення кнопок адмінки, бо вони теж всередині body
+              }
+              updateHistoryButtons();
+          }
+
+          function undo() { if (historyIndex > 0) restoreState(historyIndex - 1); }
+          function redo() { if (historyIndex < historyStack.length - 1) restoreState(historyIndex + 1); }
+
+          function updateHistoryButtons() {
+              // Оскільки кнопки перемальовуються при restoreState, їх треба шукати наново
+              const btnUndo = document.getElementById('btn-undo');
+              const btnRedo = document.getElementById('btn-redo');
+              if(btnUndo) btnUndo.disabled = historyIndex <= 0;
+              if(btnRedo) btnRedo.disabled = historyIndex >= historyStack.length - 1;
+          }
+
+          // Гарячі клавіші
+          document.addEventListener('keydown', (e) => {
+              if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undo(); }
+              if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redo(); }
+          });
+
+          // --- 2. ЛОГІКА АДМІНКИ ---
+          let isAdmin = false;
+          let selectedEl = null;
+          
+          function reinitializeAdmin() {
+              // Оскільки body перезаписується, треба заново знайти елементи адмінки
+              document.getElementById('admin-toggle').onclick = () => {
+                  const pass = prompt("Пароль:", "");
+                  if (pass === "Admin_GPT") toggleAdmin(true);
+              };
+              document.getElementById('btn-close-admin').onclick = () => toggleAdmin(false);
+              
+              document.getElementById('btn-undo').onclick = undo;
+              document.getElementById('btn-redo').onclick = redo;
+
+              document.getElementById('add-card-struct').onclick = addCardStructure;
+              document.getElementById('add-text-float').onclick = addFloatingText;
+              document.getElementById('add-img').onclick = () => addFloating('img');
+              document.getElementById('btn-delete').onclick = deleteSelected;
+
+              // Стилі
+              document.getElementById('font-size-input').onchange = (e) => applyStyle('fontSize', e.target.value + 'px');
+              document.getElementById('font-select').onchange = (e) => applyStyle('fontFamily', e.target.value);
+              document.getElementById('color-text').oninput = (e) => applyStyle('color', e.target.value);
+              document.getElementById('color-bg').oninput = (e) => applyStyle('backgroundColor', e.target.value);
+              document.getElementById('btn-no-bg').onclick = () => applyStyle('backgroundColor', 'transparent');
+
+              initFonts();
+              
+              // Навігація
+              setupNav();
+              
+          }
+          document.addEventListener('mousedown', (e) => {
+              if (!isAdmin) return;
+              const target = e.target;
+              let elToSelect = null;
+
+              // 1. Если клик по ручке ресайза
+              if (target.classList.contains('resize-handle')) {
+                  isResizing = true;
+                  resizeDir = target.className.match(/rh-(\w+)/)[1];
+                  selectedEl = target.parentElement; // editable-wrapper
+                  
+                  startX = e.clientX; startY = e.clientY;
+                  startW = selectedEl.offsetWidth; startH = selectedEl.offsetHeight;
+                  startRatio = startW / startH;
+                  
+                  e.stopPropagation(); e.preventDefault();
+                  return;
+              }
+
+              // Игнор админки и хедера
+              if (target.closest('#admin-panel') || target.closest('header')) return;
+
+              // 2. Логика выбора:
+
+              // a) Плавающий или Картинка (Resizable/Draggable)
+              if (target.closest('.editable-wrapper')) {
+                  elToSelect = target.closest('.editable-wrapper');
+                  
+                  // Если это плавающий элемент, готовим к Drag
+                  if (elToSelect.classList.contains('floating')) {
+                      isDragging = true;
+                      startX = e.clientX; startY = e.clientY;
+                      startL = elToSelect.offsetLeft; startT = elToSelect.offsetTop;
+                  }
+              } 
+              // b) Текстовый блок (Editable)
+              else if (target.classList.contains('editable-text-block') || target.closest('.editable-text-block')) {
+                  elToSelect = target.classList.contains('editable-text-block') ? target : target.closest('.editable-text-block');
+                  if (elToSelect && elToSelect.tagName !== 'IMG') {
+                      // Редактируемый текст
+                      elToSelect.contentEditable = "true";
+                  }
+              }
+              
+              if (elToSelect) {
+                  selectElement(elToSelect);
+              } else {
+                  deselect();
+              }
+          });
+
+          function toggleAdmin(active) {
+              isAdmin = active;
+              const panel = document.getElementById('admin-panel');
+              if (active) {
+                  panel.classList.add('active');
+                  document.body.classList.add('admin-mode');
+                  // Зберегти початковий стан при вході
+                  if(historyStack.length === 0) saveState();
+                  alert("Режим Адміна.\n• Клік по тексту/картці -> Редагувати.\n• Кнопки Undo/Redo працюють.\n• Структура зберігається.");
+              } else {
+                  panel.classList.remove('active');
+                  document.body.classList.remove('admin-mode');
+                  deselectElement();
+              }
+          }
+
+          // --- 3. ФУНКЦІОНАЛ РЕДАГУВАННЯ ---
+          
+          // Делегування подій (Click) для вибору елементів
+          document.addEventListener('click', (e) => {
+              if (!isAdmin) return;
+              // Ігноруємо кліки по адмін-панелі
+              if (e.target.closest('#admin-panel') || e.target.closest('.header-btn')) return;
+
+              e.preventDefault(); // Щоб не переходило за посиланнями в адмінці
+              
+              // Знаходимо найближчий цікавий елемент
+              let target = e.target;
+              
+              // Якщо клік по картинці всередині картки - вибираємо картку або картинку
+              if (target.tagName === 'IMG' && target.closest('.card')) {
+                  // Вибираємо картинку для заміни (поки що просто рамка)
+                  selectElement(target);
+                  return;
+              }
+
+              // Якщо клік по тексту
+              if (['H1','H2','H3','P','A','SPAN','DIV'].includes(target.tagName)) {
+                  // Якщо це картка, вибираємо саму картку, якщо клікнули на фон картки
+                  if (target.classList.contains('card')) {
+                      selectElement(target);
+                      return;
+                  }
+                  // Інакше вибираємо текст
+                  selectElement(target);
+              }
+          });
+
+          // Делегування "input" для збереження історії при зміні тексту
+          document.addEventListener('input', (e) => {
+              if(isAdmin && selectedEl && selectedEl.contains(e.target)) {
+                  // Можна додати debounce (затримку), щоб не зберігати кожну букву
+                  // Тут спрощено: зберігаємо при втраті фокусу (blur) або вручну
+              }
+          });
+          
+          // Зберігаємо історію при завершенні редагування тексту
+          document.addEventListener('focusout', (e) => {
+              if(isAdmin && e.target.isContentEditable) {
+                  saveState();
+              }
+          });
+
+          function selectElement(el) {
+              if (selectedEl) deselectElement();
+              
+              selectedEl = el;
+              selectedEl.classList.add('editing-active');
+              
+              // Активуємо панель
+              document.getElementById('style-controls').classList.add('active');
+              if (selectedEl.tagName === 'IMG') {
+                  selectedEl.contentEditable = "false";
+              // ❌ не включати text tools
+              }
+
+              // Увімкнення редагування тексту (якщо це не картинка)
+              if (selectedEl.tagName !== 'IMG') {
+                  selectedEl.contentEditable = "true";
+                  selectedEl.focus();
+              } else {
+                  // Якщо картинка - пропонуємо змінити URL
+                  if(confirm("Змінити посилання на картинку?")) {
+                      const newUrl = prompt("URL картинки:", selectedEl.src);
+                      if(newUrl) {
+                          selectedEl.src = newUrl;
+                          saveState();
+                      }
+                  }
+              }
+
+              // Синхронізація значень в адмінці
+              const computed = window.getComputedStyle(selectedEl);
+              document.getElementById('color-text').value = rgbToHex(computed.color);
+              document.getElementById('color-bg').value = rgbToHex(computed.backgroundColor);
+          }
+
+          function deselectElement() {
+              if (selectedEl) {
+                  selectedEl.contentEditable = "false";
+                  selectedEl.classList.remove('editing-active');
+                  selectedEl = null;
+                  const controls = document.getElementById('style-controls');
+                  if(controls) controls.classList.remove('active');
+              }
+          }
+
+          function applyStyle(prop, val) {
+              if (selectedEl) {
+                  selectedEl.style[prop] = val;
+                  saveState();
+              }
+          }
+
+          function deleteSelected() {
+              if (selectedEl && confirm("Видалити?")) {
+                  selectedEl.remove();
+                  deselectElement();
+                  saveState();
+              }
+          }
+
+          // --- 4. СТВОРЕННЯ ЕЛЕМЕНТІВ ---
+
+          // Функція 1: Додати КАРТКУ (в структуру)
+          function addCardStructure() {
+              // Знаходимо активну секцію
+              const activeSection = document.querySelector('.page-section.active');
+              // Знаходимо в ній grid (якщо є)
+              let grid = activeSection.querySelector('.grid-3');
+              
+              if (!grid) {
+                  // Якщо сітки немає, створюємо або додаємо в контейнер
+                  const container = activeSection.querySelector('.container');
+                  if(!container) return alert("Помилка структури");
+                  
+                  // Спробуємо додати grid, якщо його нема
+                  grid = document.createElement('div');
+                  grid.className = 'grid-3';
+                  container.appendChild(grid);
+              }
+
+              // Створюємо HTML картки
+              const card = document.createElement('div');
+              card.className = 'card';
+              card.innerHTML = `
+                  <img src="https://source.unsplash.com/400x300/?food" alt="New Dish">
+                  <h3>Нова страва</h3>
+                  <p>Опис страви або послуги.</p>
+              `;
+              
+              grid.appendChild(card);
+              saveState(); // Зберігаємо в історію
+              
+              // Одразу скролимо до неї
+              card.scrollIntoView({behavior: "smooth"});
+          }
+
+          // Функція 2: Додати плавучий текст (якщо треба поверх усього)
+          function addFloatingText() {
+              const activeSection = document.querySelector('.page-section.active .container');
+              const div = document.createElement('div');
+              div.innerText = "Ваш текст";
+              div.style.position = "absolute";
+              div.style.top = "50px";
+              div.style.left = "50px";
+              div.style.background = "white";
+              div.style.padding = "10px";
+              div.style.cursor = "move";
+              // Додаємо drag логіку тільки для цього типу, якщо треба (спрощено тут)
+              activeSection.appendChild(div);
+              saveState();
+          }
+          
+          function addFloating(type) {
+              const container = document.querySelector('.page-section.active .container');
+              const wrap = document.createElement('div');
+              wrap.className = 'editable-wrapper floating';
+              wrap.style.left = '50px'; wrap.style.top = '50px';
+
+              if (type === 'text') {
+                  wrap.innerHTML = `<div class="editable-text-block" style="padding:10px; background:rgba(255,255,255,0.9); border:1px solid #ddd; min-width:150px;">Ваш текст</div>`;
+              } else {
+                  const url = prompt("URL картинки:", "https://source.unsplash.com/250x250/?food");
+                  if(!url) return;
+                  card.innerHTML = `
+                  <div class="editable-wrapper"><img src="https://source.unsplash.com/400x300/?pasta" alt="img"></div>
+                  <h3 class="editable-text-block">Новая запись</h3>
+                  <p class="editable-text-block">Описание.</p>`;
+                  wrap.style.width = '200px'; wrap.style.height = '200px';
+              }
+              
+              addHandles(wrap);
+              container.appendChild(wrap);
+              selectElement(wrap);
+              saveState();
+          }
+          // --- 5. ДОДАТКОВІ ФУНКЦІЇ ---
+
+          function initFonts() {
+          const fonts = [
+          "Montserrat", "Roboto", "Open Sans", "Oswald", "Pacifico",
+          "Lobster", "Comfortaa", "Arial", "Helvetica",
+          "Times New Roman", "Courier New", "Georgia",
+          "Play", "Merriweather", "Amatic SC",
+          "Lucida Sans Unicode", "Segoe UI",
+          // универсальні
+          "Inter", "Poppins", "Lato", "Nunito", "Raleway",
+          "Ubuntu", "DM Sans", "Manrope",
+          // заголовки
+          "Bebas Neue", "Anton", "Playfair Display", "Cinzel",
+          // декоративні
+          "Dancing Script", "Great Vibes", "Indie Flower",
+          // моно
+          "JetBrains Mono", "Fira Code",
+          // системні
+          "Verdana", "Tahoma", "Calibri", "Consolas"];
+              const sel = document.getElementById('font-select');
+              sel.innerHTML = "";
+              fonts.forEach(f => {
+                  const opt = document.createElement('option');
+                  opt.value = f; opt.innerText = f;
+                  sel.appendChild(opt);
+              });
+          }
+
+          function rgbToHex(rgb) {
+              if(!rgb || rgb.includes('rgba(0, 0, 0, 0)')) return "#ffffff";
+              if(rgb.startsWith('#')) return rgb;
+              let sep = rgb.indexOf(",") > -1 ? "," : " ";
+              let rgbArr = rgb.substr(4).split(")")[0].split(sep);
+              let r = (+rgbArr[0]).toString(16), g = (+rgbArr[1]).toString(16), b = (+rgbArr[2]).toString(16);
+              if(r.length==1)r="0"+r; if(g.length==1)g="0"+g; if(b.length==1)b="0"+b;
+              return "#" + r + g + b;
+          }
+
+          // Навігація
+          function setupNav() {
+              window.switchPage = function(pageId) {
+                  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+                  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                  
+                  const p = document.getElementById('page-'+pageId);
+                  const n = document.getElementById('nav-'+pageId);
+                  if(p) p.classList.add('active');
+                  if(n) n.classList.add('active');
+              }
+          }
+
+          // Запуск
+          reinitializeAdmin();
+
+          // Функція для Ctrl+Shift (Пропорційна картинка - приклад реалізації через CSS класи)
+          // Тут ми просто блокуємо `object-fit` при натисканні клавіш, якщо треба, 
+          // але в цьому коді картинки і так адаптивні (width 100%).
+          
+      let ReTryBut = 0;
+      function clearResult(){document.getElementById('result').innerText='';document.getElementById('correctBtn').style.display='none'}
+      function reTry(){ReTryBut=0;document.getElementById('result').innerText='';document.getElementById('wrongBtn').style.display='none';document.getElementById('correctBtn').style.display='none'}
+
+      function IMT(){
+        const height = Number(document.getElementById('height').value);
+        const weight = Number(document.getElementById('weight').value);
+        if(!height||!weight) return NaN;
+        return Number((weight/((height/100)**2)).toFixed(2));
+      }
+
+      function IMT_Interpretation(imt_value){
+        if(!isFinite(imt_value)) return 'Немає даних для інтерпретації';
+        if(imt_value<16) return 'Виражений дефіцит маси тіла';
+        if(imt_value<18.5) return 'Недостатня (дефіцит) маса тіла';
+        if(imt_value<25) return 'Нормальна маса тіла';
+        if(imt_value<30) return 'Надмірна маса тіла (предожиріння)';
+        if(imt_value<35) return 'Ожиріння I ступеня';
+        if(imt_value<40) return 'Ожиріння II ступеня';
+        return 'Ожиріння III ступеня';
+      }
+
+      function BMR(age,height,weight,gender,activity){
+        age=Number(age);height=Number(height);weight=Number(weight);
+        const multipliers={very_high:1.9,high:1.725,medium:1.55,small:1.375,low:1.2};
+        let bmr = (10*weight)+(6.25*height)-(5*age)+(gender==='male'?5:-161);
+        return bmr*(multipliers[activity]??1.55);
+      }
+
+      function proteins(activity,weight){const m={very_high:2,high:1.8,medium:1.4,small:1.2,low:0.8}; return Number(weight)*(m[activity]??1.4)}
+      function fat(brm_last){return (0.3*brm_last)/9}
+      function carb(brm_last){return (0.4*brm_last)/4}
+
+      function vitamins(age,gender,weight,activity){
+        age=Number(age);weight=Number(weight);
+        const multipliers={very_high:1.4,high:1.2,medium:1.1,small:1,low:0.8};
+        const vitaminRDA={Vitamin_C:90,Vitamin_D:800,Vitamin_A:700,Vitamin_B1:1.1,Vitamin_B6:1.3,Vitamin_B12:2.4};
+        const genderFactor={male:1,female:0.9};
+        let ageFactor = age<=3?0.8:age<=8?0.9:age<=13?1:age<=18?1.1:age<=50?1:1.2;
+        const activityMultiplier = multipliers[activity] ?? 1.1;
+        const gFactor = genderFactor[gender] ?? 1;
+        const weightFactor = (weight>0)?(weight/70):1;
+        return {
+          Vitamin_D: vitaminRDA.Vitamin_D * ageFactor * gFactor * activityMultiplier * weightFactor,
+          Vitamin_C: vitaminRDA.Vitamin_C * ageFactor * gFactor * activityMultiplier * weightFactor,
+          Vitamin_B12: vitaminRDA.Vitamin_B12 * ageFactor * gFactor * activityMultiplier * weightFactor,
+          Vitamin_A: vitaminRDA.Vitamin_A * ageFactor * gFactor * activityMultiplier * weightFactor,
+          Vitamin_B1: vitaminRDA.Vitamin_B1 * ageFactor * gFactor * activityMultiplier * weightFactor,
+          Vitamin_B6: vitaminRDA.Vitamin_B6 * ageFactor * gFactor * activityMultiplier * weightFactor
         };
-// ---------------------------------------------------------------------------------------
-        const vitamin = vitamins(age, gender, weight, activity);
+      }
 
-        output += "Рекомендована добова норма вітамінів:\n";
+      function showData(){
+        const ageRaw = document.getElementById('age').value;
+        const heightRaw = document.getElementById('height').value;
+        const weightRaw = document.getElementById('weight').value;
+        const age = Number(ageRaw), height = Number(heightRaw), weight = Number(weightRaw);
+        const gender = document.querySelector('input[name="gender"]:checked')?.value || 'male';
+        const activity = document.querySelector('input[name="activity"]:checked')?.value || 'medium';
 
-        for (const key in vitamin) {
-          const value = vitamin[key];
-          const { name, unit } = vitaminInfo[key];
+        let output = '';
+        if(!ageRaw||!heightRaw||!weightRaw){document.getElementById('result').innerText='Будь ласка, заповніть поля Вік, Зріст та Вага.';return}
+        if((!isFinite(age)||!isFinite(height)||!isFinite(weight))||age<=0||height<=0||weight<=0){document.getElementById('result').innerText='Некоректні числові значення. Перевірте введені дані.';return}
 
-          output += `${name}: ${value.toFixed(2)} ${unit}\n`;
+        if(((age>100||height>250||weight>400)||(age<=5||height<=50||weight<=20))&&ReTryBut==0){
+          output='Будь ласка, введіть коректні значення для віку, зросту та ваги.';
+          document.getElementById('correctBtn').style.display='inline-block';
+          document.getElementById('wrongBtn').style.display='inline-block';
+          ReTryBut=1;document.getElementById('result').innerText=output;return;
         }
-// ---------------------------------------------------------------------------------------
-        const imt_value = IMT();
-        output += `\nІндекс маси тіла (ІМТ): ${isFinite(imt_value)?imt_value:'—'}\n`;
-        output += `Інтерпретація ІМТ: ${IMT_Interpretation(imt_value)}\n`;
-      }catch(err){console.error(err);output='Сталася помилка при обчисленнях.'}
 
-      document.getElementById('result').innerText = output;
-    }
+        ReTryBut=0;document.getElementById('correctBtn').style.display='none';document.getElementById('wrongBtn').style.display='none';
 
-    // Запуск з дефолтними значеннями при завантаженні
-    window.addEventListener('load', ()=>{showData()});
-    </script>
-</body>
-</html>
+        try{
+          const brm_last = BMR(age,height,weight,gender,activity);
+          output += `Приблизна норма калорій з урахуванням активності: ${Number(brm_last).toFixed(0)} ккал\n`;
+          output += `Рекомендована кількість білків на день: ${Number(proteins(activity,weight)).toFixed(0)} г\n`;
+          output += `Рекомендована кількість жирів на день: ${Number(fat(brm_last)).toFixed(0)} г\n`;
+          output += `Рекомендована кількість вуглеводів на день: ${Number(carb(brm_last)).toFixed(0)} г\n\n`;
+
+  // ---------------------------------------------------------------------------------------
+          const vitaminInfo = {
+          Vitamin_C:  { name: "Вітамін C", unit: "мг" },
+          Vitamin_D:  { name: "Вітамін D", unit: "IU" },
+          Vitamin_A:  { name: "Вітамін A", unit: "мкг" },
+          Vitamin_B1: { name: "Вітамін B1", unit: "мг" },
+          Vitamin_B6: { name: "Вітамін B6", unit: "мг" },
+          Vitamin_B12:{ name: "Вітамін B12", unit: "мкг" }
+          };
+  // ---------------------------------------------------------------------------------------
+          const vitamin = vitamins(age, gender, weight, activity);
+
+          output += "Рекомендована добова норма вітамінів:\n";
+
+          for (const key in vitamin) {
+            const value = vitamin[key];
+            const { name, unit } = vitaminInfo[key];
+
+            output += `${name}: ${value.toFixed(2)} ${unit}\n`;
+          }
+  // ---------------------------------------------------------------------------------------
+          const imt_value = IMT();
+          output += `\nІндекс маси тіла (ІМТ): ${isFinite(imt_value)?imt_value:'—'}\n`;
+          output += `Інтерпретація ІМТ: ${IMT_Interpretation(imt_value)}\n`;
+        }catch(err){console.error(err);output='Сталася помилка при обчисленнях.'}
+
+        document.getElementById('result').innerText = output;
+      }
+
+      // Запуск з дефолтними значеннями при завантаженні
+      window.addEventListener('load', ()=>{showData()});
+      </script>
+  </body>
+  </html>
