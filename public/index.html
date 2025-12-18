@@ -278,6 +278,33 @@
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(2px) rotate(2deg); }
         }
+        /* Активний стан для світлої теми */
+        .faq-item.active {
+            border-color: #10b981;
+            background-color: #f9fafb;
+        }
+
+        /* Активний стан для темної теми (dark mode) */
+        html.dark .faq-item.active {
+            background-color: #1f2937; /* Темніший відтінок (gray-800) */
+            border-color: #10b981;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px; /* Increased for long answers */
+            padding-top: 1rem;
+        }
+        .faq-item.active i {
+            transform: rotate(180deg);
+        }
+        .faq-item.active {
+            border-color: #10b981;
+            background-color: #f9fafb;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
@@ -404,23 +431,140 @@
                     </div>
 
                      <!-- Тарілка здоров'я -->
-                    <div class="info-card bg-blue-50 dark:bg-blue-900/20 p-8 md:p-12 rounded-[3rem] border border-blue-100 dark:border-blue-900/30 shadow-sm flex flex-col md:flex-row gap-12 items-center transition-colors duration-300">
-                        <div class="relative w-48 h-48 shrink-0">
-                            <div class="w-full h-full border-8 border-gray-200 dark:border-gray-700 rounded-full flex items-center justify-center bg-white dark:bg-gray-800">
-                                <i class="fas fa-circle-notch text-blue-500 text-4xl animate-spin-slow"></i>
-                            </div>
-                            <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center flex-col text-center">
-                                <span class="text-2xl font-black text-blue-900 dark:text-blue-300 italic">50%</span>
-                                <span class="text-[10px] font-bold text-blue-400 uppercase">Овочі</span>
-                            </div>
+                    <div class="bg-blue-500 p-12 rounded-[3rem] text-white shadow-lg overflow-hidden relative">
+                    <i class="fas fa-tint absolute -right-10 -bottom-10 text-[12rem] opacity-10"></i>
+                    <div class="relative z-10 flex flex-col md:flex-row items-center gap-10">
+                        <div class="md:w-1/3">
+                            <h3 class="text-3xl font-black mb-4">Гідратація — це база</h3>
+                            <p class="opacity-80 leading-relaxed">Вода регулює температуру тіла, виводить токсини та покращує роботу мозку. Навіть 2% дефіциту води знижують вашу продуктивність наполовину.</p>
                         </div>
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold mb-4 text-blue-900 dark:text-blue-200 uppercase tracking-tight editable-text">Правило тарілки</h3>
-                            <p class="text-blue-800/70 dark:text-blue-200/70 leading-relaxed text-sm mb-6 editable-text">Діліть тарілку: 50% — овочі, 25% — білок, 25% — вуглеводи.</p>
+                        <div class="md:w-2/3 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                            <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-md">
+                                <h4 class="font-bold text-xl mb-2">30-40 мл</h4>
+                                <p class="text-xs opacity-70 italic">на 1 кг ваги — ваша ідеальна норма чистої води на добу.</p>
+                            </div>
+                            <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-md">
+                                <h4 class="font-bold text-xl mb-2">Склянка зранку</h4>
+                                <p class="text-xs opacity-70 italic">одразу після пробудження, щоб "запустити" травну систему.</p>
+                            </div>
+                            <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-md">
+                                <h4 class="font-bold text-xl mb-2">Без цукру</h4>
+                                <p class="text-xs opacity-70 italic">кава та соки — це їжа, а не вода. Віддавайте перевагу чистому ресурсу.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
+                <div class="container mx-auto px-4 max-w-4xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-black text-gray-900 mb-4">Енциклопедія Nutriway</h2>
+                    <p class="text-gray-500 italic">Ми зібрали відповіді на найскладніші та найважливіші питання про здоров’я</p>
+                </div>
+                    <div class="space-y-4">
+                        <!-- 1 -->
+                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg dark:text-white">● Чи справді потрібно пити 2 літри води?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform"></i>
+                            </div>
+
+                            <div class="faq-answer text-gray-600 leading-relaxed dark:text-gray-300">
+                                Ні, концепція «2 літри» є застарілою...
+                            </div>
+                        </div>
+                                                <!-- 2 -->
+                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg">● Яка роль вуглеводів у процесі схуднення?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer text-gray-600 leading-relaxed">
+                                Вуглеводи — це основне паливо для мозку та м'язів. Повна відмова від них призводить до занепаду сил та гормональних збоїв. Ключ до успіху — у виборі «складних» вуглеводів (цільні крупи, овочі) та обмеженні «простих» (цукор, біле борошно). Складні вуглеводи мають низький глікемічний індекс, забезпечують довге відчуття ситості та запобігають різким стрибкам інсуліну.
+                            </div>
+                        </div>
+                        <!-- 3 -->
+                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg">● Чи можна їсти фрукти ввечері?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer text-gray-600 leading-relaxed">
+                                Бажано вживати фрукти у першій половині дня або як перекус між сніданком та обідом. Фрукти містять фруктозу, яка при надлишку енергії ввечері може легше перетворюватися на жирові запаси печінки. Якщо дуже хочеться солодкого ввечері, краще обрати ягоди (лохина, малина), оскільки вони мають значно менше цукру та більше антиоксидантів.
+                            </div>
+                        </div>
+                        <!-- 4 -->
+                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg">● Чому вага може «стояти» на місці при дієті?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer text-gray-600 leading-relaxed">
+                                Це явище називається «плато». Причини можуть бути різними: адаптація метаболізму до низької калорійності (тіло починає економити енергію), затримка води через стрес (кортизол), або зростання м'язової маси при одночасному спалюванні жиру (об'єми зменшуються, а вага ні). У такому разі ми рекомендуємо змінити тип тренувань або зробити невеликий «рефіл» — контрольоване збільшення калорій на 1–2 дні.
+                            </div>
+                        </div>
+                        <!-- 5 -->
+                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg">● Чи безпечне інтервальне голодування (16/8)?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer text-gray-600 leading-relaxed">
+                                Для більшості здорових дорослих це ефективний інструмент контролю ваги та запуску процесів аутофагії (оновлення клітин). Проте є суворі протипоказання: захворювання жовчного міхура, гастрит, діабет 1 типу, вагітність та розлади харчової поведінки. Завжди консультуйтеся з лікарем перед переходом на такий режим.
+                            </div>
+                        </div>
+                        <!-- 6 -->
+                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg">● Як відрізнити справжній голод від емоційного?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer text-gray-600 leading-relaxed">
+                                Справжній голод приходить поступово, відчувається фізично (бурчання в животі) і ви готові з'їсти навіть звичайну кашу чи салат. Емоційний голод виникає раптово, часто через стрес чи нудьгу, і він завжди «специфічний» — хочеться саме піци, шоколаду чи чіпсів. Спробуйте випити склянку води: якщо через 15 хвилин бажання їсти не зникло — це фізіологічна потреба.
+                            </div>
+                        </div>
+                        <!-- 7 -->
+                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg">● Чи потрібно приймати БАДи щодня?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer text-gray-600 leading-relaxed">
+                                В ідеальному світі ми мали б отримувати все з їжі. Проте сучасні продукти часто збіднені на нутрієнти. Базовими для більшості є Вітамін D3 (особливо взимку) та Омега-3. Всі інші добавки (магній, залізо, цинк) слід приймати тільки після здачі аналізів, оскільки гіпервітаміноз може бути так само небезпечним, як і дефіцит.
+                            </div>
+                        </div>
+                        <!-- 8 -->
+                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg">● Яка роль сну в жироспалюванні?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer text-gray-600 leading-relaxed">
+                                Сон — це час, коли виробляється соматотропін (гормон росту), який є найпотужнішим жироспалювачем. Недосип підвищує рівень греліну (гормону голоду) та знижує лептин (гормон ситості). Якщо ви спите менше 6 годин, ви схильні споживати на 300–500 ккал більше наступного дня просто через гормональний дисбаланс.
+                            </div>
+                        </div>
+                        <!-- 9 -->
+                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg">● Чи можна пити каву під час дієти?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer text-gray-600 leading-relaxed">
+                                Сама по собі чорна кава без цукру містить майже 0 калорій і навіть може прискорити метаболізм. Проблеми починаються з додатками: сиропи, вершки, молоко та цукор перетворюють напій на повноцінний десерт (до 400 ккал). Також не рекомендується пити каву натщесерце, щоб не подразнювати слизову оболонку шлунка.
+                            </div>
+                        </div>
+                        <!-- 10 -->
+                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg">● Як почати вести ЗСЖ і не кинути через тиждень?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer text-gray-600 leading-relaxed">
+                                Не намагайтеся змінити все за один день. Використовуйте тактику «малих кроків»: перший тиждень просто пийте норму води. Другий тиждень — додайте овочі до кожного прийому їжі. Третій — почніть гуляти 30 хвилин ввечері. Наш мозок боїться різких змін, але легко адаптується до поступових покращень. Nutriway створений саме для такої плавної та комфортної трансформації.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </section>  
         </main>
 
         <!-- КАЛЬКУЛЯТОР -->
