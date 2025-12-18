@@ -230,8 +230,7 @@
                     <h1 class="text-4xl md:text-6xl font-black mb-6 editable-text">Nutriway</h1>
                     <p class="text-lg opacity-90 mb-10 max-w-2xl mx-auto italic editable-text">Ваш персональний шлях до здоров'я та ідеальної форми.</p>
                     <div class="flex justify-center gap-4">
-                        <button onclick="showPage('calculator')" class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:shadow-xl transition">Почати розрахунок</button>
-                    </div>
+                        <button onclick="showPage('calculator')" class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:shadow-xl transition">Почати розрахунок</button>                    </div>
                 </div>
             </header>
 
@@ -391,7 +390,14 @@
                         <button onclick="showData()" class="w-full py-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition transform">
                             РОЗРАХУВАТИ
                         </button>
-
+                        <div class ="mb-8"> 
+                            <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">   </label>
+                            <div></div>
+                        <button onclick="send()" class="w-full py-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition transform">
+                            ОТРИМАТИ РЕКОМЕДАЦІЇ
+                        </button>
+                        </div>
+                        </div>
                         <!-- Логіка перевірки з другого файлу -->
                         <div id="confirm-buttons" class="hidden mt-4 flex gap-4">
                              <button onclick="clearResult(); showData();" class="flex-1 py-3 bg-green-500 text-white rounded-xl font-bold">Дані вірні</button>
