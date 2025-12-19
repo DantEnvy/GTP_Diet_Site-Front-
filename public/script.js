@@ -18,3 +18,8 @@ async function send() {
   document.getElementById("result").innerText = result.diet;
 }
 
+async function get(){
+  const res = await fetch("https://gtp-diet-site-back.vercel.app/api/diet");
+  const result = await res.json();
+  document.getElementById("result").innerText = result.diet;
+}
