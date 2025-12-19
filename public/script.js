@@ -22,4 +22,12 @@ async function get(){
   const res = await fetch("https://back-end-daij.onrender.com/api/diet");
   const result = await res.json();
   document.getElementById("result").innerText = result.diet;
+  localStorage.setItem('diet', result.diet);
+
 }
+window.addEventListener('load', () => {
+  const savedDiet = localStorage.getItem('diet');
+  if (savedDiet) {
+    document.getElementById('result').innerText = savedDiet;
+  }
+});
