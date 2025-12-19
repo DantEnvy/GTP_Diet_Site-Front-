@@ -8,7 +8,7 @@ async function send() {
     health: document.getElementById("health").value
   };
 
-  const res = await fetch("https://gtp-diet-site-back.vercel.app/api/diet", {
+  const res = await fetch("https://back-end-daij.onrender.com/api/diet", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
@@ -19,7 +19,7 @@ async function send() {
 }
 
 async function get(){
-  const res = await fetch("https://gtp-diet-site-back.vercel.app/api/diet");
+  const res = await fetch("https://back-end-daij.onrender.com/api/diet");
   const result = await res.json();
   document.getElementById("result").innerText = result.diet;
 }
