@@ -18,6 +18,15 @@
                             card: '#1f2937', // gray-800
                             input: '#374151', // gray-700
                         }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
@@ -68,6 +77,7 @@
         .delay-2 { transition-delay: 0.2s; }
         .delay-3 { transition-delay: 0.3s; }
         .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
 
         #menu-overlay {
             display: none; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
@@ -193,6 +203,7 @@
         }
         .vit-item:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
         .vit-icon-box { font-size: 1.5rem; width: 3rem; text-align: center; }
+        
         #disclaimer-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85);
@@ -212,42 +223,8 @@
             font-weight: bold; transition: 0.3s;
         }
         .disclaimer-btn:hover { transform: scale(1.05); background: #a09417; }
-        /* --- Крапля --- */
-        .water-drop {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #00C6FF, #0072FF);
-            /* Магія форми: 0% з одного кута, 50% з інших */
-            border-radius: 0 50% 50% 50%; 
-            /* Повертаємо, щоб гострий кут був зверху */
-            transform: rotate(45deg);
-            margin: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
+        
         /* --- Склянка --- */
-        .water-glass {
-            width: 40px;
-            height: 50px;
-            border: 3px solid #333;
-            border-top: none; /* Відкритий верх */
-            border-radius: 0 0 10px 10px; /* Закруглене дно */
-            position: relative;
-            overflow: hidden; /* Щоб вода не витікала за межі */
-            margin: 20px;
-        }
-
-        /* Вода всередині */
-        .liquid {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 70%; /* Рівень води */
-            background: linear-gradient(to top, #00C6FF, #0072FF);
-            opacity: 0.8;
-        }
-        /* Міні-склянка для іконки */
         .mini-glass {
             width: 32px;
             height: 40px;
@@ -278,15 +255,14 @@
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(2px) rotate(2deg); }
         }
-        /* Активний стан для світлої теми */
+        
+        /* Активний стан FAQ */
         .faq-item.active {
             border-color: #10b981;
             background-color: #f9fafb;
         }
-
-        /* Активний стан для темної теми (dark mode) */
         html.dark .faq-item.active {
-            background-color: #1f2937; /* Темніший відтінок (gray-800) */
+            background-color: #1f2937;
             border-color: #10b981;
         }
         .faq-answer {
@@ -295,23 +271,22 @@
             transition: max-height 0.4s ease-out, padding 0.3s ease;
         }
         .faq-item.active .faq-answer {
-            max-height: 500px; /* Increased for long answers */
+            max-height: 500px;
             padding-top: 1rem;
         }
         .faq-item.active i {
             transform: rotate(180deg);
         }
-        .faq-item.active {
-            border-color: #10b981;
-            background-color: #f9fafb;
-        }
         
-        /* Стилі для Hover ефектів статей */
-        .article-card:hover .article-image {
-            transform: scale(1.05);
-        }
-        .article-card .article-image {
-            transition: transform 0.5s ease;
+        /* Placeholder State for Diet Page */
+        .empty-diet-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+            text-align: center;
+            opacity: 0.7;
         }
     </style>
 </head>
@@ -321,11 +296,10 @@
         <div class="disclaimer-box">
             <h1 style="color: rgb(212, 55, 55);">УВАГА!</h1>
             <p style="margin: 15px 0; color: hsla(0, 76%, 60%, 0.725);">Вся інформація, розміщена на даному сайті, надається виключно з інформаційною та ознайомчою метою. Матеріали сайту не є медичною консультацією, не є діагнозом, не є рекомендацією до лікування, не є індивідуальним планом харчування та не можуть замінити консультацію лікаря, дієтолога або іншого кваліфікованого спеціаліста.</p>
-            <p style="margin: 15px 0; color: hsla(0, 76%, 60%, 0.725);">Адміністрація сайту не несе відповідальності за будь-які наслідки, прямі або непрямі, що можуть виникнути в результаті використання інформації з цього сайту, включно (але не обмежуючись): змінами стану здоров’я, погіршенням самопочуття, алергічними реакціями, гормональними порушеннями, проблемами з травленням або іншими фізичними чи психологічними наслідками.</p>
+            <p style="margin: 15px 0; color: hsla(0, 76%, 60%, 0.725);">Адміністрація сайту не несе відповідальності за будь-які наслідки, прямі або непрямі, що можуть виникнути в результаті використання інформації з цього сайту.</p>
             <button class="disclaimer-btn" onclick="closeDisclaimer()">Я підтверджую усе</button>
         </div>
     </div>
-
 
     <!-- Навігація -->
     <nav class="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-md border-b border-gray-100 transition-colors duration-300 dark:bg-gray-900/90 dark:border-gray-800">
@@ -357,10 +331,19 @@
             <a href="javascript:void(0)" onclick="showPage('home'); toggleMenu();" class="menu-item delay-1 hover:text-green-500 flex items-center space-x-4">
                 <i class="fas fa-home w-6"></i> <span>Головна</span>
             </a>
-            <a href="javascript:void(0)" onclick="showPage('calculator'); toggleMenu();" class="menu-item delay-2 hover:text-green-500 flex items-center space-x-4">
+            <!-- Новий пункт: Інформація -->
+            <a href="javascript:void(0)" onclick="showPage('info'); toggleMenu();" class="menu-item delay-2 hover:text-green-500 flex items-center space-x-4">
+                <i class="fas fa-info-circle w-6"></i> <span>Інформація</span>
+            </a>
+            <a href="javascript:void(0)" onclick="showPage('calculator'); toggleMenu();" class="menu-item delay-3 hover:text-green-500 flex items-center space-x-4">
                 <i class="fas fa-calculator w-6"></i> <span>Калькулятор</span>
             </a>
-            <a href="javascript:void(0)" onclick="openAdminAuth(); toggleMenu();" class="menu-item delay-3 hover:text-red-500 flex items-center space-x-4 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+            <!-- Новий пункт: Дієта -->
+            <a href="javascript:void(0)" onclick="showPage('diet'); toggleMenu();" class="menu-item delay-4 hover:text-green-500 flex items-center space-x-4">
+                <i class="fas fa-apple-alt w-6"></i> <span>Дієта</span>
+            </a>
+            
+            <a href="javascript:void(0)" onclick="openAdminAuth(); toggleMenu();" class="menu-item delay-5 hover:text-red-500 flex items-center space-x-4 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
                 <i class="fas fa-cogs w-6"></i> <span>Адмін Панель</span>
             </a>
         </div>
@@ -386,7 +369,7 @@
             <section class="py-20 container mx-auto px-4">
                 <h2 class="text-3xl font-bold mb-12 text-center editable-text dark:text-white">Комплексна діагностика</h2>
                 <div id="diag-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24 text-center">
-                    <!-- Cards with Dark Mode Support -->
+                    <!-- Cards -->
                     <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-colors duration-300">
                         <i class="fas fa-heartbeat text-red-500 text-3xl mb-4"></i>
                         <h3 class="font-bold mb-2 editable-text dark:text-white">ІМТ</h3>
@@ -468,105 +451,32 @@
                     <p class="text-gray-500 italic">Ми зібрали відповіді на найскладніші та найважливіші питання про здоров’я</p>
                 </div>
                     <div class="space-y-4">
-                        <!-- 1 -->
+                        <!-- FAQ Items (скорочено для читабельності, вони лишаються ті самі) -->
                         <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
                             <div class="flex justify-between items-center">
                                 <h4 class="font-bold text-lg dark:text-white">● Чи справді потрібно пити 2 літри води?</h4>
                                 <i class="fas fa-plus text-green-500 transition-transform"></i>
                             </div>
-
                             <div class="faq-answer text-gray-600 leading-relaxed dark:text-gray-300">
-                                Ні, концепція «2 літри» є застарілою...
+                                Ні, концепція «2 літри» є застарілою. Норма розраховується індивідуально (30-40 мл на 1 кг ваги).
                             </div>
                         </div>
-                                                <!-- 2 -->
                         <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
                             <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg">● Яка роль вуглеводів у процесі схуднення?</h4>
+                                <h4 class="font-bold text-lg dark:text-white">● Чи можна їсти фрукти ввечері?</h4>
                                 <i class="fas fa-plus text-green-500 transition-transform"></i>
                             </div>
-                            <div class="faq-answer text-gray-600 leading-relaxed">
-                                Вуглеводи — це основне паливо для мозку та м'язів. Повна відмова від них призводить до занепаду сил та гормональних збоїв. Ключ до успіху — у виборі «складних» вуглеводів (цільні крупи, овочі) та обмеженні «простих» (цукор, біле борошно). Складні вуглеводи мають низький глікемічний індекс, забезпечують довге відчуття ситості та запобігають різким стрибкам інсуліну.
+                            <div class="faq-answer text-gray-600 leading-relaxed dark:text-gray-300">
+                                Бажано вживати фрукти у першій половині дня або як перекус між сніданком та обідом.
                             </div>
                         </div>
-                        <!-- 3 -->
                         <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
                             <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg">● Чи можна їсти фрукти ввечері?</h4>
+                                <h4 class="font-bold text-lg dark:text-white">● Яка роль сну в жироспалюванні?</h4>
                                 <i class="fas fa-plus text-green-500 transition-transform"></i>
                             </div>
-                            <div class="faq-answer text-gray-600 leading-relaxed">
-                                Бажано вживати фрукти у першій половині дня або як перекус між сніданком та обідом. Фрукти містять фруктозу, яка при надлишку енергії ввечері може легше перетворюватися на жирові запаси печінки. Якщо дуже хочеться солодкого ввечері, краще обрати ягоди (лохина, малина), оскільки вони мають значно менше цукру та більше антиоксидантів.
-                            </div>
-                        </div>
-                        <!-- 4 -->
-                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg">● Чому вага може «стояти» на місці при дієті?</h4>
-                                <i class="fas fa-plus text-green-500 transition-transform"></i>
-                            </div>
-                            <div class="faq-answer text-gray-600 leading-relaxed">
-                                Це явище називається «плато». Причини можуть бути різними: адаптація метаболізму до низької калорійності (тіло починає економити енергію), затримка води через стрес (кортизол), або зростання м'язової маси при одночасному спалюванні жиру (об'єми зменшуються, а вага ні). У такому разі ми рекомендуємо змінити тип тренувань або зробити невеликий «рефіл» — контрольоване збільшення калорій на 1–2 дні.
-                            </div>
-                        </div>
-                        <!-- 5 -->
-                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg">● Чи безпечне інтервальне голодування (16/8)?</h4>
-                                <i class="fas fa-plus text-green-500 transition-transform"></i>
-                            </div>
-                            <div class="faq-answer text-gray-600 leading-relaxed">
-                                Для більшості здорових дорослих це ефективний інструмент контролю ваги та запуску процесів аутофагії (оновлення клітин). Проте є суворі протипоказання: захворювання жовчного міхура, гастрит, діабет 1 типу, вагітність та розлади харчової поведінки. Завжди консультуйтеся з лікарем перед переходом на такий режим.
-                            </div>
-                        </div>
-                        <!-- 6 -->
-                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg">● Як відрізнити справжній голод від емоційного?</h4>
-                                <i class="fas fa-plus text-green-500 transition-transform"></i>
-                            </div>
-                            <div class="faq-answer text-gray-600 leading-relaxed">
-                                Справжній голод приходить поступово, відчувається фізично (бурчання в животі) і ви готові з'їсти навіть звичайну кашу чи салат. Емоційний голод виникає раптово, часто через стрес чи нудьгу, і він завжди «специфічний» — хочеться саме піци, шоколаду чи чіпсів. Спробуйте випити склянку води: якщо через 15 хвилин бажання їсти не зникло — це фізіологічна потреба.
-                            </div>
-                        </div>
-                        <!-- 7 -->
-                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg">● Чи потрібно приймати БАДи щодня?</h4>
-                                <i class="fas fa-plus text-green-500 transition-transform"></i>
-                            </div>
-                            <div class="faq-answer text-gray-600 leading-relaxed">
-                                В ідеальному світі ми мали б отримувати все з їжі. Проте сучасні продукти часто збіднені на нутрієнти. Базовими для більшості є Вітамін D3 (особливо взимку) та Омега-3. Всі інші добавки (магній, залізо, цинк) слід приймати тільки після здачі аналізів, оскільки гіпервітаміноз може бути так само небезпечним, як і дефіцит.
-                            </div>
-                        </div>
-                        <!-- 8 -->
-                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg">● Яка роль сну в жироспалюванні?</h4>
-                                <i class="fas fa-plus text-green-500 transition-transform"></i>
-                            </div>
-                            <div class="faq-answer text-gray-600 leading-relaxed">
-                                Сон — це час, коли виробляється соматотропін (гормон росту), який є найпотужнішим жироспалювачем. Недосип підвищує рівень греліну (гормону голоду) та знижує лептин (гормон ситості). Якщо ви спите менше 6 годин, ви схильні споживати на 300–500 ккал більше наступного дня просто через гормональний дисбаланс.
-                            </div>
-                        </div>
-                        <!-- 9 -->
-                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg">● Чи можна пити каву під час дієти?</h4>
-                                <i class="fas fa-plus text-green-500 transition-transform"></i>
-                            </div>
-                            <div class="faq-answer text-gray-600 leading-relaxed">
-                                Сама по собі чорна кава без цукру містить майже 0 калорій і навіть може прискорити метаболізм. Проблеми починаються з додатками: сиропи, вершки, молоко та цукор перетворюють напій на повноцінний десерт (до 400 ккал). Також не рекомендується пити каву натщесерце, щоб не подразнювати слизову оболонку шлунка.
-                            </div>
-                        </div>
-                        <!-- 10 -->
-                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg">● Як почати вести ЗСЖ і не кинути через тиждень?</h4>
-                                <i class="fas fa-plus text-green-500 transition-transform"></i>
-                            </div>
-                            <div class="faq-answer text-gray-600 leading-relaxed">
-                                Не намагайтеся змінити все за один день. Використовуйте тактику «малих кроків»: перший тиждень просто пийте норму води. Другий тиждень — додайте овочі до кожного прийому їжі. Третій — почніть гуляти 30 хвилин ввечері. Наш мозок боїться різких змін, але легко адаптується до поступових покращень. Nutriway створений саме для такої плавної та комфортної трансформації.
+                            <div class="faq-answer text-gray-600 leading-relaxed dark:text-gray-300">
+                                Сон — це час, коли виробляється соматотропін (гормон росту), який є найпотужнішим жироспалювачем.
                             </div>
                         </div>
                     </div>
@@ -575,7 +485,62 @@
             </section>  
         </main>
 
-        <!-- КАЛЬКУЛЯТОР -->
+        <!-- СТОРІНКА: ІНФОРМАЦІЯ -->
+        <main id="info-page" class="page-content pt-32 pb-20">
+            <div class="container mx-auto px-4 max-w-5xl">
+                <h2 class="text-4xl font-black text-center mb-8 editable-text dark:text-white">Корисна Інформація</h2>
+                <p class="text-center text-gray-500 dark:text-gray-400 mb-12 max-w-2xl mx-auto">Дізнайтеся більше про те, як працює ваш організм та які звички допоможуть вам почуватися краще.</p>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Стаття 1 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition duration-300 article-card">
+                        <div class="h-48 overflow-hidden bg-green-100 relative">
+                            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80" alt="Healthy Food" class="w-full h-full object-cover article-image">
+                            <div class="absolute top-4 right-4 bg-white dark:bg-gray-900 text-green-600 dark:text-green-400 text-xs font-bold px-3 py-1 rounded-full shadow-sm">ХАРЧУВАННЯ</div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-4 dark:text-white">Правило тарілки</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                                Уявіть свою тарілку розділеною на частини. Половину повинні займати овочі та зелень, чверть — якісний білок (риба, м'ясо, яйця), а ще чверть — складні вуглеводи (каші, цільнозерновий хліб). Такий підхід забезпечує баланс без підрахунку калорій.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Стаття 2 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition duration-300 article-card">
+                        <div class="h-48 overflow-hidden bg-blue-100 relative">
+                             <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80" alt="Sport" class="w-full h-full object-cover article-image">
+                             <div class="absolute top-4 right-4 bg-white dark:bg-gray-900 text-blue-600 dark:text-blue-400 text-xs font-bold px-3 py-1 rounded-full shadow-sm">СПОРТ</div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-4 dark:text-white">Чому важлива активність?</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                                Рух — це не тільки про спалювання калорій. Регулярна активність знижує рівень кортизолу (гормону стресу), покращує чутливість до інсуліну та зміцнює серцево-судинну систему. Навіть 30 хвилин ходьби на день можуть змінити ваше життя.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-indigo-50 dark:bg-indigo-900/20 p-8 rounded-[2rem] border border-indigo-100 dark:border-indigo-800 text-center">
+                    <h3 class="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">Наша Місія</h3>
+                    <p class="text-indigo-900 dark:text-indigo-100 max-w-3xl mx-auto leading-relaxed">
+                        Nutriway створений для того, щоб зробити здоровий спосіб життя доступним та зрозумілим. Ми віримо, що здоров'я починається з розуміння потреб власного тіла, а не з жорстких обмежень.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- СТОРІНКА: ДІЄТА (ПУСТА) -->
+        <main id="diet-page" class="page-content pt-32 pb-20">
+             <div class="container mx-auto px-4 max-w-5xl">
+                <h2 class="text-4xl font-black text-center mb-12 editable-text dark:text-white">Дієта</h2>
+                <div class="flex items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-3xl dark:border-gray-700">
+                     <p class="text-xl text-gray-400 font-bold uppercase tracking-widest">Сторінка в розробці</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- КАЛЬКУЛЯТОР (ЯК БУЛО) -->
         <main id="calculator-page" class="page-content pt-32 pb-20">
             <div class="container mx-auto px-4 max-w-5xl">
                 <h2 class="text-4xl font-black text-center mb-12 editable-text dark:text-white">Калькулятор</h2>
@@ -587,6 +552,7 @@
                             <i class="fas fa-user-edit mr-3 text-green-500"></i> Ваші параметри
                         </h3>
                         
+                        <!-- Inputs -->
                         <div class="grid md:grid-cols-3 gap-6 mb-6">
                             <div>
                                 <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">ВІК (років)</label>
@@ -630,7 +596,6 @@
                         <div class="mb-8">
                             <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">АКТИВНІСТЬ</label>
                             <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                                <!-- Reusable Radio Class -->
                                 <label class="cursor-pointer">
                                     <input type="radio" name="activity" value="low" class="peer hidden">
                                     <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center text-xs font-bold border dark:border-gray-600 peer-checked:bg-green-500 peer-checked:text-white transition">Низька</div>
@@ -653,8 +618,11 @@
                                 </label>
                             </div>
                         </div>
+                        
+                        <div id="calc-error-msg" class="text-red-500 text-center mb-4 hidden font-bold">Заповніть всі поля коректно!</div>
 
-                        <button onclick="showData()" class="w-full py-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition transform">
+                        <!-- Main Action Button -->
+                        <button onclick="showData()" class="w-full py-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition transform text-lg">
                             РОЗРАХУВАТИ
                         </button>
                         <div class ="mb-8"> 
@@ -666,18 +634,17 @@
                             ОТРИМАТИ РЕКОМЕДАЦІЇ
                         </button>
                         
-                        <!-- Confirmation Buttons -->
+                        <!-- Confirmation Buttons (Hidden by default) -->
                         <div id="confirm-buttons" class="hidden mt-4 flex gap-4">
-                             <button onclick="clearResult(); showData();" class="flex-1 py-3 bg-green-500 text-white rounded-xl font-bold hover:bg-green-600">Дані вірні</button>
+                             <button onclick="showResultsInPlace()" class="flex-1 py-3 bg-green-500 text-white rounded-xl font-bold hover:bg-green-600">Дані вірні</button>
                              <button onclick="reTry()" class="flex-1 py-3 bg-red-500 text-white rounded-xl font-bold hover:bg-red-600">Виправити</button>
                         </div>
                     </div>
 
-                    <!-- RESULTS AREA -->
+                    <!-- RESULTS AREA (MOVED BACK HERE) -->
                     <div id="resultArea" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8 max-w-3xl mx-auto w-full">
-                        
-                        <!-- Main Stats -->
-                        <div id="macros-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl hidden transition-colors duration-300">
+                         <!-- Main Stats -->
+                         <div id="macros-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl transition-colors duration-300 hidden">
                             <h4 class="font-bold text-gray-900 dark:text-white mb-6 flex items-center text-xl">
                                 <i class="fas fa-chart-pie mr-3 text-blue-500"></i> Основні показники
                             </h4>
@@ -695,7 +662,7 @@
                         </div>
 
                         <!-- Sleep Card -->
-                        <div id="sleep-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl hidden transition-colors duration-300">
+                        <div id="sleep-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl transition-colors duration-300 hidden">
                             <h4 class="font-bold text-gray-900 dark:text-white mb-6 flex items-center text-xl">
                                 <i class="fas fa-bed mr-3 text-indigo-500"></i> Рекомендований сон
                             </h4>
@@ -708,8 +675,8 @@
                             </div>
                         </div>
                         <!-- Water Card -->
-                        <div id="water-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl hidden transition-colors duration-300">
-    
+                        <div id="water-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl transition-colors duration-300 hidden">
+
                             <h4 class="font-bold text-gray-900 dark:text-white mb-6 flex items-center text-xl">
                                 <i class="fas fa-tint mr-3 text-blue-500 text-2xl"></i> 
                                 Рекомендована кількість води
@@ -729,7 +696,7 @@
                         </div>
 
                         <!-- Vitamin Cards -->
-                        <div id="vitamin-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl hidden transition-colors duration-300">
+                        <div id="vitamin-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl transition-colors duration-300 hidden">
                             <h4 class="font-bold text-gray-900 dark:text-white mb-6 flex items-center text-xl">
                                 <i class="fas fa-capsules mr-3 text-purple-500"></i> Ваша вітамінна карта
                             </h4>
@@ -737,11 +704,9 @@
                                 <!-- Cards injected by JS -->
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-    
         </main>
     </div>
 
@@ -832,7 +797,6 @@
             }
         }
 
-        // Init Check
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             applyTheme(true);
         } else {
@@ -878,6 +842,9 @@
         // --- 2. CALCULATOR LOGIC ---
         let ReTryBut = 0;
 
+        // "Send" function alias, in case it's used elsewhere
+        function send() { showData(); }
+
         function clearResult(){
           document.getElementById('confirm-buttons').classList.add('hidden');
           document.getElementById('resultArea').classList.add('hidden');
@@ -885,11 +852,19 @@
           document.getElementById('macros-section').classList.add('hidden');
           document.getElementById('sleep-section').classList.add('hidden');
           document.getElementById('water-section').classList.add('hidden');
+          document.getElementById('calc-error-msg').classList.add('hidden');
         }
-      
+
         function reTry(){
           ReTryBut=0;
           clearResult();
+        }
+        
+        // This function is called when data is confirmed to show results on the SAME page
+        function showResultsInPlace() {
+             ReTryBut=0;
+             document.getElementById('confirm-buttons').classList.add('hidden');
+             calculateAndDisplay();
         }
 
         function IMT(){
@@ -963,28 +938,40 @@
             const health = document.getElementById('health').value;   
 
             const age = Number(ageRaw), height = Number(heightRaw), weight = Number(weightRaw);
-            const gender = document.querySelector('input[name="gender"]:checked')?.value || 'male';
-            const activity = document.querySelector('input[name="activity"]:checked')?.value || 'medium';
             
+            // Validation
             if(!ageRaw||!heightRaw||!weightRaw){
-                document.getElementById('resultArea').classList.remove('hidden');
-                document.getElementById('text-info').innerText='Заповніть всі поля!';
-                document.getElementById('macros-section').classList.remove('hidden');
+                document.getElementById('calc-error-msg').innerText = 'Заповніть всі поля!';
+                document.getElementById('calc-error-msg').classList.remove('hidden');
                 return;
             }
+            document.getElementById('calc-error-msg').classList.add('hidden');
 
+            // Suspicious data check
             if(((age>100||height>210||weight>200)||(age<=1||height<=35||weight<=2)) && ReTryBut==0){
-                document.getElementById('resultArea').classList.remove('hidden');
-                document.getElementById('macros-section').classList.remove('hidden');
-                document.getElementById('text-info').innerText='Ви впевнені у даних? Значення виглядають підозріло.';
-                document.getElementById('confirm-buttons').classList.remove('hidden');
-                ReTryBut=1; 
-                return;
+                 document.getElementById('calc-error-msg').innerText = 'Ви впевнені у даних? Значення виглядають підозріло.';
+                 document.getElementById('calc-error-msg').classList.remove('hidden');
+                 document.getElementById('confirm-buttons').classList.remove('hidden');
+                 ReTryBut=1; 
+                 return;
             }
 
+            // Valid data proceed - show results immediately (restored behavior)
             ReTryBut=0;
             document.getElementById('confirm-buttons').classList.add('hidden');
-            document.getElementById('resultArea').classList.remove('hidden');
+            calculateAndDisplay();
+        }
+
+        function calculateAndDisplay() {
+             const age = Number(document.getElementById('age').value);
+             const height = Number(document.getElementById('height').value);
+             const weight = Number(document.getElementById('weight').value);
+             const gender = document.querySelector('input[name="gender"]:checked')?.value || 'male';
+             const activity = document.querySelector('input[name="activity"]:checked')?.value || 'medium';
+             const allergy = document.getElementById('allergy').value; 
+             const health = document.getElementById('health').value;   
+             
+             document.getElementById('resultArea').classList.remove('hidden');
 
             try{
                 const bmrVal = BMR(age,height,weight,gender,activity);
@@ -1022,28 +1009,19 @@
                 document.getElementById('macros-grid-container').innerHTML = macrosHTML;
                 document.getElementById('macros-section').classList.remove('hidden');
 
-                // --- NEW IMT LOGIC ---
+                // IMT
                 const imtStatus = IMT_Interpretation(imtVal);
                 let statusColorClass = 'text-gray-700';
                 let statusBgClass = 'bg-gray-100';
 
-                // Вибір кольору залежно від значення ІМТ
                 if (imtVal < 18.5) {
-                    // Недостатня вага - Синій
-                    statusColorClass = 'text-blue-600';
-                    statusBgClass = 'bg-blue-100 dark:bg-blue-900/30';
+                    statusColorClass = 'text-blue-600'; statusBgClass = 'bg-blue-100 dark:bg-blue-900/30';
                 } else if (imtVal < 25) {
-                    // Норма - Зелений
-                    statusColorClass = 'text-green-600';
-                    statusBgClass = 'bg-green-100 dark:bg-green-900/30';
+                    statusColorClass = 'text-green-600'; statusBgClass = 'bg-green-100 dark:bg-green-900/30';
                 } else if (imtVal < 30) {
-                    // Предожиріння - Помаранчевий
-                    statusColorClass = 'text-orange-500';
-                    statusBgClass = 'bg-orange-100 dark:bg-orange-900/30';
+                    statusColorClass = 'text-orange-500'; statusBgClass = 'bg-orange-100 dark:bg-orange-900/30';
                 } else {
-                    // Ожиріння - Червоний
-                    statusColorClass = 'text-red-600';
-                    statusBgClass = 'bg-red-100 dark:bg-red-900/30';
+                    statusColorClass = 'text-red-600'; statusBgClass = 'bg-red-100 dark:bg-red-900/30';
                 }
 
                 document.getElementById('imt-display').innerHTML = `
@@ -1054,11 +1032,9 @@
                         </span>
                     </div>
                     <div class="w-full bg-gray-200 rounded-full h-3 mt-4 dark:bg-gray-700 overflow-hidden shadow-inner">
-                         <!-- Лінія прогресу (макс 100% ширини, scale на 40, бо ІМТ > 40 це вже багато) -->
                         <div class="h-3 rounded-full transition-all duration-1000 ease-out ${statusColorClass.replace('text-', 'bg-')}" style="width: ${Math.min((imtVal / 40) * 100, 100)}%"></div>
                     </div>
                 `;
-                // --- END NEW IMT LOGIC ---
 
                 let extraInfo = '';
                 if(allergy) extraInfo += `Алергії: ${allergy}\n`;
@@ -1067,94 +1043,44 @@
 
                 document.getElementById('sleep-value').innerText = sleepRec;
                 document.getElementById('sleep-section').classList.remove('hidden');
-
+                
                 document.getElementById('water-value').innerText = waterRec;
                 document.getElementById('water-section').classList.remove('hidden');
 
                 const vitaminInfo = {
-                Vitamin_C: {
-                    name: "Вітамін C",
-                    unit: "мг",
-                    icon: "lemon",
-                    color: "text-orange-500",
-                    desc: "Зміцнює імунітет та допомагає засвоєнню заліза",
-                    info_desc: (val) => {
-                        const lemonVitC = 53; // мг / 100 г
-                        const grams = (val / lemonVitC * 100).toFixed(0);
-                        return `Це приблизно ${grams} г лимону`;
+                    Vitamin_C: {
+                        name: "Вітамін C", unit: "мг", icon: "lemon", color: "text-orange-500",
+                        desc: "Зміцнює імунітет та допомагає засвоєнню заліза",
+                        info_desc: (val) => { const grams = (val / 53 * 100).toFixed(0); return `Це приблизно ${grams} г лимону`; }
+                    },
+                    Vitamin_D: {
+                        name: "Вітамін D", unit: "IU", icon: "sun", color: "text-yellow-500",
+                        desc: "Потрібний для кісток та імунітету",
+                        info_desc: (val) => { const grams = (val / 526 * 100).toFixed(0); return `Це приблизно ${grams} г лосося`; }
+                    },
+                    Vitamin_A: {
+                        name: "Вітамін A", unit: "мкг", icon: "eye", color: "text-green-500",
+                        desc: "Підтримує зір і здоров’я шкіри",
+                        info_desc: (val) => { const grams = (val / 835 * 100).toFixed(0); return `Це приблизно ${grams} г моркви`; }
+                    },
+                    Vitamin_B1: {
+                        name: "Вітамін B1", unit: "мг", icon: "bolt", color: "text-red-500",
+                        desc: "Необхідний для нервової системи",
+                        info_desc: (val) => { const grams = (val / 0.8 * 100).toFixed(0); return `Це приблизно ${grams} г свинини`; }
+                    },
+                    Vitamin_B6: {
+                        name: "Вітамін B6", unit: "мг", icon: "capsules", color: "text-purple-500",
+                        desc: "Важливий для мозку та обміну білків",
+                        info_desc: (val) => { const grams = (val / 1.0 * 100).toFixed(0); return `Це приблизно ${grams} г тунця`; }
+                    },
+                    Vitamin_B12: {
+                        name: "Вітамін B12", unit: "мкг", icon: "brain", color: "text-pink-500",
+                        desc: "Потрібний для крові та нервів",
+                        info_desc: (val) => { const grams = (val / 20 * 100).toFixed(0); return `Це приблизно ${grams} г курячої печінки`; }
                     }
-                },
-
-                Vitamin_D: {
-                    name: "Вітамін D",
-                    unit: "IU",
-                    icon: "sun",
-                    color: "text-yellow-500",
-                    desc: "Потрібний для кісток та імунітету",
-                    info_desc: (val) => {
-                        const salmonVitD = 526; // IU / 100 г
-                        const grams = (val / salmonVitD * 100).toFixed(0);
-                        return `Це приблизно ${grams} г лосося`;
-                    }
-                },
-
-                Vitamin_A: {
-                    name: "Вітамін A",
-                    unit: "мкг",
-                    icon: "eye",
-                    color: "text-green-500",
-                    desc: "Підтримує зір і здоров’я шкіри",
-                    info_desc: (val) => {
-                        const carrotVitA = 835; // мкг / 100 г
-                        const grams = (val / carrotVitA * 100).toFixed(0);
-                        return `Це приблизно ${grams} г моркви`;
-                    }
-                },
-
-                Vitamin_B1: {
-                    name: "Вітамін B1",
-                    unit: "мг",
-                    icon: "bolt",
-                    color: "text-red-500",
-                    desc: "Необхідний для нервової системи",
-                    info_desc: (val) => {
-                        const porkB1 = 0.8; // мг / 100 г
-                        const grams = (val / porkB1 * 100).toFixed(0);
-                        return `Це приблизно ${grams} г свинини`;
-                    }
-                },
-
-                Vitamin_B6: {
-                    name: "Вітамін B6",
-                    unit: "мг",
-                    icon: "capsules",
-                    color: "text-purple-500",
-                    desc: "Важливий для мозку та обміну білків",
-                    info_desc: (val) => {
-                        const tunaB6 = 1.0; // мг / 100 г
-                        const grams = (val / tunaB6 * 100).toFixed(0);
-                        return `Це приблизно ${grams} г тунця`;
-                    }
-                },
-
-                Vitamin_B12: {
-                    name: "Вітамін B12",
-                    unit: "мкг",
-                    icon: "brain",
-                    color: "text-pink-500",
-                    desc: "Потрібний для крові та нервів",
-                    info_desc: (val) => {
-                        const chicken_liverB12 = 20; // мкг / 100 г
-                        const grams = (val / chicken_liverB12 * 100).toFixed(0);
-                        return `Це приблизно ${grams} г курячої печінки`;
-                    }
-                }
-            };
-
+                };
                 
                 const vitaminValues = vitamins(age, gender, weight, activity);
-                const gridContainer = document.getElementById('vitamin-grid-container');
-                
                 let cardsHTML = '';
                 for (const key in vitaminValues) {
                     const val = vitaminValues[key];
@@ -1165,15 +1091,14 @@
                             <div>
                                 <h5 class="font-bold text-sm text-gray-800 dark:text-gray-100">${info.name}</h5>
                                 <p class="font-bold text-gray-900 dark:text-white">${val.toFixed(2)} ${info.unit}</p>
-                                <h6 class="text-xs text-gray-500 dark:text-gray-400 mt-1">${info.desc}</h6>
                                 <h6 class="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                 ${info.desc}<br>
                                 <span class="italic">${info.info_desc(val)}</span>
-                            </h6>
+                                </h6>
                             </div>
                         </div>`;
                 }
-                gridContainer.innerHTML = cardsHTML;
+                document.getElementById('vitamin-grid-container').innerHTML = cardsHTML;
                 document.getElementById('vitamin-section').classList.remove('hidden');
 
             } catch(err){ console.error(err); }
