@@ -305,6 +305,14 @@
             border-color: #10b981;
             background-color: #f9fafb;
         }
+        
+        /* Стилі для Hover ефектів статей */
+        .article-card:hover .article-image {
+            transform: scale(1.05);
+        }
+        .article-card .article-image {
+            transition: transform 0.5s ease;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
@@ -351,9 +359,6 @@
             </a>
             <a href="javascript:void(0)" onclick="showPage('calculator'); toggleMenu();" class="menu-item delay-2 hover:text-green-500 flex items-center space-x-4">
                 <i class="fas fa-calculator w-6"></i> <span>Калькулятор</span>
-            </a>
-            <a href="javascript:void(0)" onclick="showPage('information'); toggleMenu();" class="menu-item delay-2 hover:text-green-500 flex items-center space-x-4">
-                <i class="fas fa-information w-6"></i> <span>Інформація</span>
             </a>
             <a href="javascript:void(0)" onclick="openAdminAuth(); toggleMenu();" class="menu-item delay-3 hover:text-red-500 flex items-center space-x-4 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
                 <i class="fas fa-cogs w-6"></i> <span>Адмін Панель</span>
@@ -736,14 +741,8 @@
                     </div>
                 </div>
             </div>
-        <main id="information-page" class="page-content pt-32 pb-20">
-            <div class="container mx-auto px-4 max-w-5xl"> 
-                <h2 class="text-4xl font-black text-center mb-12 editable-text dark:text-white">Інформація</h2>
-
-            </div>
+    
         </main>
-        </main>
-
     </div>
 
     <!-- ADMIN PANEL -->
@@ -1073,13 +1072,85 @@
                 document.getElementById('water-section').classList.remove('hidden');
 
                 const vitaminInfo = {
-                    Vitamin_C:  { name: "Вітамін C", unit: "мг", icon: "lemon", color: "text-orange-500", desc: "Зміцнює імунітет, допомагає загоєнню ран, потрібний для судин і засвоєння заліза" },
-                    Vitamin_D:  { name: "Вітамін D", unit: "IU", icon: "sun", color: "text-yellow-500", desc: "Регулює засвоєння кальцію і фосфору, потрібний для міцних кісток та імунітету" },
-                    Vitamin_A:  { name: "Вітамін A", unit: "мкг", icon: "eye", color: "text-green-500", desc: "Забезпечує нормальний зір, ріст клітин і здоров’я шкіри та слизових оболонок" },
-                    Vitamin_B1: { name: "Вітамін B1", unit: "мг", icon: "bolt", color: "text-red-500", desc: "Необхідний для роботи нервової системи та перетворення їжі на енергію" },
-                    Vitamin_B6: { name: "Вітамін B6", unit: "мг", icon: "capsules", color: "text-purple-500", desc: "Бере участь у обміні білків, роботі мозку та утворенні гемоглобіну" },
-                    Vitamin_B12:{ name: "Вітамін B12", unit: "мкг", icon: "brain", color: "text-pink-500", desc: "Важливий для кровотворення, нервової системи та синтезу ДНК" }
-                };
+                Vitamin_C: {
+                    name: "Вітамін C",
+                    unit: "мг",
+                    icon: "lemon",
+                    color: "text-orange-500",
+                    desc: "Зміцнює імунітет та допомагає засвоєнню заліза",
+                    info_desc: (val) => {
+                        const lemonVitC = 53; // мг / 100 г
+                        const grams = (val / lemonVitC * 100).toFixed(0);
+                        return `Це приблизно ${grams} г лимону`;
+                    }
+                },
+
+                Vitamin_D: {
+                    name: "Вітамін D",
+                    unit: "IU",
+                    icon: "sun",
+                    color: "text-yellow-500",
+                    desc: "Потрібний для кісток та імунітету",
+                    info_desc: (val) => {
+                        const salmonVitD = 526; // IU / 100 г
+                        const grams = (val / salmonVitD * 100).toFixed(0);
+                        return `Це приблизно ${grams} г лосося`;
+                    }
+                },
+
+                Vitamin_A: {
+                    name: "Вітамін A",
+                    unit: "мкг",
+                    icon: "eye",
+                    color: "text-green-500",
+                    desc: "Підтримує зір і здоров’я шкіри",
+                    info_desc: (val) => {
+                        const carrotVitA = 835; // мкг / 100 г
+                        const grams = (val / carrotVitA * 100).toFixed(0);
+                        return `Це приблизно ${grams} г моркви`;
+                    }
+                },
+
+                Vitamin_B1: {
+                    name: "Вітамін B1",
+                    unit: "мг",
+                    icon: "bolt",
+                    color: "text-red-500",
+                    desc: "Необхідний для нервової системи",
+                    info_desc: (val) => {
+                        const porkB1 = 0.8; // мг / 100 г
+                        const grams = (val / porkB1 * 100).toFixed(0);
+                        return `Це приблизно ${grams} г свинини`;
+                    }
+                },
+
+                Vitamin_B6: {
+                    name: "Вітамін B6",
+                    unit: "мг",
+                    icon: "capsules",
+                    color: "text-purple-500",
+                    desc: "Важливий для мозку та обміну білків",
+                    info_desc: (val) => {
+                        const tunaB6 = 1.0; // мг / 100 г
+                        const grams = (val / tunaB6 * 100).toFixed(0);
+                        return `Це приблизно ${grams} г тунця`;
+                    }
+                },
+
+                Vitamin_B12: {
+                    name: "Вітамін B12",
+                    unit: "мкг",
+                    icon: "brain",
+                    color: "text-pink-500",
+                    desc: "Потрібний для крові та нервів",
+                    info_desc: (val) => {
+                        const chicken_liverB12 = 20; // мкг / 100 г
+                        const grams = (val / chicken_liverB12 * 100).toFixed(0);
+                        return `Це приблизно ${grams} г курячої печінки`;
+                    }
+                }
+            };
+
                 
                 const vitaminValues = vitamins(age, gender, weight, activity);
                 const gridContainer = document.getElementById('vitamin-grid-container');
@@ -1095,6 +1166,10 @@
                                 <h5 class="font-bold text-sm text-gray-800 dark:text-gray-100">${info.name}</h5>
                                 <p class="font-bold text-gray-900 dark:text-white">${val.toFixed(2)} ${info.unit}</p>
                                 <h6 class="text-xs text-gray-500 dark:text-gray-400 mt-1">${info.desc}</h6>
+                                <h6 class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                ${info.desc}<br>
+                                <span class="italic">${info.info_desc(val)}</span>
+                            </h6>
                             </div>
                         </div>`;
                 }
