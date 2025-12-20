@@ -1,14 +1,10 @@
 // Функция расчета BMR (Базовый обмен веществ)
-function calculateBMR(age, height, weight, gender, activity) {
-    const multipliers = { very_high: 1.9, high: 1.725, medium: 1.55, small: 1.375, low: 1.2 };
-    
-    // Формула Миффлина-Сан Жеора
-    let bmr = (10 * weight) + (6.25 * height) - (5 * age);
-    bmr += (gender === 'male' ? 5 : -161);
-    
-    return bmr * (multipliers[activity] || 1.55);
+function calculateBMR(age,height,weight,gender,activity){
+    age=Number(age);height=Number(height);weight=Number(weight);
+    const multipliers={very_high:1.9,high:1.725,medium:1.55,small:1.375,low:1.2};
+    let bmr = (10*weight)+(6.25*height)-(5*age)+(gender==='male'?5:-161);
+    return bmr*(multipliers[activity]??1.55);
 }
-
 
 // ... (Функція calculateBMR залишається без змін) ...
 
@@ -16,6 +12,10 @@ async function send() {
     const age = document.getElementById("age").value;
     const height = document.getElementById("height").value;
     const weight = document.getElementById("weight").value;
+    const gender = document.getElementById("gender").value;
+    const activity = document.getElementById("activity").value;
+    const allergy = document.getElementById("allergy").value;
+    const health = document.getElementById("health").value;
     // ... (збір інших даних без змін) ...
 
     // Перевірка заповнення
