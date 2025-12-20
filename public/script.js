@@ -47,7 +47,7 @@ async function send() {
     try {
         // 3. Відправляємо дані на НАШ сервер (локальний або на Render)
         // Якщо запускаєте локально — використовуйте localhost
-        const response = await fetch("http://localhost:3000/api/diet", { 
+        const response = await fetch("https://gtp-diet-site-back.vercel.app/api/diet", { 
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(requestData)
