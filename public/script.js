@@ -23,6 +23,27 @@ function calculateBMR(age, height, weight, gender, activity) {
     return base * (multipliers[activity] ?? 1.55);
 }
 
+function vitam(age,gender,weight,activity){
+    age=Number(age);weight=Number(weight);
+    const multipliers={very_high:1.4,high:1.2,medium:1.1,small:1,low:0.8};
+    const vitaminRDA={Vitamin_C:90,Vitamin_D:800,Vitamin_A:700,Vitamin_B1:1.1,Vitamin_B6:1.3,Vitamin_B12:2.4};
+    const genderFactor={male:1,female:0.9};
+    let ageFactor = age<=3?0.8:age<=8?0.9:age<=13?1:age<=18?1.1:age<=50?1:1.2;
+    const activityMultiplier = multipliers[activity] ?? 1.1;
+    const gFactor = genderFactor[gender] ?? 1;
+    const weightFactor = (weight>0)?(weight/70):1;
+    return {
+    Vitamin_D: vitaminRDA.Vitamin_D * ageFactor * gFactor * activityMultiplier * weightFactor,
+    Vitamin_C: vitaminRDA.Vitamin_C * ageFactor * gFactor * activityMultiplier * weightFactor,
+    Vitamin_B12: vitaminRDA.Vitamin_B12 * ageFactor * gFactor * activityMultiplier * weightFactor,
+    Vitamin_A: vitaminRDA.Vitamin_A * ageFactor * gFactor * activityMultiplier * weightFactor,
+    Vitamin_B1: vitaminRDA.Vitamin_B1 * ageFactor * gFactor * activityMultiplier * weightFactor,
+    Vitamin_B6: vitaminRDA.Vitamin_B6 * ageFactor * gFactor * activityMultiplier * weightFactor
+    };
+}
+
+function prot(activity,weight){const m={very_high:2,high:1.8,medium:1.4,small:1.2,low:0.8}; return Number(weight)*(m[activity]??1.4)}
+
 // ===============================
 // НАДСИЛАННЯ ДАНИХ НА БЕКЕНД
 // ===============================
@@ -40,17 +61,17 @@ async function send() {
         return;
     }
 
-    const proteinMult = 1.6;
     const bmrVal = calculateBMR(age, height, weight, gender, activity);
 
     // Створюємо об'єкт
     const requestData = {
         bmr: Math.round(bmrVal),
-        protein: Math.round(weight * proteinMult),
+        protein: Math.round(prot(activity,weight)),
         fat: Math.round((0.3 * bmrVal) / 9),
         carb: Math.round((0.4 * bmrVal) / 4),
         allergy: allergy || "немає",
-        health: health || "немає"
+        health: health || "немає",
+        vitamins: vitam(age,height,weight,activity)
     };
 
     console.log("POST DATA:", requestData);
