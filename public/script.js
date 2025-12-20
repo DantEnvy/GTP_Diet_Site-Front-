@@ -46,6 +46,7 @@ async function send() {
     const proteinMult = 1.6; // стандарт
     const bmrVal = calculateBMR(age, height, weight, gender, activity);
 
+    // Створюємо об'єкт з даними для відправки
     const requestData = {
         bmr: Math.round(bmrVal),
         protein: Math.round(weight * proteinMult),
@@ -62,42 +63,48 @@ async function send() {
     resultDiv.style.color = "blue";
 
     // ===============================
-    // API URL (локально / Render)
+    // API URL
+    // Важливо: Якщо в server.js шлях app.post('/', ...), то тут теж має бути корінь
     // ===============================
     const apiUrl =
-        location.hostname === "localhost"
-            ? "http://localhost:3000/api/diet"
-            : "https://back-end-daij.onrender.com/api/diet";
+        location.hostname === "localhost" || location.hostname === "127.0.0.1"
+            ? "http://localhost:3000"
+            : "https://back-end-daij.onrender.com";
 
     try {
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(requestData)
+        // ВІДПРАВЛЯЄМО ЗАПИТ НА БЕКЕНД
+        const response = await fetch(apiUrl, { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // ВИПРАВЛЕННЯ: передаємо вже готовий об'єкт requestData
+            body: JSON.stringify(requestData) 
         });
 
-        const data = await response.json();
-
         if (!response.ok) {
-            throw new Error(data.error || "Помилка сервера");
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        const data = await response.json();
+        
+        // Відображення результату
         if (data.diet) {
-            if (typeof marked !== "undefined") {
-                resultDiv.innerHTML = marked.parse(data.diet);
-            } else {
-                resultDiv.innerText = data.diet;
-            }
+            // ВИПРАВЛЕННЯ: Виводимо текст на екран, а не тільки в консоль
             resultDiv.style.color = "black";
+            // Якщо ви хочете відобразити Markdown красиво, можна використати бібліотеку marked.js,
+            // але поки просто текст:
+            resultDiv.innerText = data.diet; 
+            console.log(data.diet); 
         } else {
-            throw new Error("Порожня відповідь від сервера");
+            resultDiv.innerText = "Сталася помилка при генерації.";
+            resultDiv.style.color = "red";
+            console.error("Помилка:", data.error);
         }
 
     } catch (error) {
-        console.error("ERROR:", error);
-        resultDiv.innerText =
-            "❌ Сервер не відповідає або сталася помилка.\n" +
-            error.message;
+        resultDiv.innerText = "Не вдалося з'єднатися з сервером.";
         resultDiv.style.color = "red";
+        console.error("Помилка fetch:", error);
     }
 }
