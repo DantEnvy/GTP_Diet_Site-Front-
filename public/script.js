@@ -9,102 +9,70 @@ function calculateBMR(age, height, weight, gender, activity) {
     return bmr * (multipliers[activity] || 1.55);
 }
 
-// Главная функция отправки через Gemini API
+
 async function send() {
-    // 1. Получаем данные из полей ввода
+    // 1. Збір даних
     const age = document.getElementById("age").value;
     const height = document.getElementById("height").value;
     const weight = document.getElementById("weight").value;
     const allergy = document.getElementById("allergy").value;
     const health = document.getElementById("health").value;
 
-    // Получаем выбранные радио-кнопки
-    const genderEl = document.querySelector('input[name="gender"]:checked');
-    const activityEl = document.querySelector('input[name="activity"]:checked');
-    const gender = genderEl ? genderEl.value : 'male';
-    const activity = activityEl ? activityEl.value : 'medium';
+    const gender = document.querySelector('input[name="gender"]:checked')?.value || 'male';
+    const activity = document.querySelector('input[name="activity"]:checked')?.value || 'medium';
 
-    // Проверка заполненности
     if (!age || !height || !weight) {
         alert("Будь ласка, заповніть вік, зріст та вагу!");
         return;
     }
 
-    // 2. Рассчитываем показатели
+    // 2. Розрахунки (клієнтська логіка)
     const bmrVal = calculateBMR(age, height, weight, gender, activity);
-    
-    // Коэффициенты для белков
     const proteinMult = { very_high: 2, high: 1.8, medium: 1.4, small: 1.2, low: 0.8 }[activity] || 1.4;
     
-    const proteins = Math.round(weight * proteinMult);
-    const fats = Math.round((0.3 * bmrVal) / 9);
-    const carbs = Math.round((0.4 * bmrVal) / 4);
-    const bmrRounded = Math.round(bmrVal);
+    const requestData = {
+        bmr: Math.round(bmrVal),
+        protein: Math.round(weight * proteinMult),
+        fat: Math.round((0.3 * bmrVal) / 9),
+        carb: Math.round((0.4 * bmrVal) / 4),
+        allergy: allergy,
+        health: health
+    };
 
-    // 3. Формируем текст запроса (Промпт) для Gemini
-    // Мы просим модель действовать как диетолог
-    const promptText = `
-      Створи детальний план харчування (дієту) на один день, базуючись на наступних параметрах користувача:
-      - Калорійність: ${bmrRounded} ккал
-      - Білки: ${proteins} г
-      - Жири: ${fats} г
-      - Вуглеводи: ${carbs} г
-      - Алергії: ${allergy || "немає"}
-      - Проблеми зі здоров'ям: ${health || "немає"}
-      
-      Розпиши сніданок, обід, вечерю та перекуси. Вкажи приблизну вагу порцій. Відповідай українською мовою.
-    `;
-
-    // Элемент вывода
+    // UI: Показуємо завантаження
     const resultDiv = document.getElementById("result");
-    resultDiv.innerText = "Генеруємо дієту за допомогою Gemini... Зачекайте...";
+    resultDiv.innerText = "Звертаємось до сервера... Зачекайте...";
     resultDiv.style.color = "blue";
 
-    // Твой API ключ (Вставь сюда НОВЫЙ ключ)
-    API_KEY = env.API_KEY;
     try {
-        // 4. Отправляем запрос в Google Gemini API
-        // Используем модель gemini-1.5-flash (она быстрая и дешевая/бесплатная)
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            parts: [
-                                { text: promptText }
-                            ]
-                        }
-                    ]
-                })
-            }
-        );
+        // 3. Відправляємо дані на НАШ сервер (локальний або на Render)
+        // Якщо запускаєте локально — використовуйте localhost
+        const response = await fetch("http://localhost:3000/api/diet", { 
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(requestData)
+        });
 
         const data = await response.json();
 
-        if (response.ok && data.candidates && data.candidates.length > 0) {
-            // 5. Получаем текст ответа
-            const dietText = data.candidates[0].content.parts[0].text;
-            
-            // Отображаем
-            resultDiv.innerHTML = marked.parse(dietText);
+        if (response.ok && data.diet) {
+            // 4. Відображаємо результат
+            // Використовуємо marked, якщо підключили, або просто innerText
+            if (typeof marked !== 'undefined') {
+                resultDiv.innerHTML = marked.parse(data.diet);
+            } else {
+                resultDiv.innerText = data.diet;
+            }
             resultDiv.style.color = "black";
-            
-            // Сохраняем в память
-            localStorage.setItem('diet', dietText);
+            localStorage.setItem('diet', data.diet);
         } else {
-            console.error("Gemini Error:", data);
-            resultDiv.innerText = "Помилка отримання даних від ШІ.";
+            resultDiv.innerText = "Помилка сервера: " + (data.error || "Невідома помилка");
             resultDiv.style.color = "red";
         }
 
     } catch (error) {
-        console.error("Network Error:", error);
-        resultDiv.innerText = "Не вдалося з'єднатися з Google API.";
+        console.error("Fetch error:", error);
+        resultDiv.innerText = "Не вдалося під'єднатися до сервера.";
         resultDiv.style.color = "red";
     }
 }
