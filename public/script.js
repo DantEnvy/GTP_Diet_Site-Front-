@@ -1,4 +1,3 @@
-
 // ===============================
 // РОЗРАХУНОК BMR
 // ===============================
@@ -41,13 +40,10 @@ async function send() {
         return;
     }
 
-    // ===============================
-    // РОЗРАХУНКИ
-    // ===============================
-    const proteinMult = 1.6; // стандарт
+    const proteinMult = 1.6;
     const bmrVal = calculateBMR(age, height, weight, gender, activity);
 
-    // Створюємо об'єкт з даними для відправки
+    // Створюємо об'єкт
     const requestData = {
         bmr: Math.round(bmrVal),
         protein: Math.round(weight * proteinMult),
@@ -63,23 +59,18 @@ async function send() {
     resultDiv.innerText = "⏳ Генеруємо меню, зачекайте...";
     resultDiv.style.color = "blue";
 
-    // ===============================
-    // API URL
-    // Важливо: Якщо в server.js шлях app.post('/', ...), то тут теж має бути корінь
-    // ===============================
+    // Автоматичний вибір адреси (локально або сервер)
     const apiUrl =
         location.hostname === "localhost" || location.hostname === "127.0.0.1"
             ? "http://localhost:3000"
             : "https://back-end-daij.onrender.com";
 
     try {
-        // ВІДПРАВЛЯЄМО ЗАПИТ НА БЕКЕНД
         const response = await fetch(apiUrl, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            // ВИПРАВЛЕННЯ: передаємо вже готовий об'єкт requestData
             body: JSON.stringify(requestData) 
         });
 
@@ -89,12 +80,8 @@ async function send() {
 
         const data = await response.json();
         
-        // Відображення результату
         if (data.diet) {
-            // ВИПРАВЛЕННЯ: Виводимо текст на екран, а не тільки в консоль
             resultDiv.style.color = "black";
-            // Якщо ви хочете відобразити Markdown красиво, можна використати бібліотеку marked.js,
-            // але поки просто текст:
             resultDiv.innerText = data.diet; 
             console.log(data.diet); 
         } else {
