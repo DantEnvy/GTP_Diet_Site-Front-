@@ -8,89 +8,6 @@ function calculateBMR(age, height, weight, gender, activity) {
     
     return bmr * (multipliers[activity] || 1.55);
 }
-/*
-// Главная функция отправки
-async function send() {
-    // 1. Получаем данные из полей ввода
-    const age = document.getElementById("age").value;
-    const height = document.getElementById("height").value;
-    const weight = document.getElementById("weight").value;
-    const allergy = document.getElementById("allergy").value;
-    const health = document.getElementById("health").value;
-
-    // Получаем выбранные радио-кнопки
-    const genderEl = document.querySelector('input[name="gender"]:checked');
-    const activityEl = document.querySelector('input[name="activity"]:checked');
-    const gender = genderEl ? genderEl.value : 'male';
-    const activity = activityEl ? activityEl.value : 'medium';
-
-    // Проверка заполненности
-    if (!age || !height || !weight) {
-        alert("Будь ласка, заповніть вік, зріст та вагу!");
-        return;
-    }
-
-    // 2. Рассчитываем показатели (чтобы отправить их в GPT)
-    const bmrVal = calculateBMR(age, height, weight, gender, activity);
-    
-    // Коэффициенты для белков
-    const proteinMult = { very_high: 2, high: 1.8, medium: 1.4, small: 1.2, low: 0.8 }[activity] || 1.4;
-    
-    const proteins = Math.round(weight * proteinMult);
-    const fats = Math.round((0.3 * bmrVal) / 9);
-    const carbs = Math.round((0.4 * bmrVal) / 4);
-    const bmrRounded = Math.round(bmrVal);
-
-    // 3. Собираем объект для отправки
-    const data = {
-        bmr: bmrRounded,
-        carb: carbs,
-        fat: fats,
-        protein: proteins,
-        allergy: allergy,
-        health: health
-    };
-
-    // Показываем пользователю, что идет загрузка
-    const resultDiv = document.getElementById("result");
-    resultDiv.innerText = "Генеруємо дієту за допомогою ШІ... Зачекайте (це може зайняти 5-10 секунд)";
-    resultDiv.style.color = "blue";
-
-    try {
-        // 4. Отправляем на сервер
-        const res = await fetch("https://back-end-daij.onrender.com/api/diet", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
-
-        if (res.ok) {
-            const result = await res.json();
-            // 5. Показываем ответ GPT
-            resultDiv.innerText = result.diet;
-            resultDiv.style.color = "black"; // Возвращаем цвет
-            
-            // Сохраняем, чтобы не пропало при обновлении
-            localStorage.setItem('diet', result.diet);
-        } else {
-            resultDiv.innerText = "Помилка сервера. Спробуйте пізніше.";
-            resultDiv.style.color = "red";
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        resultDiv.innerText = "Не вдалося з'єднатися з сервером.";
-        resultDiv.style.color = "red";
-    }
-}
-
-// Восстановление диеты при перезагрузке страницы
-window.addEventListener('load', () => {
-    const savedDiet = localStorage.getItem('diet');
-    if (savedDiet) {
-        document.getElementById('result').innerText = savedDiet;
-    }
-});*/
-
 
 // Главная функция отправки через Gemini API
 async function send() {
@@ -144,7 +61,6 @@ async function send() {
     resultDiv.style.color = "blue";
 
     // Твой API ключ (Вставь сюда НОВЫЙ ключ)
-    const API_KEY = "AIzaSyCZeLQ__qoG1MaM5Oti7-MbWqSIGoa-3XA"; 
 
     try {
         // 4. Отправляем запрос в Google Gemini API
