@@ -968,7 +968,13 @@
 
         function proteins(activity,weight){const m={very_high:2,high:1.8,medium:1.4,small:1.2,low:0.8}; return Number(weight)*(m[activity]??1.4)}
         function fat(brm_last){return (0.3*brm_last)/9}
-        function carb(brm_last){return (0.4*brm_last)/4}
+        function carb(brm_last, proteins, fat){
+            const proteinKcal = proteins * 4;
+            const fatKcal = fat * 9;
+            const carbKcal = brm_last - proteinKcal - fatKcal;
+            const carbGrams = carbKcal / 4;
+            return carbGrams;
+        }
 
         function vitamins(age,gender,weight,activity){
             age=Number(age);weight=Number(weight);
@@ -1058,7 +1064,7 @@
                 const calVal = Number(bmrVal).toFixed(0);
                 const protVal = Number(proteins(activity,weight)).toFixed(0);
                 const fatVal = Number(fat(bmrVal)).toFixed(0);
-                const carbVal = Number(carb(bmrVal)).toFixed(0);
+                const carbVal = Number(carb(bmrVal, protVal, fatVal)).toFixed(0);
 
                 const macrosHTML = `
                     <div class="flex flex-col items-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-2xl border border-orange-100 dark:border-orange-900/30">
@@ -1080,7 +1086,7 @@
                         <div class="text-amber-500 text-2xl mb-2"><i class="fas fa-bread-slice"></i></div>
                         <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">Вуглеводи</div>
                         <div class="text-lg font-bold text-gray-900 dark:text-white">${carbVal} г</div>
-                    </div>
+                    </div>  
                 `;
                 document.getElementById('macros-grid-container').innerHTML = macrosHTML;
                 document.getElementById('macros-section').classList.remove('hidden');
