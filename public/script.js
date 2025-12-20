@@ -24,7 +24,8 @@ function calculateBMR(age, height, weight, gender, activity) {
 }
 
 function vitam(age,gender,weight,activity){
-    age=Number(age);weight=Number(weight);
+    age=Number(age);
+    weight=Number(weight);
     const multipliers={very_high:1.4,high:1.2,medium:1.1,small:1,low:0.8};
     const vitaminRDA={Vitamin_C:90,Vitamin_D:800,Vitamin_A:700,Vitamin_B1:1.1,Vitamin_B6:1.3,Vitamin_B12:2.4};
     const genderFactor={male:1,female:0.9};
@@ -42,7 +43,7 @@ function vitam(age,gender,weight,activity){
     };
 }
 
-function prot(activity,weight){const m={very_high:2,high:1.8,medium:1.4,small:1.2,low:0.8}; return Number(weight)*(m[activity]??1.4)}
+function prot(activity,weight){const m={very_high:2,high:1.8,medium:1.4,small:1.2,low:0.8}; return Number(weight)*(m[activity])}
 
 // ===============================
 // НАДСИЛАННЯ ДАНИХ НА БЕКЕНД
@@ -61,17 +62,31 @@ async function send() {
         return;
     }
 
-    const bmrVal = calculateBMR(age, height, weight, gender, activity);
+    const totalCalories = calculateBMR(age, height, weight, gender, activity); // Ваша цель калорий
 
-    // Створюємо об'єкт
+    // 1. Считаем белки (приоритет №1) - по вашей формуле от веса
+    const proteinGrams = prot(activity, weight);
+    const proteinKcal = proteinGrams * 4; // В 1г белка 4 ккал
+
+    // 2. Считаем жиры (приоритет №2) - берем 30% от калорийности
+    const fatKcal = totalCalories * 0.3;
+    const fatGrams = fatKcal / 9; // В 1г жира 9 ккал
+
+    // 3. Считаем углеводы (приоритет №3) - всё оставшееся место
+    // Отнимаем от общих калорий калории белков и жиров
+    const carbKcal = totalCalories - proteinKcal - fatKcal;
+    const carbGrams = carbKcal / 4; // В 1г углеводов 4 ккал
+
+    // Формируем объект (не забудьте округлять и про витамины!)
     const requestData = {
-        bmr: Math.round(bmrVal),
-        protein: Math.round(prot(activity,weight)),
-        fat: Math.round((0.3 * bmrVal) / 9),
-        carb: Math.round((0.4 * bmrVal) / 4),
+        bmr: Math.round(totalCalories),
+        protein: Math.round(proteinGrams),
+        fat: Math.round(fatGrams),
+        // ВАЖНО: Math.max(0, ...) защитит от отрицательных чисел, если белка вдруг слишком много
+        carb: Math.round(Math.max(0, carbGrams)), 
         allergy: allergy || "немає",
         health: health || "немає",
-        vitamins: vitam(age,height,weight,activity)
+        vitamins: vitam(age, gender, weight, activity) // Исправленный вызов
     };
 
     console.log("POST DATA:", requestData);
