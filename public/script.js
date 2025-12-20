@@ -8,7 +8,7 @@ function calculateBMR(age, height, weight, gender, activity) {
     
     return bmr * (multipliers[activity] || 1.55);
 }
-
+/*
 // Главная функция отправки
 async function send() {
     // 1. Получаем данные из полей ввода
@@ -89,4 +89,106 @@ window.addEventListener('load', () => {
     if (savedDiet) {
         document.getElementById('result').innerText = savedDiet;
     }
-});
+});*/
+
+
+// Главная функция отправки через Gemini API
+async function send() {
+    // 1. Получаем данные из полей ввода
+    const age = document.getElementById("age").value;
+    const height = document.getElementById("height").value;
+    const weight = document.getElementById("weight").value;
+    const allergy = document.getElementById("allergy").value;
+    const health = document.getElementById("health").value;
+
+    // Получаем выбранные радио-кнопки
+    const genderEl = document.querySelector('input[name="gender"]:checked');
+    const activityEl = document.querySelector('input[name="activity"]:checked');
+    const gender = genderEl ? genderEl.value : 'male';
+    const activity = activityEl ? activityEl.value : 'medium';
+
+    // Проверка заполненности
+    if (!age || !height || !weight) {
+        alert("Будь ласка, заповніть вік, зріст та вагу!");
+        return;
+    }
+
+    // 2. Рассчитываем показатели
+    const bmrVal = calculateBMR(age, height, weight, gender, activity);
+    
+    // Коэффициенты для белков
+    const proteinMult = { very_high: 2, high: 1.8, medium: 1.4, small: 1.2, low: 0.8 }[activity] || 1.4;
+    
+    const proteins = Math.round(weight * proteinMult);
+    const fats = Math.round((0.3 * bmrVal) / 9);
+    const carbs = Math.round((0.4 * bmrVal) / 4);
+    const bmrRounded = Math.round(bmrVal);
+
+    // 3. Формируем текст запроса (Промпт) для Gemini
+    // Мы просим модель действовать как диетолог
+    const promptText = `
+      Створи детальний план харчування (дієту) на один день, базуючись на наступних параметрах користувача:
+      - Калорійність: ${bmrRounded} ккал
+      - Білки: ${proteins} г
+      - Жири: ${fats} г
+      - Вуглеводи: ${carbs} г
+      - Алергії: ${allergy || "немає"}
+      - Проблеми зі здоров'ям: ${health || "немає"}
+      
+      Розпиши сніданок, обід, вечерю та перекуси. Вкажи приблизну вагу порцій. Відповідай українською мовою.
+    `;
+
+    // Элемент вывода
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerText = "Генеруємо дієту за допомогою Gemini... Зачекайте...";
+    resultDiv.style.color = "blue";
+
+    // Твой API ключ (Вставь сюда НОВЫЙ ключ)
+    const API_KEY = "AIzaSyCZeLQ__qoG1MaM5Oti7-MbWqSIGoa-3XA"; 
+
+    try {
+        // 4. Отправляем запрос в Google Gemini API
+        // Используем модель gemini-1.5-flash (она быстрая и дешевая/бесплатная)
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            parts: [
+                                { text: promptText }
+                            ]
+                        }
+                    ]
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (response.ok && data.candidates && data.candidates.length > 0) {
+            // 5. Получаем текст ответа
+            const dietText = data.candidates[0].content.parts[0].text;
+            
+            // Отображаем
+            resultDiv.innerText = dietText;
+            resultDiv.style.color = "black";
+            
+            // Сохраняем в память
+            localStorage.setItem('diet', dietText);
+        } else {
+            console.error("Gemini Error:", data);
+            resultDiv.innerText = "Помилка отримання даних від ШІ.";
+            resultDiv.style.color = "red";
+        }
+
+    } catch (error) {
+        console.error("Network Error:", error);
+        resultDiv.innerText = "Не вдалося з'єднатися з Google API.";
+        resultDiv.style.color = "red";
+    }
+}
