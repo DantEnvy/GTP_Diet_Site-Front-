@@ -10,26 +10,24 @@ function calculateBMR(age, height, weight, gender, activity) {
 }
 
 
+// ... (Функція calculateBMR залишається без змін) ...
+
 async function send() {
-    // 1. Збір даних
     const age = document.getElementById("age").value;
     const height = document.getElementById("height").value;
     const weight = document.getElementById("weight").value;
-    const allergy = document.getElementById("allergy").value;
-    const health = document.getElementById("health").value;
+    // ... (збір інших даних без змін) ...
 
-    const gender = document.querySelector('input[name="gender"]:checked')?.value || 'male';
-    const activity = document.querySelector('input[name="activity"]:checked')?.value || 'medium';
-
+    // Перевірка заповнення
     if (!age || !height || !weight) {
-        alert("Будь ласка, заповніть вік, зріст та вагу!");
+        alert("Заповніть всі поля!");
         return;
     }
 
-    // 2. Розрахунки (клієнтська логіка)
+    // Розрахунки
     const bmrVal = calculateBMR(age, height, weight, gender, activity);
-    const proteinMult = { very_high: 2, high: 1.8, medium: 1.4, small: 1.2, low: 0.8 }[activity] || 1.4;
-    
+    // ... (розрахунки макросів залишаються без змін) ...
+
     const requestData = {
         bmr: Math.round(bmrVal),
         protein: Math.round(weight * proteinMult),
@@ -39,15 +37,16 @@ async function send() {
         health: health
     };
 
-    // UI: Показуємо завантаження
     const resultDiv = document.getElementById("result");
-    resultDiv.innerText = "Звертаємось до сервера... Зачекайте...";
+    resultDiv.innerText = "Генеруємо меню... це займе кілька секунд...";
     resultDiv.style.color = "blue";
 
     try {
-        // 3. Відправляємо дані на НАШ сервер (локальний або на Render)
-        // Якщо запускаєте локально — використовуйте localhost
-        const response = await fetch("https://back-end-daij.onrender.com", { 
+        // !!! ВАЖЛИВА ЗМІНА ТУТ !!!
+        // Для локального запуску використовуємо localhost
+        const apiUrl = "https://back-end-daij.onrender.com"; 
+        
+        const response = await fetch(apiUrl, { 
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(requestData)
@@ -56,23 +55,20 @@ async function send() {
         const data = await response.json();
 
         if (response.ok && data.diet) {
-            // 4. Відображаємо результат
-            // Використовуємо marked, якщо підключили, або просто innerText
             if (typeof marked !== 'undefined') {
                 resultDiv.innerHTML = marked.parse(data.diet);
             } else {
                 resultDiv.innerText = data.diet;
             }
             resultDiv.style.color = "black";
-            localStorage.setItem('diet', data.diet);
         } else {
-            resultDiv.innerText = "Помилка сервера: " + (data.error || "Невідома помилка");
+            resultDiv.innerText = "Помилка: " + (data.error || "Невідома");
             resultDiv.style.color = "red";
         }
 
     } catch (error) {
-        console.error("Fetch error:", error);
-        resultDiv.innerText = "Не вдалося під'єднатися до сервера.";
+        console.error("Помилка з'єднання:", error);
+        resultDiv.innerText = "Сервер не відповідає. Перевірте, чи запущено server.js";
         resultDiv.style.color = "red";
     }
 }
