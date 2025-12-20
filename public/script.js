@@ -61,7 +61,7 @@ async function send() {
     resultDiv.style.color = "blue";
 
     // Твой API ключ (Вставь сюда НОВЫЙ ключ)
-
+    API_KEY = env.API_KEY;
     try {
         // 4. Отправляем запрос в Google Gemini API
         // Используем модель gemini-1.5-flash (она быстрая и дешевая/бесплатная)
@@ -91,7 +91,7 @@ async function send() {
             const dietText = data.candidates[0].content.parts[0].text;
             
             // Отображаем
-            resultDiv.innerText = dietText;
+            resultDiv.innerHTML = marked.parse(dietText);
             resultDiv.style.color = "black";
             
             // Сохраняем в память
