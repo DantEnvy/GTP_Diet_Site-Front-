@@ -20,7 +20,7 @@ function calculateBMR(age, height, weight, gender, activity) {
         (5 * age) +
         (gender === "male" ? 5 : -161);
 
-    return base * (multipliers[activity] ?? 1.55);
+    return base * (multipliers[activity]); 
 }
 
 function vitam(age,gender,weight,activity){
