@@ -289,6 +289,143 @@
             text-align: center;
             opacity: 0.7;
         }
+        /* === Добавить в конец style.css === */
+
+/* Примечания */
+.alert-box {
+    background: #e8f5e9;
+    border-left: 5px solid #4CAF50;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+.alert-box h3 { margin-top: 0; color: #2e7d32; }
+
+/* Навигация по дням */
+.days-nav {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.day-btn {
+    padding: 10px 20px;
+    border: none;
+    background: #e0e0e0;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+.day-btn:hover { background: #d0d0d0; }
+.day-btn.active {
+    background: #4CAF50;
+    color: white;
+    box-shadow: 0 4px 6px rgba(76, 175, 80, 0.3);
+}
+
+/* Карточки приемов пищи */
+.meal-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
+}
+.meal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.meal-type {
+    font-size: 0.85em;
+    text-transform: uppercase;
+    color: #888;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.calories-badge {
+    background: #fff3e0;
+    color: #ef6c00;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+.meal-name {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Сетка деталей блюда */
+.details-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 20px;
+}
+@media (max-width: 600px) { .details-grid { grid-template-columns: 1fr; } }
+
+.ingredients ul { padding-left: 20px; margin: 0; color: #555; }
+.ingredients li { margin-bottom: 5px; }
+
+/* Таблица БЖВ */
+.nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: #fafafa;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.macro-item span { display: block; font-size: 0.75em; color: #777; }
+.macro-item strong { display: block; font-size: 1.1em; color: #333; }
+
+.vitamins {
+    font-size: 0.85em;
+    color: #666;
+    font-style: italic;
+    line-height: 1.4;
+    background: #f1f8e9;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Итоги дня */
+.daily-summary {
+    background: #333;
+    color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 30px;
+    text-align: center;
+}
+.summary-macros {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Рекомендации */
+.info-section {
+    background: #e3f2fd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 40px;
+    color: #0d47a1;
+}
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
