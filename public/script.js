@@ -1,34 +1,4 @@
 // ===============================
-
-// 1. Добавьте эту функцию в начало файла или перед её использованием
-function formatDietToHtml(jsonString) {
-    let data;
-    try {
-        // Пытаемся превратить строку от ИИ в объект
-        data = typeof jsonString === 'object' ? jsonString : JSON.parse(jsonString);
-    } catch (e) {
-        return `<p>${jsonString}</p>`; // Если это не JSON, выводим как есть
-    }
-
-    let html = '';
-    // Проходимся по каждому пункту (Завтрак, Обед и т.д.)
-    for (const [key, value] of Object.entries(data)) {
-        // Создаем красивые блоки, используя ваши стандартные стили заголовков и текста
-        html += `
-            <div style="margin-bottom: 20px;">
-                <h3 style="text-transform: capitalize; color: inherit;">${key}</h3>
-                <p style="white-space: pre-wrap;">${value}</p>
-            </div>
-        `;
-    }
-    return html;
-}
-
-// 2. Найдите место, где вы вставляете текст в окно диеты.
-// Оно выглядит примерно так: dietOutput.innerText = response.message;
-// ЗАМЕНИТЕ это на:
-
-
 // РОЗРАХУНОК BMR
 // ===============================
 function calculateBMR(age, height, weight, gender, activity) {
