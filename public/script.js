@@ -138,39 +138,13 @@ async function send() {
             },
             body: JSON.stringify(requestData) 
         });
-        // Найдите место, где вы вставляете ответ (fetch('/api/diet')...)
-const result = await response.json();
-const dietElement = document.getElementById('diet-output'); // ID вашего окна диеты
-
-try {
-    const dietData = JSON.parse(result.message); // Парсим строку в объект
-    
-    // Генерируем чистый HTML вместо сырого текста
-    dietElement.innerHTML = `
-        <div class="diet-result">
-            <p><strong>🍳 Завтрак:</strong> ${dietData.завтрак}</p>
-            <p><strong>🍲 Обед:</strong> ${dietData.обед}</p>
-            <p><strong>🥗 Ужин:</strong> ${dietData.ужин}</p>
-            <hr>
-            <p><strong>💡 Советы:</strong> ${dietData.советы}</p>
-        </div>
-    `;
-} catch (e) {
-    // Если ИИ все же прислал не JSON, просто выводим текст
-    dietElement.innerText = result.message;
-}
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        // const data = await response.json();
+        const data = await response.json();
         
-        const dietTab = document.getElementById('output'); // Убедитесь, что ID элемента верный (например, 'output' или 'diet-content')
-        if (dietTab) {
-            // ВАЖНО: используем innerHTML, а не innerText, чтобы работали теги
-            dietTab.innerHTML = formatDietToHtml(data.message); // data.message - это ответ от вашего сервера
-        }
         if (data.diet) {
             resultDiv.style.color = "black";
             resultDiv.innerText = data.diet; 
