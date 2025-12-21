@@ -270,16 +270,17 @@
             border-color: #10b981;
         }
         .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.3s ease;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s ease-out;
         }
+
         .faq-item.active .faq-answer {
-            max-height: 500px;
-            padding-top: 1rem;
+            grid-template-rows: 1fr;
         }
-        .faq-item.active i {
-            transform: rotate(180deg);
+
+        .faq-answer > div {
+            overflow: hidden;
         }
         
         /* Placeholder State for Diet Page */
@@ -594,14 +595,18 @@
                     </div>
                     <div class="space-y-4">
                         <!-- 1 -->
-                        <div class="faq-item border border-gray-100 rounded-[2rem] p-8 transition-colors duration-300 dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                        <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
                             <div class="flex justify-between items-center">
                                 <h4 class="font-bold text-lg dark:text-white">● Чи справді потрібно пити 2 літри води?</h4>
-                                <i class="fas fa-plus text-green-500 transition-transform"></i>
+                                <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
                             </div>
 
-                            <div class="faq-answer text-gray-600 leading-relaxed dark:text-gray-300">
-                                Ні, концепція «2 літри» є застарілою...
+                            <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
+                                <div class="overflow-hidden">
+                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300">
+                                        Ні, концепція «2 літри» є застарілою. Ваша норма залежить від ваги, рівня активності та клімату.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                                                 <!-- 2 -->
@@ -856,7 +861,7 @@
 
                     <!-- RESULTS AREA (MOVED BACK HERE) -->
                     <div id="resultArea" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8 max-w-3xl mx-auto w-full">
-                    <!-- s-->
+                    <!-- s--> 
                         <div id="results-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl transition-colors duration-300 hidden">
                             <h4 class="font-bold text-gray-900 dark:text-white mb-6 flex items-center text-xl">
                                 <i class="fas fa-book mr-3 text-purple-500"></i> Рекомендації по харчуванню
