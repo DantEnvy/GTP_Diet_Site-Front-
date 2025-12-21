@@ -132,9 +132,8 @@ async function send() {
     }
 }
 */
-
 // ===============================
-// РОЗРАХУНОК BMR (БЕЗ ЗМІН)
+// 1. РОЗРАХУНОК BMR (БАЗОВИЙ ОБМІН РЕЧОВИН)
 // ===============================
 function calculateBMR(age, height, weight, gender, activity) {
     age = Number(age);
@@ -149,33 +148,27 @@ function calculateBMR(age, height, weight, gender, activity) {
         low: 1.2
     };
 
-    const base =
-        (10 * weight) +
-        (6.25 * height) -
-        (5 * age) +
-        (gender === "male" ? 5 : -161);
+    // Формула Міффіна-Джеора
+    const base = (10 * weight) + (6.25 * height) - (5 * age) + (gender === "male" ? 5 : -161);
 
-    return base * (multipliers[activity] || 1.2); 
+    return Math.round(base * (multipliers[activity] || 1.2)); 
 }
 
-// Функція для розрахунку вітамінів (БЕЗ ЗМІН)
-function vitam(age,gender,weight,activity){
-    age=Number(age);
-    weight=Number(weight);
-    // Проста заглушка/логіка для вітамінів, як було раніше
-    return { Vitamin_C:90, Vitamin_D:800, Vitamin_A:700 }; 
+// Функція розрахунку вітамінів (залишено без змін логіку)
+function vitam(age, gender, weight, activity){
+    // Це спрощена логіка, можна розширити при потребі
+    return { Vitamin_C: 90, Vitamin_D: 800, Vitamin_A: 700 }; 
 }
 
-// Глобальна змінна для зберігання даних дієти (щоб перемикати дні без перезавантаження)
+// Глобальна змінна для даних дієти
 let globalDietData = null;
 
 // ===============================
-// ОБРОБКА ФОРМИ ТА ЗАПИТ ДО СЕРВЕРА
+// 2. ОБРОБКА ФОРМИ ТА ЗАПИТ ДО СЕРВЕРА
 // ===============================
 document.getElementById('dietForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    // Збір даних з форми
     const formData = new FormData(event.target);
     const age = formData.get('age');
     const height = formData.get('height');
@@ -185,33 +178,37 @@ document.getElementById('dietForm').addEventListener('submit', async function(ev
     const allergy = formData.get('allergy');
     const health = formData.get('health');
 
-    // Розрахунки
     const bmr = calculateBMR(age, height, weight, gender, activity);
+
+    // Приблизний розподіл макронутрієнтів (30/30/40)
     const protein = Math.round((bmr * 0.3) / 4);
     const fat = Math.round((bmr * 0.3) / 9);
     const carb = Math.round((bmr * 0.4) / 4);
 
     const requestData = {
         age, height, weight, gender, activity, allergy, health,
-        bmr: Math.round(bmr),
-        protein, fat, carb,
+        bmr, protein, fat, carb,
         vitamins: vitam(age, gender, weight, activity)
     };
 
     console.log("Відправляємо дані:", requestData);
 
-    // Оновлення інтерфейсу (показати лоадер, сховати старе)
+    // --- ОНОВЛЕННЯ ІНТЕРФЕЙСУ (Показуємо лоадер) ---
     const emptyState = document.getElementById("empty-state");
     const dietContent = document.getElementById("diet-content");
     const loader = document.getElementById("loader");
+    const resultSection = document.getElementById("result");
 
-    if(emptyState) emptyState.style.display = 'none';
-    if(dietContent) dietContent.style.display = 'none';
-    if(loader) loader.style.display = 'flex';
+    // Показати секцію результатів
+    if (resultSection) resultSection.style.display = 'block';
+    
+    // Сховати пустий стан та контент, показати спінер
+    if (emptyState) emptyState.style.display = 'none';
+    if (dietContent) dietContent.style.display = 'none';
+    if (loader) loader.style.display = 'flex';
 
-    // Вибір API URL
-    const apiUrl =
-        location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    // URL бекенду
+    const apiUrl = location.hostname === "localhost" || location.hostname === "127.0.0.1"
             ? "http://localhost:3000"
             : "https://back-end-daij.onrender.com";
 
@@ -222,124 +219,161 @@ document.getElementById('dietForm').addEventListener('submit', async function(ev
             body: JSON.stringify(requestData) 
         });
 
-        if (!response.ok) throw new Error(`Помилка HTTP: ${response.status}`);
-
-        const data = await response.json();
-        
-        // Ховаємо лоадер
-        if(loader) loader.style.display = 'none';
-        if(dietContent) dietContent.style.display = 'block';
-
-        // Обробка отриманих даних
-        let dietData = data.diet; // Очікуємо, що сервер повертає { diet: "..." } або об'єкт
-        
-        // Якщо це рядок (JSON у вигляді тексту), парсимо його
-        if (typeof dietData === 'string') {
-            try {
-                // Видаляємо можливі markdown-теги ```json ... ```
-                dietData = dietData.replace(/```json/g, '').replace(/```/g, '').trim();
-                dietData = JSON.parse(dietData);
-            } catch (e) {
-                console.error("Помилка парсингу JSON:", e);
-                // Якщо не вдалося розпарсити, виводимо як простий текст (markdown)
-                const contentDiv = document.getElementById('day-content');
-                if(contentDiv) contentDiv.innerHTML = marked.parse(data.diet);
-                return;
-            }
+        if (!response.ok) {
+            throw new Error(`Помилка сервера: ${response.status}`);
         }
 
-        // Якщо маємо правильну структуру даних — малюємо красивий інтерфейс
+        const data = await response.json();
+        console.log("Отримано відповідь від сервера:", data);
+
+        // --- ОБРОБКА ДАНИХ ---
+        if (loader) loader.style.display = 'none';
+        if (dietContent) dietContent.style.display = 'block';
+
+        let dietData = data.diet;
+
+        // Якщо це рядок, намагаємось розпарсити JSON
+        if (typeof dietData === 'string') {
+            dietData = parseDietJSON(dietData);
+        }
+
+        // Перевірка структури та рендер
         if (dietData && (dietData.meal_plan || dietData.mealPlan)) {
             renderDietPlan(dietData);
         } else {
-            console.error("Некоректна структура даних:", dietData);
+            console.error("Некоректні дані:", dietData);
             const contentDiv = document.getElementById('day-content');
-            if(contentDiv) contentDiv.innerHTML = `<p class="text-red-500">Отримано некоректні дані від сервера. Спробуйте ще раз.</p>`;
+            if (contentDiv) {
+                // Якщо прийшов просто текст (markdown), спробуємо показати його
+                if (typeof data.diet === 'string') {
+                    contentDiv.innerHTML = typeof marked !== 'undefined' 
+                        ? marked.parse(data.diet) 
+                        : `<div class="p-4 text-gray-700 whitespace-pre-wrap">${data.diet}</div>`;
+                } else {
+                    contentDiv.innerHTML = `<p class="text-red-500 font-bold p-4 text-center">Не вдалося розпізнати формат дієти. Спробуйте ще раз.</p>`;
+                }
+            }
         }
 
     } catch (err) {
-        console.error("Помилка запиту:", err);
-        if(loader) loader.style.display = 'none';
-        if(emptyState) {
+        console.error("Помилка:", err);
+        if (loader) loader.style.display = 'none';
+        if (emptyState) {
             emptyState.style.display = 'block';
-            emptyState.innerHTML = `<p class="text-red-500 font-bold">Виникла помилка: ${err.message}</p>`;
+            emptyState.innerHTML = `
+                <div class="text-center py-10">
+                    <i class="fa-solid fa-triangle-exclamation text-4xl text-red-500 mb-2"></i>
+                    <p class="text-red-600 font-medium">Виникла помилка: ${err.message}</p>
+                    <button onclick="location.reload()" class="mt-4 text-sm text-gray-500 underline">Оновити сторінку</button>
+                </div>
+            `;
         }
     }
 });
 
+// Допоміжна функція для очистки JSON від Markdown
+function parseDietJSON(jsonString) {
+    try {
+        // 1. Спробуємо прямий парсинг
+        return JSON.parse(jsonString);
+    } catch (e) {
+        try {
+            // 2. Видаляємо ```json та ```
+            let cleaned = jsonString.replace(/```json/g, '').replace(/```/g, '').trim();
+            return JSON.parse(cleaned);
+        } catch (e2) {
+            try {
+                // 3. Шукаємо першу { та останню } (найбільш надійний спосіб)
+                const firstBrace = jsonString.indexOf('{');
+                const lastBrace = jsonString.lastIndexOf('}');
+                if (firstBrace !== -1 && lastBrace !== -1) {
+                    return JSON.parse(jsonString.substring(firstBrace, lastBrace + 1));
+                }
+            } catch (e3) {
+                console.error("Critical JSON parse error", e3);
+                return null;
+            }
+        }
+    }
+    return null;
+}
+
 // ===============================
-// ЛОГІКА ВІДОБРАЖЕННЯ (RENDER)
+// 3. ЛОГІКА ВІДОБРАЖЕННЯ (RENDER)
 // ===============================
 
-// Функція для малювання всього плану
 function renderDietPlan(data) {
-    globalDietData = data; // Зберігаємо дані глобально
+    globalDietData = data;
+    
+    // Нормалізація полів (інколи ШІ може писати snake_case, інколи camelCase)
     const mealPlan = data.meal_plan || data.mealPlan;
     const assumptions = data.general_assumptions || data.generalAssumptions;
     const recommendations = data.general_recommendations || data.generalRecommendations;
 
-    // 1. Вивід приміток (Assumptions)
+    // 1. Примітки (Assumptions)
     const assumptionsDiv = document.getElementById('assumptions-container');
-    if (assumptionsDiv && assumptions && assumptions.length > 0) {
-        let html = `<h4 class="font-bold mb-2 flex items-center gap-2 text-yellow-800 dark:text-yellow-200"><i class="fa-solid fa-circle-info"></i> Важливі зауваження:</h4><ul class="list-disc list-inside space-y-1">`;
-        assumptions.forEach(item => html += `<li>${item}</li>`);
-        html += `</ul>`;
-        assumptionsDiv.innerHTML = html;
-        assumptionsDiv.style.display = 'block';
-    } else if (assumptionsDiv) {
-        assumptionsDiv.style.display = 'none';
+    if (assumptionsDiv) {
+        if (assumptions && assumptions.length > 0) {
+            let html = `<h4 class="font-bold mb-2 flex items-center gap-2 text-yellow-800 dark:text-yellow-200"><i class="fa-solid fa-circle-info"></i> Важливі зауваження:</h4><ul class="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">`;
+            assumptions.forEach(item => html += `<li>${item}</li>`);
+            html += `</ul>`;
+            assumptionsDiv.innerHTML = html;
+            assumptionsDiv.style.display = 'block';
+        } else {
+            assumptionsDiv.style.display = 'none';
+        }
     }
 
-    // 2. Створення кнопок навігації по днях
+    // 2. Кнопки днів (Tabs)
     const navDiv = document.getElementById('days-nav');
     if (navDiv && mealPlan) {
-        navDiv.innerHTML = ''; // Очистка
+        navDiv.innerHTML = ''; // Очистка старого
         mealPlan.forEach((day, index) => {
             const btn = document.createElement('button');
-            // Стилізація кнопок (Tailwind)
-            btn.className = `day-btn px-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 text-sm font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-gray-300 transition focus:outline-none ${index === 0 ? 'active ring-2 ring-green-500 bg-green-500 text-white border-green-500' : 'bg-white dark:bg-gray-800'}`;
-            btn.textContent = day.day; // Назва дня (наприклад, "День 1")
-            
-            // Подія кліку
+            // Стилі для кнопок
+            btn.className = `day-btn px-5 py-2 rounded-full border border-gray-300 dark:border-gray-600 text-sm font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-gray-200 transition focus:outline-none flex-shrink-0 ${index === 0 ? 'active bg-green-600 text-white border-green-600 shadow-md ring-2 ring-green-300 dark:ring-green-800' : 'bg-white dark:bg-gray-800 text-gray-600'}`;
+            btn.textContent = day.day;
             btn.onclick = () => switchDay(index, btn);
             navDiv.appendChild(btn);
         });
     }
 
-    // 3. Відображення першого дня за замовчуванням
+    // 3. Відображаємо перший день
     renderDay(0);
 
-    // 4. Вивід загальних рекомендацій
+    // 4. Рекомендації
     const recDiv = document.getElementById('recommendations-container');
-    if (recDiv && recommendations) {
-        const waterText = recommendations.water_intake || recommendations.waterIntake || "Пийте достатньо води.";
-        const foodSubs = recommendations.food_substitutions || recommendations.foodSubstitutions || "Можна замінювати продукти на аналогічні.";
-        
-        // Форматування жирного тексту з Markdown (**text**) в HTML (<b>text</b>)
-        const formatText = (t) => t ? t.replace(/\*\*(.*?)\*\*/g, '<strong class="text-blue-700 dark:text-blue-300">$1</strong>').replace(/\n/g, '<br>') : '';
-        
-        recDiv.innerHTML = `
-            <h3 class="text-lg font-bold mb-4 text-blue-700 dark:text-blue-300 flex items-center gap-2">
-                <i class="fa-solid fa-lightbulb"></i> Поради нутриціолога
-            </h3>
-            <div class="space-y-4 text-sm">
-                <div>
-                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mb-1">💧 Питний режим:</h4>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">${formatText(waterText)}</p>
+    if (recDiv) {
+        if (recommendations) {
+            const waterText = recommendations.water_intake || recommendations.waterIntake || "Пийте достатньо води.";
+            const foodSubs = recommendations.food_substitutions || recommendations.foodSubstitutions || "Можна замінювати продукти на аналогічні за калорійністю.";
+            
+            // Заміна Markdown Bold (**text**) на HTML Bold (<b>text</b>)
+            const format = (t) => t ? t.replace(/\*\*(.*?)\*\*/g, '<strong class="text-blue-700 dark:text-blue-400">$1</strong>').replace(/\n/g, '<br>') : '';
+            
+            recDiv.innerHTML = `
+                <h3 class="text-lg font-bold mb-4 text-blue-800 dark:text-blue-300 flex items-center gap-2">
+                    <i class="fa-solid fa-user-doctor"></i> Поради нутриціолога
+                </h3>
+                <div class="space-y-4 text-sm">
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-blue-100 dark:border-gray-700 shadow-sm">
+                        <h4 class="font-semibold text-blue-600 dark:text-blue-400 mb-1 flex items-center gap-2"><i class="fa-solid fa-glass-water"></i> Питний режим</h4>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">${format(waterText)}</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-blue-100 dark:border-gray-700 shadow-sm">
+                        <h4 class="font-semibold text-blue-600 dark:text-blue-400 mb-1 flex items-center gap-2"><i class="fa-solid fa-repeat"></i> Заміни продуктів</h4>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">${format(foodSubs)}</p>
+                    </div>
                 </div>
-                <div class="border-t border-blue-200 dark:border-blue-800 pt-4">
-                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mb-1">🔄 Заміни продуктів:</h4>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">${formatText(foodSubs)}</p>
-                </div>
-            </div>
-        `;
-        recDiv.style.display = 'block';
-    } else if (recDiv) {
-        recDiv.style.display = 'none';
+            `;
+            recDiv.style.display = 'block';
+        } else {
+            recDiv.style.display = 'none';
+        }
     }
 }
 
-// Функція для відображення конкретного дня
+// Рендер конкретного дня
 function renderDay(dayIndex) {
     const contentDiv = document.getElementById('day-content');
     if (!globalDietData || !contentDiv) return;
@@ -351,73 +385,102 @@ function renderDay(dayIndex) {
 
     let html = '';
 
-    // Блок підсумків дня (Калорії та БЖВ)
+    // Підсумок дня (БЖВ + Калорії)
     const summary = dayData.daily_summary || dayData.dailySummary || {};
     html += `
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 text-center shadow-sm">
-            <div><div class="text-xs text-gray-500 uppercase tracking-wide">Калорії</div><div class="text-lg font-bold text-green-600">${summary.calories_kcal || 0}</div></div>
-            <div><div class="text-xs text-gray-500 uppercase tracking-wide">Білки</div><div class="text-lg font-bold text-blue-500">${summary.proteins_g || 0}г</div></div>
-            <div><div class="text-xs text-gray-500 uppercase tracking-wide">Жири</div><div class="text-lg font-bold text-yellow-500">${summary.fats_g || 0}г</div></div>
-            <div><div class="text-xs text-gray-500 uppercase tracking-wide">Вуглеводи</div><div class="text-lg font-bold text-orange-500">${summary.carbohydrates_g || 0}г</div></div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 animate-fade-in-up">
+            <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded-xl border border-green-200 dark:border-green-800 text-center">
+                <div class="text-xs text-green-600 dark:text-green-400 font-bold uppercase tracking-wider">Калорії</div>
+                <div class="text-xl font-extrabold text-green-700 dark:text-green-300">${summary.calories_kcal || 0}</div>
+            </div>
+            <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-xl border border-blue-200 dark:border-blue-800 text-center">
+                <div class="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider">Білки</div>
+                <div class="text-xl font-extrabold text-blue-700 dark:text-blue-300">${summary.proteins_g || 0}г</div>
+            </div>
+            <div class="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-xl border border-yellow-200 dark:border-yellow-800 text-center">
+                <div class="text-xs text-yellow-600 dark:text-yellow-400 font-bold uppercase tracking-wider">Жири</div>
+                <div class="text-xl font-extrabold text-yellow-700 dark:text-yellow-300">${summary.fats_g || 0}г</div>
+            </div>
+            <div class="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-xl border border-orange-200 dark:border-orange-800 text-center">
+                <div class="text-xs text-orange-600 dark:text-orange-400 font-bold uppercase tracking-wider">Вуглеводи</div>
+                <div class="text-xl font-extrabold text-orange-700 dark:text-orange-300">${summary.carbohydrates_g || 0}г</div>
+            </div>
         </div>
     `;
 
-    // Генерація карток для кожного прийому їжі
+    // Список прийомів їжі (Картки)
     if (dayData.meals && dayData.meals.length > 0) {
-        dayData.meals.forEach(meal => {
-            // Список інгредієнтів
+        dayData.meals.forEach((meal, idx) => {
+            // Інгредієнти
             const ingredientsHtml = meal.ingredients.map(ing => 
-                `<li class="flex justify-between text-sm py-2 border-b border-gray-100 dark:border-gray-700 last:border-0">
-                    <span class="text-gray-700 dark:text-gray-300 flex items-center gap-2"><i class="fa-solid fa-check text-green-400 text-xs"></i> ${ing.item}</span>
-                    <span class="font-medium text-gray-900 dark:text-white whitespace-nowrap ml-2">${ing.weight_g || ing.weight_ml || ''} ${ing.weight_ml ? 'мл' : 'г'}</span>
+                `<li class="flex justify-between items-center text-sm py-2 border-b border-dashed border-gray-200 dark:border-gray-700 last:border-0">
+                    <span class="text-gray-700 dark:text-gray-300 flex items-start gap-2">
+                        <i class="fa-solid fa-carrot text-orange-400 mt-1 text-xs"></i> 
+                        <span>${ing.item}</span>
+                    </span>
+                    <span class="font-bold text-gray-900 dark:text-gray-100 whitespace-nowrap ml-2 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded text-xs">
+                        ${ing.weight_g || ing.weight_ml || '—'} ${ing.weight_ml ? 'мл' : 'г'}
+                    </span>
                  </li>`
             ).join('');
 
-            // Дані по нутрієнтах страви
             const nut = meal.nutrition;
+            // Анімація затримки для кожної картки
+            const delay = idx * 100; 
 
             html += `
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow duration-300">
-                <!-- Заголовок картки -->
-                <div class="bg-gray-50 dark:bg-gray-750 px-5 py-3 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-                    <span class="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 flex items-center gap-2">
-                        <i class="fa-regular fa-clock"></i> ${meal.name}
+            <div class="meal-card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-all duration-300" style="animation: fadeInUp 0.5s ease-out ${delay}ms forwards;">
+                
+                <!-- Заголовок -->
+                <div class="bg-gradient-to-r from-gray-50 to-white dark:from-gray-750 dark:to-gray-800 px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex flex-wrap justify-between items-center gap-2">
+                    <span class="text-sm font-extrabold uppercase tracking-wider text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                        <i class="fa-regular fa-clock text-green-500"></i> ${meal.name}
                     </span>
-                    <span class="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 text-xs px-2.5 py-1 rounded-full font-bold">
+                    <span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs px-3 py-1 rounded-full font-bold shadow-sm">
                         🔥 ${nut.calories_kcal} ккал
                     </span>
                 </div>
                 
-                <div class="p-5">
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4 leading-tight">${meal.dish}</h3>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-5 leading-tight flex items-start gap-2">
+                        ${meal.dish}
+                    </h3>
                     
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <!-- Інгредієнти -->
-                        <div>
-                            <h4 class="text-xs font-bold text-gray-400 uppercase mb-3">Інгредієнти</h4>
-                            <ul class="mb-4">${ingredientsHtml}</ul>
+                    <div class="grid lg:grid-cols-5 gap-6">
+                        <!-- Інгредієнти (3 колонки) -->
+                        <div class="lg:col-span-3">
+                            <h4 class="text-xs font-bold text-gray-400 uppercase mb-3 tracking-wide">Склад страви</h4>
+                            <ul class="bg-gray-50 dark:bg-gray-750/50 rounded-xl p-3 border border-gray-100 dark:border-gray-700">
+                                ${ingredientsHtml}
+                            </ul>
                         </div>
                         
-                        <!-- Макронутрієнти та Вітаміни -->
-                        <div>
-                            <h4 class="text-xs font-bold text-gray-400 uppercase mb-3">На порцію</h4>
-                            <div class="grid grid-cols-3 gap-2 mb-4 text-center">
-                                <div class="bg-blue-50 dark:bg-blue-900/20 p-2 rounded-lg">
-                                    <div class="text-[10px] text-blue-600 dark:text-blue-300 uppercase">Білків</div>
-                                    <div class="font-bold text-blue-800 dark:text-blue-100">${nut.proteins_g}г</div>
-                                </div>
-                                <div class="bg-yellow-50 dark:bg-yellow-900/20 p-2 rounded-lg">
-                                    <div class="text-[10px] text-yellow-600 dark:text-yellow-300 uppercase">Жирів</div>
-                                    <div class="font-bold text-yellow-800 dark:text-yellow-100">${nut.fats_g}г</div>
-                                </div>
-                                <div class="bg-orange-50 dark:bg-orange-900/20 p-2 rounded-lg">
-                                    <div class="text-[10px] text-orange-600 dark:text-orange-300 uppercase">Вугл.</div>
-                                    <div class="font-bold text-orange-800 dark:text-orange-100">${nut.carbohydrates_g}г</div>
+                        <!-- БЖВ (2 колонки) -->
+                        <div class="lg:col-span-2 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-xs font-bold text-gray-400 uppercase mb-3 tracking-wide">Баланс</h4>
+                                <div class="grid grid-cols-3 gap-2 text-center">
+                                    <div class="bg-blue-50 dark:bg-blue-900/20 p-2 rounded-lg border border-blue-100 dark:border-blue-800">
+                                        <div class="text-[10px] text-blue-600 dark:text-blue-300 font-bold mb-1">БІЛКИ</div>
+                                        <div class="text-sm font-black text-blue-800 dark:text-blue-100">${nut.proteins_g}г</div>
+                                    </div>
+                                    <div class="bg-yellow-50 dark:bg-yellow-900/20 p-2 rounded-lg border border-yellow-100 dark:border-yellow-800">
+                                        <div class="text-[10px] text-yellow-600 dark:text-yellow-300 font-bold mb-1">ЖИРИ</div>
+                                        <div class="text-sm font-black text-yellow-800 dark:text-yellow-100">${nut.fats_g}г</div>
+                                    </div>
+                                    <div class="bg-orange-50 dark:bg-orange-900/20 p-2 rounded-lg border border-orange-100 dark:border-orange-800">
+                                        <div class="text-[10px] text-orange-600 dark:text-orange-300 font-bold mb-1">ВУГЛ</div>
+                                        <div class="text-sm font-black text-orange-800 dark:text-orange-100">${nut.carbohydrates_g}г</div>
+                                    </div>
                                 </div>
                             </div>
+                            
                             ${(meal.vitamins_minerals || meal.vitaminsMinerals) ? `
-                            <div class="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700/50 p-3 rounded-lg leading-relaxed">
-                                <i class="fa-solid fa-capsules text-green-500 mr-1"></i> ${meal.vitamins_minerals || meal.vitaminsMinerals}
+                            <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                                <div class="text-xs text-gray-500 dark:text-gray-400 flex items-start gap-2 leading-snug">
+                                    <i class="fa-solid fa-microscope text-purple-400 mt-0.5"></i>
+                                    <span>${meal.vitamins_minerals || meal.vitaminsMinerals}</span>
+                                </div>
                             </div>` : ''}
                         </div>
                     </div>
@@ -425,55 +488,62 @@ function renderDay(dayIndex) {
             </div>
             `;
         });
+    } else {
+        html = `<p class="text-center text-gray-500 py-10">Немає даних про прийоми їжі для цього дня.</p>`;
     }
 
     contentDiv.innerHTML = html;
 }
 
-// Функція перемикання вкладок
+// Функція для перемикання активного дня
 function switchDay(index, btnElement) {
-    // Знімаємо активний клас з усіх кнопок
+    // Зняти стиль з усіх кнопок
     document.querySelectorAll('.day-btn').forEach(btn => {
-        btn.classList.remove('active', 'ring-2', 'ring-green-500', 'bg-green-500', 'text-white', 'border-green-500');
-        btn.classList.add('bg-white', 'dark:bg-gray-800'); // Повертаємо дефолтний фон
+        btn.classList.remove('active', 'bg-green-600', 'text-white', 'border-green-600', 'shadow-md', 'ring-2', 'ring-green-300', 'dark:ring-green-800');
+        btn.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-600');
     });
     
-    // Додаємо активний клас на натиснуту кнопку
-    btnElement.classList.remove('bg-white', 'dark:bg-gray-800');
-    btnElement.classList.add('active', 'ring-2', 'ring-green-500', 'bg-green-500', 'text-white', 'border-green-500');
+    // Додати стиль активній кнопці
+    btnElement.classList.remove('bg-white', 'dark:bg-gray-800', 'text-gray-600');
+    btnElement.classList.add('active', 'bg-green-600', 'text-white', 'border-green-600', 'shadow-md', 'ring-2', 'ring-green-300', 'dark:ring-green-800');
     
     renderDay(index);
 }
 
-
 // ===============================
-// ІНШІ ФУНКЦІЇ ІНТЕРФЕЙСУ (БЕЗ ЗМІН)
+// 4. ІНШІ ФУНКЦІЇ (ТЕМА, РЕДАГУВАННЯ БАНЕРА)
 // ===============================
 document.addEventListener('DOMContentLoaded', () => {
-    // Перемикач теми
+    // Зміна теми (Dark Mode)
     const themeToggle = document.getElementById('theme-toggle');
     const html = document.documentElement;
     
+    // Перевірка збереженої теми
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         html.classList.add('dark');
+    } else {
+        html.classList.remove('dark');
     }
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             html.classList.toggle('dark');
-            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+            if (html.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
         });
     }
 
-    // Логіка редагування Hero Banner (як було)
+    // Логіка для редагування Hero Banner (залишено з оригіналу)
     const selectedElement = document.querySelector('.editable-element');
-    
     function updateCSSVar(element, varName, value) {
         if(element) element.style.setProperty(varName, value);
     }
 
-    const inputs = ['hero-title-input', 'hero-subtitle-input'];
-    inputs.forEach(id => {
+    const textInputs = ['hero-title-input', 'hero-subtitle-input'];
+    textInputs.forEach(id => {
         const input = document.getElementById(id);
         if(input) {
             input.oninput = (e) => {
@@ -508,7 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Disclaimer Overlay
+    // Закриття дисклеймера
     window.closeDisclaimer = function() {
         const overlay = document.getElementById('disclaimer-overlay');
         if(overlay) {
