@@ -431,109 +431,160 @@
         color: #0d47a1;
     }
     /* Основной контейнер для результата */
-#result {
-    margin-top: 30px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Общие стили для контейнера результата */
+    #result {
+        margin-top: 30px;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .loader {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #4CAF50;
+        padding: 20px;
+        font-weight: bold;
+    }
+
+    /* Карточка рекомендаций */
+    .recommendation-card {
+        background: #e8f5e9;
+        border-left: 5px solid #4CAF50;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        color: #2e7d32;
+    }
+
+    .recommendation-card h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    /* Карточка дня */
+    .day-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+        overflow: hidden;
+    }
+
+    .day-header {
+        background: #333;
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .day-header h2 {
+        margin: 0;
+        font-size: 1.4rem;
+    }
+
+    .day-stats {
+        display: flex;
+        gap: 15px;
+        font-size: 0.9rem;
+    }
+
+    .day-stats span {
+        background: rgba(255,255,255,0.2);
+        padding: 4px 10px;
+        border-radius: 20px;
+    }
+
+    /* Макросы цвета */
+    .macro-p { color: #ffab91; } /* Белки - красноватый */
+    .macro-f { color: #fff59d; } /* Жиры - желтоватый */
+    .macro-c { color: #a5d6a7; } /* Углеводы - зеленоватый */
+
+    /* Список блюд */
+    .meal-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 15px 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .meal-row:last-child {
+        border-bottom: none;
+    }
+
+    .meal-info {
+        flex: 1;
+        padding-right: 15px;
+    }
+
+    .meal-type {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #888;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .meal-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 4px;
+    }
+
+    .meal-desc {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.4;
+    }
+
+    .meal-macros {
+        text-align: right;
+        min-width: 90px;
+    }
+
+    .cal-badge {
+        background: #4CAF50;
+        color: white;
+        font-weight: bold;
+        padding: 4px 8px;
+        border-radius: 6px;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    .micro-stats {
+        font-size: 0.8rem;
+        color: #999;
+    }
+    /* Анімація появи */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Карточка дня */
 .day-card {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    margin-bottom: 25px;
-    overflow: hidden;
-    transition: transform 0.2s;
+    animation: fadeIn 0.5s ease-out;
 }
 
-.day-card:hover {
-    transform: translateY(-5px);
-}
+/* Якщо у вас не підключений повний Tailwind, 
+   ось підстраховка для основних стилів карток */
 
-/* Заголовок дня */
-.day-header {
-    background: #2c3e50;
-    color: white;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.day-header h3 {
-    margin: 0;
-    font-size: 1.2rem;
-}
-
-.day-macros span {
-    margin-left: 10px;
-    background: rgba(255,255,255,0.15);
-    padding: 3px 8px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-}
-
-/* Список блюд */
-.meal-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    border-bottom: 1px solid #eee;
-}
-
-.meal-item:last-child {
-    border-bottom: none;
-}
-
-.meal-type {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    color: #7f8c8d;
-    font-weight: bold;
-    margin-bottom: 4px;
-}
-
-.meal-name {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #34495e;
-}
-
-.meal-ingr {
-    font-size: 0.9rem;
-    color: #777;
-    margin-top: 4px;
-    font-style: italic;
-}
-
-.meal-cal {
-    font-weight: bold;
-    color: #27ae60;
-    font-size: 1.1rem;
-    min-width: 80px;
-    text-align: right;
-}
-
-/* Блок рекомендаций */
-.recommendation-box {
-    background: #e3f2fd;
-    border-left: 5px solid #2196F3;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    color: #0d47a1;
-}
-
-/* Анимация загрузки */
-.loader {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #2980b9;
-    padding: 20px;
-}
-    </style>
+.bg-white { background-color: #ffffff; }
+.bg-gray-800 { background-color: #1f2937; }
+.text-white { color: #ffffff; }
+.rounded-xl { border-radius: 0.75rem; }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+.p-4 { padding: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.flex { display: flex; }
+.justify-between { justify-content: space-between; }
+.font-bold { font-weight: 700; }
+        </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
 
