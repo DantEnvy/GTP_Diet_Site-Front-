@@ -430,6 +430,109 @@
         margin-top: 40px;
         color: #0d47a1;
     }
+    /* Основной контейнер для результата */
+#result {
+    margin-top: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Карточка дня */
+.day-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 25px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.day-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Заголовок дня */
+.day-header {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.day-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.day-macros span {
+    margin-left: 10px;
+    background: rgba(255,255,255,0.15);
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+/* Список блюд */
+.meal-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.meal-item:last-child {
+    border-bottom: none;
+}
+
+.meal-type {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #7f8c8d;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.meal-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #34495e;
+}
+
+.meal-ingr {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.meal-cal {
+    font-weight: bold;
+    color: #27ae60;
+    font-size: 1.1rem;
+    min-width: 80px;
+    text-align: right;
+}
+
+/* Блок рекомендаций */
+.recommendation-box {
+    background: #e3f2fd;
+    border-left: 5px solid #2196F3;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: #0d47a1;
+}
+
+/* Анимация загрузки */
+.loader {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #2980b9;
+    padding: 20px;
+}
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
@@ -1905,5 +2008,5 @@
         }
     </script>
 </body>
-<!-- end-->
+<!-- end -->
 </html>

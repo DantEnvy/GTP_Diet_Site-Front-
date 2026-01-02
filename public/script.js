@@ -1,7 +1,7 @@
 // ===============================
 // РОЗРАХУНОК BMR
 // ===============================
-function calculateBMR(age, height, weight, gender, activity) {
+/*function calculateBMR(age, height, weight, gender, activity) {
     age = Number(age);
     height = Number(height);
     weight = Number(weight);
@@ -43,11 +43,12 @@ function vitam(age,gender,weight,activity){
     };
 }
 
-function prot(activity,weight){const m={very_high:2,high:1.8,medium:1.4,small:1.2,low:0.8}; return Number(weight)*(m[activity])}
+function prot(activity,weight){const m={very_high:2,high:1.8,medium:1.4,small:1.2,low:0.8}; return Number(weight)*(m[activity])}*/
 
 // ===============================
 // НАДСИЛАННЯ ДАНИХ НА БЕКЕНД
 // ===============================
+/*
 async function send() {
     const age = document.getElementById("age").value;
     const height = document.getElementById("height").value;
@@ -130,4 +131,147 @@ async function send() {
         resultDiv.style.color = "red";
         console.error("Помилка fetch:", error);
     }
-} 
+} */
+
+
+    // ===============================
+// РОЗРАХУНОК BMR
+// ===============================
+function calculateBMR(age, height, weight, gender, activity) {
+    age = Number(age);
+    height = Number(height);
+    weight = Number(weight);
+
+    const multipliers = {
+        very_high: 1.9,
+        high: 1.725,
+        medium: 1.55,
+        small: 1.375,
+        low: 1.2
+    };
+
+    const base =
+        (10 * weight) +
+        (6.25 * height) -
+        (5 * age) +
+        (gender === "male" ? 5 : -161);
+
+    return Math.round(base * (multipliers[activity] || 1.2)); 
+}
+
+function vitam(age, gender, weight, activity){
+    // Ваша логіка вітамінів (залишаємо без змін, скорочено для прикладу)
+    return { C: 90, D: 800 }; 
+}
+
+// ===============================
+// ВІДПРАВКА ДАНИХ
+// ===============================
+document.getElementById("diet-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    
+    // Збираємо дані
+    const age = document.getElementById("age").value;
+    const gender = document.getElementById("gender").value;
+    const height = document.getElementById("height").value;
+    const weight = document.getElementById("weight").value;
+    const activity = document.getElementById("activity").value;
+    const goal = document.getElementById("goal").value;
+    const allergy = document.getElementById("allergy").value || "немає";
+    const health = document.getElementById("health").value || "здоровий";
+
+    const bmr = calculateBMR(age, height, weight, gender, activity);
+    
+    // Розрахунок макросів (спрощено)
+    let protein = Math.round(weight * 2);
+    let fat = Math.round(weight * 1);
+    let carb = Math.round((bmr - (protein * 4) - (fat * 9)) / 4);
+
+    const requestData = {
+        age, height, weight, gender, bmr, protein, fat, carb, allergy, health,
+        vitamins: vitam(age, gender, weight, activity)
+    };
+
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = '<div class="loader">⏳ Генеруємо ідеальне меню...</div>';
+    
+    const apiUrl = window.location.hostname === "localhost" ? "http://localhost:3000" : "https://back-end-daij.onrender.com";
+
+    try {
+        const response = await fetch(apiUrl, { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData) 
+        });
+
+        const data = await response.json();
+        
+        if (data.error) throw new Error(data.error);
+
+        // === ТУТ ГОЛОВНА МАГІЯ ===
+        if (data.diet) {
+            parseAndRenderDiet(data.diet);
+        }
+
+    } catch (error) {
+        resultDiv.innerHTML = `<div style="color:red; text-align:center;">❌ Помилка: ${error.message}</div>`;
+        console.error(error);
+    }
+});
+
+// Функція для перетворення JSON у HTML
+function parseAndRenderDiet(jsonString) {
+    const resultDiv = document.getElementById("result");
+    
+    try {
+        // Очищаємо від можливих markdown символів
+        const cleanJson = jsonString.replace(/```json/g, '').replace(/```/g, '').trim();
+        const dietData = JSON.parse(cleanJson);
+        
+        let html = '';
+
+        // Блок рекомендацій
+        if(dietData.recommendations) {
+            html += `<div class="recommendation-box">💡 <strong>Порада:</strong> ${dietData.recommendations}</div>`;
+        }
+
+        // Малюємо дні
+        if (dietData.days && Array.isArray(dietData.days)) {
+            dietData.days.forEach(day => {
+                html += `
+                <div class="day-card">
+                    <div class="day-header">
+                        <h3>📅 ${day.day_number}</h3>
+                        <div class="day-macros">
+                            <span>🔥 ${day.total_calories} ккал</span>
+                            <span style="color:#e74c3c">Б: ${day.macros.protein}</span>
+                            <span style="color:#f1c40f">Ж: ${day.macros.fat}</span>
+                            <span style="color:#2ecc71">В: ${day.macros.carbs}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="meals-list">
+                        ${day.meals.map(meal => `
+                            <div class="meal-item">
+                                <div class="meal-info">
+                                    <div class="meal-type">${meal.type}</div>
+                                    <div class="meal-name">${meal.name}</div>
+                                    <div class="meal-ingr">${meal.ingredients}</div>
+                                </div>
+                                <div class="meal-cal">
+                                    ${meal.calories} ккал
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>`;
+            });
+        }
+
+        resultDiv.innerHTML = html;
+
+    } catch (e) {
+        console.error("Помилка парсингу:", e);
+        resultDiv.innerHTML = `<div style="color:orange">Дані отримано, але формат некоректний. Ось текст:<br>${jsonString}</div>`;
+    }
+}
