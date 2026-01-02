@@ -167,35 +167,67 @@ function vitam(age, gender, weight, activity){
 // ===============================
 // ВІДПРАВКА ДАНИХ
 // ===============================
+// ===============================
+// РОЗРАХУНОК BMR
+// ===============================
+function calculateBMR(age, height, weight, gender, activity) {
+    age = Number(age);
+    height = Number(height);
+    weight = Number(weight);
+
+    const multipliers = {
+        very_high: 1.9,
+        high: 1.725,
+        medium: 1.55,
+        small: 1.375,
+        low: 1.2
+    };
+
+    const base =
+        (10 * weight) +
+        (6.25 * height) -
+        (5 * age) +
+        (gender === "male" ? 5 : -161);
+
+    return Math.round(base * (multipliers[activity] || 1.2)); 
+}
+
+function vitam(age, gender, weight, activity){
+    // Ваша функция витаминов (сокращено для примера, оставьте свою версию если она больше)
+    return { Vitamin_C: 90, Vitamin_D: 800 }; 
+}
+
+// ===============================
+// ОБРОБКА ФОРМИ
+// ===============================
 document.getElementById("diet-form").addEventListener("submit", async function(event) {
     event.preventDefault();
-    
-    // Збираємо дані
+
     const age = document.getElementById("age").value;
     const gender = document.getElementById("gender").value;
     const height = document.getElementById("height").value;
     const weight = document.getElementById("weight").value;
     const activity = document.getElementById("activity").value;
     const goal = document.getElementById("goal").value;
-    const allergy = document.getElementById("allergy").value || "немає";
-    const health = document.getElementById("health").value || "здоровий";
+    const allergy = document.getElementById("allergy").value;
+    const health = document.getElementById("health").value;
 
     const bmr = calculateBMR(age, height, weight, gender, activity);
     
-    // Розрахунок макросів (спрощено)
-    let protein = Math.round(weight * 2);
-    let fat = Math.round(weight * 1);
-    let carb = Math.round((bmr - (protein * 4) - (fat * 9)) / 4);
-
+    // Данные для отправки
     const requestData = {
-        age, height, weight, gender, bmr, protein, fat, carb, allergy, health,
+        age, height, weight, gender, activity, goal, allergy, health,
+        bmr: bmr,
         vitamins: vitam(age, gender, weight, activity)
     };
 
     const resultDiv = document.getElementById("result");
-    resultDiv.innerHTML = '<div class="loader">⏳ Генеруємо ідеальне меню...</div>';
+    resultDiv.innerHTML = '<div class="loader">🥗 ШІ складає ваше меню... це займе 5-10 секунд...</div>';
     
-    const apiUrl = window.location.hostname === "localhost" ? "http://localhost:3000" : "https://back-end-daij.onrender.com";
+    // Адрес сервера
+    const apiUrl = location.hostname === "localhost" || location.hostname === "127.0.0.1"
+            ? "http://localhost:3000"
+            : "https://back-end-daij.onrender.com";
 
     try {
         const response = await fetch(apiUrl, { 
@@ -208,58 +240,64 @@ document.getElementById("diet-form").addEventListener("submit", async function(e
         
         if (data.error) throw new Error(data.error);
 
-        // === ТУТ ГОЛОВНА МАГІЯ ===
         if (data.diet) {
-            parseAndRenderDiet(data.diet);
+            renderDiet(data.diet); // Вызываем функцию отрисовки
         }
 
     } catch (error) {
-        resultDiv.innerHTML = `<div style="color:red; text-align:center;">❌ Помилка: ${error.message}</div>`;
+        resultDiv.innerHTML = `<div style="color:red; text-align:center; padding:20px;">❌ Помилка: ${error.message}</div>`;
         console.error(error);
     }
 });
 
-// Функція для перетворення JSON у HTML
-function parseAndRenderDiet(jsonString) {
+// ===============================
+// ФУНКЦІЯ ОТРИСОВКИ (НОВА)
+// ===============================
+function renderDiet(jsonString) {
     const resultDiv = document.getElementById("result");
     
     try {
-        // Очищаємо від можливих markdown символів
+        // Очищаем строку от возможных остатков Markdown (хотя сервер теперь отдает чистый JSON)
         const cleanJson = jsonString.replace(/```json/g, '').replace(/```/g, '').trim();
         const dietData = JSON.parse(cleanJson);
         
         let html = '';
 
-        // Блок рекомендацій
+        // 1. Блок рекомендаций
         if(dietData.recommendations) {
-            html += `<div class="recommendation-box">💡 <strong>Порада:</strong> ${dietData.recommendations}</div>`;
+            html += `
+            <div class="recommendation-card">
+                <h3>💡 Поради дієтолога</h3>
+                <p>${dietData.recommendations}</p>
+            </div>`;
         }
 
-        // Малюємо дні
+        // 2. Блок дней и приемов пищи
         if (dietData.days && Array.isArray(dietData.days)) {
             dietData.days.forEach(day => {
                 html += `
                 <div class="day-card">
                     <div class="day-header">
-                        <h3>📅 ${day.day_number}</h3>
-                        <div class="day-macros">
+                        <h2>📅 ${day.day_number}</h2>
+                        <div class="day-stats">
                             <span>🔥 ${day.total_calories} ккал</span>
-                            <span style="color:#e74c3c">Б: ${day.macros.protein}</span>
-                            <span style="color:#f1c40f">Ж: ${day.macros.fat}</span>
-                            <span style="color:#2ecc71">В: ${day.macros.carbs}</span>
+                            <span class="macro-p">Білки: ${day.macros.protein}г</span>
+                            <span class="macro-f">Жири: ${day.macros.fat}г</span>
+                            <span class="macro-c">Вугл: ${day.macros.carbs}г</span>
                         </div>
                     </div>
                     
-                    <div class="meals-list">
+                    <div class="meals-container">
                         ${day.meals.map(meal => `
-                            <div class="meal-item">
+                            <div class="meal-row">
                                 <div class="meal-info">
-                                    <div class="meal-type">${meal.type}</div>
+                                    <span class="meal-type">${meal.type}</span>
                                     <div class="meal-name">${meal.name}</div>
-                                    <div class="meal-ingr">${meal.ingredients}</div>
+                                    <div class="meal-desc">${meal.description}</div>
                                 </div>
-                                <div class="meal-cal">
-                                    ${meal.calories} ккал
+                                <div class="meal-macros">
+                                    <div class="cal-badge">${meal.calories} ккал</div>
+                                    <div class="micro-stats">Б:${meal.protein} Ж:${meal.fat} В:${meal.carbs}</div>
                                 </div>
                             </div>
                         `).join('')}
@@ -271,7 +309,7 @@ function parseAndRenderDiet(jsonString) {
         resultDiv.innerHTML = html;
 
     } catch (e) {
-        console.error("Помилка парсингу:", e);
-        resultDiv.innerHTML = `<div style="color:orange">Дані отримано, але формат некоректний. Ось текст:<br>${jsonString}</div>`;
+        console.error("JSON Parse Error:", e);
+        resultDiv.innerHTML = `<div class="error-box">Не вдалося відобразити меню. Спробуйте ще раз.<br><small>${e.message}</small></div>`;
     }
 }
