@@ -436,10 +436,10 @@
 
     <div id="disclaimer-overlay">
         <div class="disclaimer-box">
-            <h1 style="color: #FBBF24">УВАГА!</h1>
-            <p style="margin: 15px 0; color: #E5E7EB">Вся інформація, розміщена на даному сайті, надається виключно з інформаційною та ознайомчою метою. Матеріали сайту не є медичною консультацією, не є діагнозом, не є рекомендацією до лікування, не є індивідуальним планом харчування та не можуть замінити консультацію лікаря, дієтолога або іншого кваліфікованого спеціаліста.</p>
-            <p style="margin: 15px 0; color: #E5E7EB">Адміністрація сайту не несе відповідальності за будь-які наслідки, прямі або непрямі, що можуть виникнути в результаті використання інформації з цього сайту.</p>
-            <button class="disclaimer-btn" onclick="closeDisclaimer()">Я підтверджую усе</button>
+            <h1 style="color: #FBBF24" data-lang-key="disclaimer_title">УВАГА!</h1>
+            <p style="margin: 15px 0; color: #E5E7EB" data-lang-key="disclaimer_text_1">Вся інформація, розміщена на даному сайті, надається виключно з інформаційною та ознайомчою метою. Матеріали сайту не є медичною консультацією, не є діагнозом, не є рекомендацією до лікування, не є індивідуальним планом харчування та не можуть замінити консультацію лікаря, дієтолога або іншого кваліфікованого спеціаліста.</p>
+            <p style="margin: 15px 0; color: #E5E7EB" data-lang-key="disclaimer_text_2">Адміністрація сайту не несе відповідальності за будь-які наслідки, прямі або непрямі, що можуть виникнути в результаті використання інформації з цього сайту.</p>
+            <button class="disclaimer-btn" onclick="closeDisclaimer()" data-lang-key="disclaimer_btn">Я підтверджую усе</button>
         </div>
     </div>
 
@@ -452,6 +452,11 @@
             </div>
             
             <div class="flex items-center gap-4">
+                 <!-- КНОПКА МОВИ (NEW) -->
+                <button id="lang-toggle" onclick="toggleLanguage()" class="p-2 rounded-lg font-bold hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 transition transform border border-gray-200 dark:border-gray-700" title="Змінити мову">
+                    UA
+                </button>
+
                 <!-- КНОПКА ЗМІНИ ТЕМИ -->
                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 transition transform hover:scale-110" title="Змінити тему">
                     <i class="fas fa-moon text-xl"></i>
@@ -471,22 +476,22 @@
     <div id="mobile-menu" class="fixed top-0 right-0 h-full z-50 bg-white dark:bg-gray-800 w-full sm:w-1/2 lg:w-1/4 flex flex-col p-8 pt-24 shadow-2xl">
         <div class="flex flex-col space-y-6 text-lg font-semibold text-gray-800 dark:text-gray-100">
             <a href="javascript:void(0)" onclick="showPage('home'); toggleMenu();" class="menu-item delay-1 hover:text-green-500 flex items-center space-x-4">
-                <i class="fas fa-home w-6"></i> <span>Головна</span>
+                <i class="fas fa-home w-6"></i> <span data-lang-key="menu_home">Головна</span>
             </a>
             <!-- Новий пункт: Інформація -->
             <a href="javascript:void(0)" onclick="showPage('info'); toggleMenu();" class="menu-item delay-2 hover:text-green-500 flex items-center space-x-4">
-                <i class="fas fa-info-circle w-6"></i> <span>Інформація</span>
+                <i class="fas fa-info-circle w-6"></i> <span data-lang-key="menu_info">Інформація</span>
             </a>
             <a href="javascript:void(0)" onclick="showPage('calculator'); toggleMenu();" class="menu-item delay-3 hover:text-green-500 flex items-center space-x-4">
-                <i class="fas fa-calculator w-6"></i> <span>Калькулятор</span>
+                <i class="fas fa-calculator w-6"></i> <span data-lang-key="menu_calc">Калькулятор</span>
             </a>
             <!-- Новий пункт: Дієта -->
             <a href="javascript:void(0)" onclick="showPage('diet'); toggleMenu();" class="menu-item delay-4 hover:text-green-500 flex items-center space-x-4">
-                <i class="fas fa-apple-alt w-6"></i> <span>Дієта</span>
+                <i class="fas fa-apple-alt w-6"></i> <span data-lang-key="menu_diet">Дієта</span>
             </a>
             
             <a href="javascript:void(0)" onclick="openAdminAuth(); toggleMenu();" class="menu-item delay-5 hover:text-red-500 flex items-center space-x-4 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                <i class="fas fa-cogs w-6"></i> <span>Адмін Панель</span>
+                <i class="fas fa-cogs w-6"></i> <span data-lang-key="menu_admin">Адмін Панель</span>
             </a>
         </div>
     </div>
@@ -500,16 +505,16 @@
             <header class="hero-gradient-bg text-white py-24 px-4 text-center relative overflow-hidden">
                 <div class="container mx-auto relative z-10">
                     <h1 class="text-4xl md:text-6xl font-black mb-6 editable-text drop-shadow-md">Nutriway</h1>
-                    <p class="text-lg opacity-90 mb-10 max-w-2xl mx-auto italic editable-text drop-shadow-sm">Ваш персональний шлях до здоров'я та ідеальної форми.</p>
+                    <p class="text-lg opacity-90 mb-10 max-w-2xl mx-auto italic editable-text drop-shadow-sm" data-lang-key="hero_subtitle">Ваш персональний шлях до здоров'я та ідеальної форми.</p>
                     <div class="flex justify-center gap-4">
-                        <button onclick="showPage('calculator')" class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:shadow-xl transition hover:scale-105">Почати розрахунок</button>
+                        <button onclick="showPage('calculator')" class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:shadow-xl transition hover:scale-105" data-lang-key="hero_btn">Почати розрахунок</button>
                     </div>
                 </div>
             </header>
 
             <!-- Діагностика -->
             <section class="py-20 container mx-auto px-4">
-                <h2 class="text-3xl font-bold mb-12 text-center editable-text dark:text-white">Комплексна діагностика</h2>
+                <h2 class="text-3xl font-bold mb-12 text-center editable-text dark:text-white" data-lang-key="section_diag">Комплексна діагностика</h2>
                 <div id="diag-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24 text-center">
                     <!-- Cards -->
                     <!-- <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-colors duration-1200">
@@ -519,31 +524,31 @@
                     </div> -->
                     <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer">
                         <i class="fas fa-heartbeat text-red-500 text-3xl mb-4"></i>
-                        <h3 class="font-bold mb-2 editable-text dark:text-white">ІМТ</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text">Оцінка маси тіла.</p>
+                        <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_imt">ІМТ</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_imt_desc">Оцінка маси тіла.</p>
                     </div>
                     <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer">
                         <i class="fas fa-fire text-orange-500 text-3xl mb-4"></i>
-                        <h3 class="font-bold mb-2 editable-text dark:text-white">Калорії</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text">Розрахунок норми.</p>
+                        <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_cal">Калорії</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_cal_desc">Розрахунок норми.</p>
                     </div>
                     <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer">
                         <i class="fas fa-pills text-purple-500 text-3xl mb-4"></i>
-                        <h3 class="font-bold mb-2 editable-text dark:text-white">Вітаміни</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text">Підбір нутрієнтів.</p>
+                        <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_vit">Вітаміни</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_vit_desc">Підбір нутрієнтів.</p>
                     </div>
                     <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer">
                         <i class="fas fa-bed text-blue-500 text-3xl mb-4"></i>
-                        <h3 class="font-bold mb-2 editable-text dark:text-white">Сон</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text">Норми відпочинку.</p>
+                        <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_sleep">Сон</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_sleep_desc">Норми відпочинку.</p>
                     </div>
                 </div>
 
                 <!-- СВІТ NUTRIWAY -->
                 <div class="space-y-24">
                     <div class="max-w-4xl mx-auto text-center">
-                        <h2 class="text-4xl font-black text-gray-900 dark:text-white mb-4 editable-text">Світ Nutriway</h2>
-                        <p class="text-gray-500 dark:text-gray-400 text-lg editable-text">Глибоке розуміння вашого тіла.</p>
+                        <h2 class="text-4xl font-black text-gray-900 dark:text-white mb-4 editable-text" data-lang-key="world_title">Світ Nutriway</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-lg editable-text" data-lang-key="world_subtitle">Глибоке розуміння вашого тіла.</p>
                     </div>
 
                     <div class="grid lg:grid-cols-2 gap-8 items-stretch">
@@ -552,8 +557,8 @@
                                 <i class="fas fa-seedling text-green-600 dark:text-green-400 text-4xl"></i>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-bold mb-3 editable-text dark:text-white">Нутриціологія</h3>
-                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm editable-text">Ми вивчаємо, як кожен нутрієнт впливає на енергію.</p>
+                                <h3 class="text-2xl font-bold mb-3 editable-text dark:text-white" data-lang-key="feature_1_title">Нутриціологія</h3>
+                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm editable-text" data-lang-key="feature_1_desc">Ми вивчаємо, як кожен нутрієнт впливає на енергію.</p>
                             </div>
                         </div>
 
@@ -562,8 +567,8 @@
                                 <i class="fas fa-utensils text-green-400 text-4xl"></i>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-bold mb-3 editable-text dark:text-white">Розумна Дієта</h3>
-                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm editable-text">Правило 80/20: 80% корисної їжі та 20% для душі.</p>
+                                <h3 class="text-2xl font-bold mb-3 editable-text dark:text-white" data-lang-key="feature_2_title">Розумна Дієта</h3>
+                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm editable-text" data-lang-key="feature_2_desc">Правило 80/20: 80% корисної їжі та 20% для душі.</p>
                             </div>
                         </div>
                     </div>
@@ -578,25 +583,25 @@
                         <div class="relative z-10 flex flex-col md:flex-row items-center gap-10">
                             
                             <div class="md:w-1/3">
-                                <h3 class="text-3xl font-black mb-4 transition-transform duration-500 group-hover:translate-x-1">Гідратація — це база</h3>
-                                <p class="opacity-80 leading-relaxed text-blue-50">Вода регулює температуру тіла, виводить токсини та покращує роботу мозку. Навіть 2% дефіциту води знижують вашу продуктивність наполовину.</p>
+                                <h3 class="text-3xl font-black mb-4 transition-transform duration-500 group-hover:translate-x-1" data-lang-key="water_title">Гідратація — це база</h3>
+                                <p class="opacity-80 leading-relaxed text-blue-50" data-lang-key="water_desc">Вода регулює температуру тіла, виводить токсини та покращує роботу мозку. Навіть 2% дефіциту води знижують вашу продуктивність наполовину.</p>
                             </div>
 
                             <div class="md:w-2/3 grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 
                                 <div class="bg-white/10 dark:bg-white/5 p-6 rounded-2xl backdrop-blur-md border border-white/10 transition-all duration-500 hover:bg-white/20 hover:-translate-y-2">
-                                    <h4 class="font-bold text-xl mb-2">30-35 мл</h4>
-                                    <p class="text-xs opacity-70 italic">на 1 кг ваги — ваша ідеальна норма чистої води на добу.</p>
+                                    <h4 class="font-bold text-xl mb-2" data-lang-key="water_card1_title">30-35 мл</h4>
+                                    <p class="text-xs opacity-70 italic" data-lang-key="water_card1_desc">на 1 кг ваги — ваша ідеальна норма чистої води на добу.</p>
                                 </div>
 
                                 <div class="bg-white/10 dark:bg-white/5 p-6 rounded-2xl backdrop-blur-md border border-white/10 transition-all duration-500 hover:bg-white/20 hover:-translate-y-2">
-                                    <h4 class="font-bold text-xl mb-2">Склянка зранку</h4>
-                                    <p class="text-xs opacity-70 italic">одразу після пробудження, щоб "запустити" травну систему.</p>
+                                    <h4 class="font-bold text-xl mb-2" data-lang-key="water_card2_title">Склянка зранку</h4>
+                                    <p class="text-xs opacity-70 italic" data-lang-key="water_card2_desc">одразу після пробудження, щоб "запустити" травну систему.</p>
                                 </div>
 
                                 <div class="bg-white/10 dark:bg-white/5 p-6 rounded-2xl backdrop-blur-md border border-white/10 transition-all duration-500 hover:bg-white/20 hover:-translate-y-2">
-                                    <h4 class="font-bold text-xl mb-2">Без цукру</h4>
-                                    <p class="text-xs opacity-70 italic">кава та соки — це їжа, а не вода. Віддавайте перевагу чистому ресурсу.</p>
+                                    <h4 class="font-bold text-xl mb-2" data-lang-key="water_card3_title">Без цукру</h4>
+                                    <p class="text-xs opacity-70 italic" data-lang-key="water_card3_desc">кава та соки — це їжа, а не вода. Віддавайте перевагу чистому ресурсу.</p>
                                 </div>
 
                             </div>
@@ -604,8 +609,8 @@
                     </div>
                 <div class="container mx-auto px-4 max-w-4xl">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl font-black text-gray-900 mb-4 transition-colors duration-300 dark:text-white">Енциклопедія Nutriway</h2>
-                    <p class="text-gray-500 italic">Ми зібрали відповіді на найскладніші та найважливіші питання про здоров’я</p>
+                    <h2 class="text-4xl font-black text-gray-900 mb-4 transition-colors duration-300 dark:text-white" data-lang-key="faq_title">Енциклопедія Nutriway</h2>
+                    <p class="text-gray-500 italic" data-lang-key="faq_subtitle">Ми зібрали відповіді на найскладніші та найважливіші питання про здоров’я</p>
                 </div>
                     </div>
                     <div class="space-y-4">
@@ -613,12 +618,12 @@
                         <!-- 1 питання -->
                         <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
                             <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg dark:text-white">● Чи справді потрібно пити 2 літри води?</h4>
+                                <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_q1">● Чи справді потрібно пити 2 літри води?</h4>
                                 <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
                             </div>
                             <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
                                 <div class="overflow-hidden">
-                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300">
+                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300" data-lang-key="faq_a1">
                                         Ні, концепція «2 літри» є застарілою. Ваша норма залежить від ваги, рівня активності та клімату.
                                     </div>
                                 </div>
@@ -627,12 +632,12 @@
                         <!-- 2 питання -->
                         <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
                             <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg dark:text-white">● Чи справді треба не їсти коли ти на дієті?</h4>
+                                <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_q2">● Чи справді треба не їсти коли ти на дієті?</h4>
                                 <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
                             </div>
                             <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
                                 <div class="overflow-hidden">
-                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300">
+                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300" data-lang-key="faq_a2">
                                         Ні, треба їсти менше калорій ніж ти використовуєш.
                                     </div>
                                 </div>
@@ -641,12 +646,12 @@
                         <!-- 3 питання -->
                         <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
                             <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg dark:text-white">● Чи справді треба не їсти коли ти на дієті?</h4>
+                                <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_q2">● Чи справді треба не їсти коли ти на дієті?</h4>
                                 <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
                             </div>
                             <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
                                 <div class="overflow-hidden">
-                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300">
+                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300" data-lang-key="faq_a2">
                                         Ні, треба їсти менше калорій ніж ти використовуєш.
                                     </div>
                                 </div>
@@ -655,12 +660,12 @@
                         <!-- 4 питання -->
                         <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
                             <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg dark:text-white">● Чи справді треба не їсти коли ти на дієті?</h4>
+                                <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_q2">● Чи справді треба не їсти коли ти на дієті?</h4>
                                 <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
                             </div>
                             <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
                                 <div class="overflow-hidden">
-                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300">
+                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300" data-lang-key="faq_a2">
                                         Ні, треба їсти менше калорій ніж ти використовуєш.
                                     </div>
                                 </div>
@@ -669,12 +674,12 @@
                         <!-- 5 питання -->
                         <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
                             <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-lg dark:text-white">● Чи справді треба не їсти коли ти на дієті?</h4>
+                                <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_q2">● Чи справді треба не їсти коли ти на дієті?</h4>
                                 <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
                             </div>
                             <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
                                 <div class="overflow-hidden">
-                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300">
+                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300" data-lang-key="faq_a2">
                                         Ні, треба їсти менше калорій ніж ти використовуєш.
                                     </div>
                                 </div>
@@ -690,19 +695,19 @@
         <!-- СТОРІНКА: ІНФОРМАЦІЯ -->
         <main id="info-page" class="page-content pt-32 pb-20">
             <div class="container mx-auto px-4 max-w-5xl">
-                <h2 class="text-4xl font-black text-center mb-8 editable-text dark:text-white">Корисна Інформація</h2>
-                <p class="text-center text-gray-500 dark:text-gray-400 mb-12 max-w-2xl mx-auto">Дізнайтеся більше про те, як працює ваш організм та які звички допоможуть вам почуватися краще.</p>
+                <h2 class="text-4xl font-black text-center mb-8 editable-text dark:text-white" data-lang-key="info_title">Корисна Інформація</h2>
+                <p class="text-center text-gray-500 dark:text-gray-400 mb-12 max-w-2xl mx-auto" data-lang-key="info_subtitle">Дізнайтеся більше про те, як працює ваш організм та які звички допоможуть вам почуватися краще.</p>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Стаття 1 -->
                     <div class="bg-white dark:bg-gray-800 rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition duration-300 article-card">
                         <div class="h-48 overflow-hidden bg-green-100 relative">
                             <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80" alt="Healthy Food" class="w-full h-full object-cover article-image">
-                            <div class="absolute top-4 right-4 bg-white dark:bg-gray-900 text-green-600 dark:text-green-400 text-xs font-bold px-3 py-1 rounded-full shadow-sm">ХАРЧУВАННЯ</div>
+                            <div class="absolute top-4 right-4 bg-white dark:bg-gray-900 text-green-600 dark:text-green-400 text-xs font-bold px-3 py-1 rounded-full shadow-sm" data-lang-key="tag_food">ХАРЧУВАННЯ</div>
                         </div>
                         <div class="p-8">
-                            <h3 class="text-2xl font-bold mb-4 dark:text-white">Правило тарілки</h3>
-                            <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                            <h3 class="text-2xl font-bold mb-4 dark:text-white" data-lang-key="article_1_title">Правило тарілки</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed" data-lang-key="article_1_desc">
                                 Уявіть свою тарілку розділеною на частини. Половину повинні займати овочі та зелень, чверть — якісний білок (риба, м'ясо, яйця), а ще чверть — складні вуглеводи (каші, цільнозерновий хліб). Такий підхід забезпечує баланс без підрахунку калорій.
                             </p>
                         </div>
@@ -712,11 +717,11 @@
                     <div class="bg-white dark:bg-gray-800 rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition duration-300 article-card">
                         <div class="h-48 overflow-hidden bg-blue-100 relative">
                              <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80" alt="Sport" class="w-full h-full object-cover article-image">
-                             <div class="absolute top-4 right-4 bg-white dark:bg-gray-900 text-blue-600 dark:text-blue-400 text-xs font-bold px-3 py-1 rounded-full shadow-sm">СПОРТ</div>
+                             <div class="absolute top-4 right-4 bg-white dark:bg-gray-900 text-blue-600 dark:text-blue-400 text-xs font-bold px-3 py-1 rounded-full shadow-sm" data-lang-key="tag_sport">СПОРТ</div>
                         </div>
                         <div class="p-8">
-                            <h3 class="text-2xl font-bold mb-4 dark:text-white">Чому важлива активність?</h3>
-                            <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                            <h3 class="text-2xl font-bold mb-4 dark:text-white" data-lang-key="article_2_title">Чому важлива активність?</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed" data-lang-key="article_2_desc">
                                 Рух — це не тільки про спалювання калорій. Регулярна активність знижує рівень кортизолу (гормону стресу), покращує чутливість до інсуліну та зміцнює серцево-судинну систему. Навіть 30 хвилин ходьби на день можуть змінити ваше життя.
                             </p>
                         </div>
@@ -724,8 +729,8 @@
                 </div>
 
                 <div class="mt-12 bg-indigo-50 dark:bg-indigo-900/20 p-8 rounded-[2rem] border border-indigo-100 dark:border-indigo-800 text-center">
-                    <h3 class="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">Наша Місія</h3>
-                    <p class="text-indigo-900 dark:text-indigo-100 max-w-3xl mx-auto leading-relaxed">
+                    <h3 class="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-4" data-lang-key="mission_title">Наша Місія</h3>
+                    <p class="text-indigo-900 dark:text-indigo-100 max-w-3xl mx-auto leading-relaxed" data-lang-key="mission_desc">
                         Nutriway створений для того, щоб зробити здоровий спосіб життя доступним та зрозумілим. Ми віримо, що здоров'я починається з розуміння потреб власного тіла, а не з жорстких обмежень.
                     </p>
                 </div>
@@ -735,7 +740,7 @@
         <!-- СТОРІНКА: ДІЄТА (ПУСТА) -->
         <main id="diet-page" class="page-content pt-32 pb-20">
              <div class="container mx-auto px-4 max-w-5xl">
-                <h2 class="text-4xl font-black text-center mb-12 editable-text dark:text-white">Дієта</h2>
+                <h2 class="text-4xl font-black text-center mb-12 editable-text dark:text-white" data-lang-key="menu_diet">Дієта</h2>
                 <div id="result" class="flex items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-3xl dark:border-gray-700">
                      <!--<p id ='result' class="text-xl text-gray-400 font-bold uppercase tracking-widest"> Ввердіть данні</p>-->
                 </div>
@@ -745,27 +750,27 @@
         <!-- КАЛЬКУЛЯТОР (ЯК БУЛО) -->
         <main id="calculator-page" class="page-content pt-32 pb-20">
             <div class="container mx-auto px-4 max-w-5xl">
-                <h2 class="text-4xl font-black text-center mb-12 editable-text dark:text-white">Калькулятор</h2>
+                <h2 class="text-4xl font-black text-center mb-12 editable-text dark:text-white" data-lang-key="menu_calc">Калькулятор</h2>
                 
                 <div class="grid lg:grid-cols-1 gap-8">
                     <!-- INPUT FORM -->
                     <div class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 shadow-xl border border-gray-100 dark:border-gray-700 max-w-3xl mx-auto w-full transition-colors duration-300">
                         <h3 class="font-bold text-gray-900 dark:text-white mb-6 flex items-center text-xl">
-                            <i class="fas fa-user-edit mr-3 text-green-500"></i> Ваші параметри
+                            <i class="fas fa-user-edit mr-3 text-green-500"></i> <span data-lang-key="calc_params">Ваші параметри</span>
                         </h3>
                         
                         <!-- Inputs -->
                         <div class="grid md:grid-cols-3 gap-6 mb-6">
                             <div>
-                                <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">ВІК (років)</label>
+                                <label class="text-xs font-bold text-gray-400 mb-2 block ml-1" data-lang-key="lbl_age">ВІК (років)</label>
                                 <input id="age" type="number" placeholder="25" class="w-full p-4 bg-gray-50 dark:bg-gray-700 dark:text-white rounded-2xl outline-none focus:ring-2 focus:ring-green-400 transition">
                             </div>
                             <div>
-                                <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">ЗРІСТ (см)</label>
+                                <label class="text-xs font-bold text-gray-400 mb-2 block ml-1" data-lang-key="lbl_height">ЗРІСТ (см)</label>
                                 <input id="height" type="number" placeholder="175" class="w-full p-4 bg-gray-50 dark:bg-gray-700 dark:text-white rounded-2xl outline-none focus:ring-2 focus:ring-green-400 transition">
                             </div>
                             <div>
-                                <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">ВАГА (кг)</label>
+                                <label class="text-xs font-bold text-gray-400 mb-2 block ml-1" data-lang-key="lbl_weight">ВАГА (кг)</label>
                                 <input id="weight" type="number" placeholder="70" class="w-full p-4 bg-gray-50 dark:bg-gray-700 dark:text-white rounded-2xl outline-none focus:ring-2 focus:ring-green-400 transition">
                             </div>
                         </div>
@@ -782,49 +787,49 @@
                         </div> -->
 
                         <div class="mb-6">
-                            <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">СТАТЬ</label>
+                            <label class="text-xs font-bold text-gray-400 mb-2 block ml-1" data-lang-key="lbl_sex">СТАТЬ</label>
                             <div class="flex gap-4">
                                 <label class="flex-1 cursor-pointer">
                                     <input id="gender"type="radio" name="gender" value="male" checked class="peer hidden">
-                                    <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center border-2 border-transparent peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/30 peer-checked:text-green-700 dark:peer-checked:text-green-400 transition font-bold text-sm">Чоловік</div>
+                                    <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center border-2 border-transparent peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/30 peer-checked:text-green-700 dark:peer-checked:text-green-400 transition font-bold text-sm" data-lang-key="opt_male">Чоловік</div>
                                 </label>
                                 <label class="flex-1 cursor-pointer">
                                     <input id="gender" type="radio" name="gender" value="female" class="peer hidden">
-                                    <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center border-2 border-transparent peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/30 peer-checked:text-green-700 dark:peer-checked:text-green-400 transition font-bold text-sm">Жінка</div>
+                                    <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center border-2 border-transparent peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/30 peer-checked:text-green-700 dark:peer-checked:text-green-400 transition font-bold text-sm" data-lang-key="opt_female">Жінка</div>
                                 </label>
                             </div>
                         </div>
 
                         <div class="mb-8">
-                            <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">АКТИВНІСТЬ</label>
+                            <label class="text-xs font-bold text-gray-400 mb-2 block ml-1" data-lang-key="lbl_activity">АКТИВНІСТЬ</label>
                             <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
                                 <label class="cursor-pointer">
                                     <input id="activity" type="radio" name="activity" value="low" class="peer hidden">
-                                    <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center text-xs font-bold border dark:border-gray-600 peer-checked:bg-green-500 peer-checked:text-white transition">Низька</div>
+                                    <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center text-xs font-bold border dark:border-gray-600 peer-checked:bg-green-500 peer-checked:text-white transition" data-lang-key="act_low">Низька</div>
                                 </label>
                                 <label class="cursor-pointer">
                                     <input id="activity" type="radio" name="activity" value="small" class="peer hidden">
-                                    <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center text-xs font-bold border dark:border-gray-600 peer-checked:bg-green-500 peer-checked:text-white transition">Мала</div>
+                                    <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center text-xs font-bold border dark:border-gray-600 peer-checked:bg-green-500 peer-checked:text-white transition" data-lang-key="act_small">Мала</div>
                                 </label>
                                 <label class="cursor-pointer">
                                     <input id="activity" type="radio" name="activity" value="medium" checked class="peer hidden">
-                                    <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center text-xs font-bold border dark:border-gray-600 peer-checked:bg-green-500 peer-checked:text-white transition">Середня</div>
+                                    <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center text-xs font-bold border dark:border-gray-600 peer-checked:bg-green-500 peer-checked:text-white transition" data-lang-key="act_medium">Середня</div>
                                 </label>
                                 <label class="cursor-pointer">
                                     <input id="activity" type="radio" name="activity" value="high" class="peer hidden">
-                                    <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center text-xs font-bold border dark:border-gray-600 peer-checked:bg-green-500 peer-checked:text-white transition">Висока</div>
+                                    <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center text-xs font-bold border dark:border-gray-600 peer-checked:bg-green-500 peer-checked:text-white transition" data-lang-key="act_high">Висока</div>
                                 </label>
                                 <label class="cursor-pointer">
                                     <input id="activity" type="radio" name="activity" value="very_high" class="peer hidden">
-                                    <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center text-xs font-bold border dark:border-gray-600 peer-checked:bg-green-500 peer-checked:text-white transition">Спорт</div>
+                                    <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center text-xs font-bold border dark:border-gray-600 peer-checked:bg-green-500 peer-checked:text-white transition" data-lang-key="act_sport">Спорт</div>
                                 </label>
                             </div>
                         </div>
                         
-                        <div id="calc-error-msg" class="text-red-500 text-center mb-4 hidden font-bold">Заповніть всі поля коректно!</div>
+                        <div id="calc-error-msg" class="text-red-500 text-center mb-4 hidden font-bold" data-lang-key="err_fill">Заповніть всі поля коректно!</div>
 
                         <!-- Main Action Button -->
-                        <button onclick="showData()" class="w-full py-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition transform text-lg">
+                        <button onclick="showData()" class="w-full py-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition transform text-lg" data-lang-key="btn_calc">
                             РОЗРАХУВАТИ
                         </button>
                         <!-- <div class ="mb-8"> 
@@ -836,8 +841,8 @@
                         
                         <!-- Confirmation Buttons (Hidden by default) -->
                         <div id="confirm-buttons" class="hidden mt-4 flex gap-4">
-                             <button onclick="showResultsInPlace()" class="flex-1 py-3 bg-green-500 text-white rounded-xl font-bold hover:bg-green-600">Дані вірні</button>
-                             <button onclick="reTry()" class="flex-1 py-3 bg-red-500 text-white rounded-xl font-bold hover:bg-red-600">Виправити</button>
+                             <button onclick="showResultsInPlace()" class="flex-1 py-3 bg-green-500 text-white rounded-xl font-bold hover:bg-green-600" data-lang-key="btn_correct">Дані вірні</button>
+                             <button onclick="reTry()" class="flex-1 py-3 bg-red-500 text-white rounded-xl font-bold hover:bg-red-600" data-lang-key="btn_fix">Виправити</button>
                         </div>
                     </div>
 
@@ -845,22 +850,22 @@
                     <div id="resultArea" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8 max-w-3xl mx-auto w-full">
                         <div id="results-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl transition-colors duration-300 hidden">
                             <h4 class="font-bold text-gray-900 dark:text-white mb-6 flex items-center text-xl">
-                                <i class="fas fa-book mr-3 text-purple-500"></i> Рекомендації по харчуванню
+                                <i class="fas fa-book mr-3 text-purple-500"></i> <span data-lang-key="res_rec">Рекомендації по харчуванню</span>
                             </h4>
                             <div class="grid md:grid-cols-2 gap-6 mb-6">
                                 <div>
-                                    <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">АЛЕРГІЇ</label>
+                                    <label class="text-xs font-bold text-gray-400 mb-2 block ml-1" data-lang-key="lbl_allergy">АЛЕРГІЇ</label>
                                     <input id="allergy" type="text" placeholder="Горіхи, мед, лактоза..." class="w-full p-4 bg-gray-50 dark:bg-gray-700 dark:text-white rounded-2xl outline-none focus:ring-2 focus:ring-green-400 transition">
                                 </div>
                             <div>
-                                <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">ЗДОРОВ'Я</label>
+                                <label class="text-xs font-bold text-gray-400 mb-2 block ml-1" data-lang-key="lbl_health">ЗДОРОВ'Я</label>
                                 <input id="health" type="text" placeholder="Травми, хвороби..." class="w-full p-4 bg-gray-50 dark:bg-gray-700 dark:text-white rounded-2xl outline-none focus:ring-2 focus:ring-green-400 transition">
                             </div>
                         </div>
 
                         <div class="mt-6"> 
                             <button onclick="send(); showPage('diet'); get();" 
-                                    class="w-full py-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition transform">
+                                    class="w-full py-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition transform" data-lang-key="btn_get_rec">
                                 ОТРИМАТИ РЕКОМЕНДАЦІЇ
                             </button>
                         </div>
@@ -869,7 +874,7 @@
                          <!-- Main Stats -->
                          <div id="macros-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl transition-colors duration-300 hidden">
                             <h4 class="font-bold text-gray-900 dark:text-white mb-6 flex items-center text-xl">
-                                <i class="fas fa-chart-pie mr-3 text-blue-500"></i> Основні показники
+                                <i class="fas fa-chart-pie mr-3 text-blue-500"></i> <span data-lang-key="res_main">Основні показники</span>
                             </h4>
                             <div id="macros-grid-container" class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <!-- Macros injected by JS -->
@@ -887,12 +892,12 @@
                         <!-- Sleep Card -->
                         <div id="sleep-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl transition-colors duration-300 hidden">
                             <h4 class="font-bold text-gray-900 dark:text-white mb-6 flex items-center text-xl">
-                                <i class="fas fa-bed mr-3 text-indigo-500"></i> Рекомендований сон
+                                <i class="fas fa-bed mr-3 text-indigo-500"></i> <span data-lang-key="res_sleep">Рекомендований сон</span>
                             </h4>
                             <div class="flex items-center p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl border border-indigo-100 dark:border-indigo-800">
                                 <div class="text-3xl text-indigo-500 mr-4"><i class="fas fa-moon"></i></div>
                                 <div>
-                                    <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">Тривалість</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase" data-lang-key="res_duration">Тривалість</div>
                                     <div id="sleep-value" class="text-xl font-bold text-gray-900 dark:text-white"></div>
                                 </div>
                             </div>
@@ -902,7 +907,7 @@
 
                             <h4 class="font-bold text-gray-900 dark:text-white mb-6 flex items-center text-xl">
                                 <i class="fas fa-tint mr-3 text-blue-500 text-2xl"></i> 
-                                Рекомендована кількість води
+                                <span data-lang-key="res_water">Рекомендована кількість води</span>
                             </h4>
 
                             <div class="flex items-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-800">
@@ -912,7 +917,7 @@
                                 </div>
 
                                 <div>
-                                    <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">Кількість</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase" data-lang-key="res_amount">Кількість</div>
                                     <div id="water-value" class="text-xl font-bold text-gray-900 dark:text-white"></div>
                                 </div>
                             </div>
@@ -921,7 +926,7 @@
                         <!-- Vitamin Cards -->
                         <div id="vitamin-section" class="bg-white dark:bg-gray-800 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl transition-colors duration-300 hidden">
                             <h4 class="font-bold text-gray-900 dark:text-white mb-6 flex items-center text-xl">
-                                <i class="fas fa-capsules mr-3 text-purple-500"></i> Ваша вітамінна карта
+                                <i class="fas fa-capsules mr-3 text-purple-500"></i> <span data-lang-key="res_vit">Ваша вітамінна карта</span>
                             </h4>
                             <div id="vitamin-grid-container" class="grid md:grid-cols-2 gap-4">
                                 <!-- Cards injected by JS -->
@@ -999,11 +1004,264 @@
                 <i class="fas fa-route text-green-500"></i>
                 <span class="text-xl font-bold text-gray-900 dark:text-white">Nutriway</span>
             </div>
-            <p class="text-gray-400 dark:text-gray-600 text-[10px] font-bold uppercase tracking-[0.2em] editable-text">© 2025 Всі права захищені</p>
+            <p class="text-gray-400 dark:text-gray-600 text-[10px] font-bold uppercase tracking-[0.2em] editable-text">© 2025 <span data-lang-key="copyright">Всі права захищені</span></p>
         </div>
     </footer>
 
     <script>
+        // --- TRANSLATION LOGIC START ---
+        const translations = {
+            uk: {
+                "disclaimer_title": "УВАГА!",
+                "disclaimer_text_1": "Вся інформація, розміщена на даному сайті, надається виключно з інформаційною та ознайомчою метою. Матеріали сайту не є медичною консультацією, не є діагнозом, не є рекомендацією до лікування, не є індивідуальним планом харчування та не можуть замінити консультацію лікаря, дієтолога або іншого кваліфікованого спеціаліста.",
+                "disclaimer_text_2": "Адміністрація сайту не несе відповідальності за будь-які наслідки, прямі або непрямі, що можуть виникнути в результаті використання інформації з цього сайту.",
+                "disclaimer_btn": "Я підтверджую усе",
+                "menu_home": "Головна",
+                "menu_info": "Інформація",
+                "menu_calc": "Калькулятор",
+                "menu_diet": "Дієта",
+                "menu_admin": "Адмін Панель",
+                "hero_subtitle": "Ваш персональний шлях до здоров'я та ідеальної форми.",
+                "hero_btn": "Почати розрахунок",
+                "section_diag": "Комплексна діагностика",
+                "card_imt": "ІМТ",
+                "card_imt_desc": "Оцінка маси тіла.",
+                "card_cal": "Калорії",
+                "card_cal_desc": "Розрахунок норми.",
+                "card_vit": "Вітаміни",
+                "card_vit_desc": "Підбір нутрієнтів.",
+                "card_sleep": "Сон",
+                "card_sleep_desc": "Норми відпочинку.",
+                "world_title": "Світ Nutriway",
+                "world_subtitle": "Глибоке розуміння вашого тіла.",
+                "feature_1_title": "Нутриціологія",
+                "feature_1_desc": "Ми вивчаємо, як кожен нутрієнт впливає на енергію.",
+                "feature_2_title": "Розумна Дієта",
+                "feature_2_desc": "Правило 80/20: 80% корисної їжі та 20% для душі.",
+                "water_title": "Гідратація — це база",
+                "water_desc": "Вода регулює температуру тіла, виводить токсини та покращує роботу мозку. Навіть 2% дефіциту води знижують вашу продуктивність наполовину.",
+                "water_card1_title": "30-35 мл",
+                "water_card1_desc": "на 1 кг ваги — ваша ідеальна норма чистої води на добу.",
+                "water_card2_title": "Склянка зранку",
+                "water_card2_desc": "одразу після пробудження, щоб \"запустити\" травну систему.",
+                "water_card3_title": "Без цукру",
+                "water_card3_desc": "кава та соки — це їжа, а не вода. Віддавайте перевагу чистому ресурсу.",
+                "faq_title": "Енциклопедія Nutriway",
+                "faq_subtitle": "Ми зібрали відповіді на найскладніші та найважливіші питання про здоров’я",
+                "faq_q1": "● Чи справді потрібно пити 2 літри води?",
+                "faq_a1": "Ні, концепція «2 літри» є застарілою. Ваша норма залежить від ваги, рівня активності та клімату.",
+                "faq_q2": "● Чи справді треба не їсти коли ти на дієті?",
+                "faq_a2": "Ні, треба їсти менше калорій ніж ти використовуєш.",
+                "info_title": "Корисна Інформація",
+                "info_subtitle": "Дізнайтеся більше про те, як працює ваш організм та які звички допоможуть вам почуватися краще.",
+                "tag_food": "ХАРЧУВАННЯ",
+                "tag_sport": "СПОРТ",
+                "article_1_title": "Правило тарілки",
+                "article_1_desc": "Уявіть свою тарілку розділеною на частини. Половину повинні займати овочі та зелень, чверть — якісний білок (риба, м'ясо, яйця), а ще чверть — складні вуглеводи (каші, цільнозерновий хліб). Такий підхід забезпечує баланс без підрахунку калорій.",
+                "article_2_title": "Чому важлива активність?",
+                "article_2_desc": "Рух — це не тільки про спалювання калорій. Регулярна активність знижує рівень кортизолу (гормону стресу), покращує чутливість до інсуліну та зміцнює серцево-судинну систему. Навіть 30 хвилин ходьби на день можуть змінити ваше життя.",
+                "mission_title": "Наша Місія",
+                "mission_desc": "Nutriway створений для того, щоб зробити здоровий спосіб життя доступним та зрозумілим. Ми віримо, що здоров'я починається з розуміння потреб власного тіла, а не з жорстких обмежень.",
+                "calc_params": "Ваші параметри",
+                "lbl_age": "ВІК (років)",
+                "lbl_height": "ЗРІСТ (см)",
+                "lbl_weight": "ВАГА (кг)",
+                "lbl_sex": "СТАТЬ",
+                "opt_male": "Чоловік",
+                "opt_female": "Жінка",
+                "lbl_activity": "АКТИВНІСТЬ",
+                "act_low": "Низька",
+                "act_small": "Мала",
+                "act_medium": "Середня",
+                "act_high": "Висока",
+                "act_sport": "Спорт",
+                "err_fill": "Заповніть всі поля коректно!",
+                "btn_calc": "РОЗРАХУВАТИ",
+                "btn_correct": "Дані вірні",
+                "btn_fix": "Виправити",
+                "res_rec": "Рекомендації по харчуванню",
+                "lbl_allergy": "АЛЕРГІЇ",
+                "lbl_health": "ЗДОРОВ'Я",
+                "btn_get_rec": "ОТРИМАТИ РЕКОМЕНДАЦІЇ",
+                "res_main": "Основні показники",
+                "res_sleep": "Рекомендований сон",
+                "res_duration": "Тривалість",
+                "res_water": "Рекомендована кількість води",
+                "res_amount": "Кількість",
+                "res_vit": "Ваша вітамінна карта",
+                "copyright": "Всі права захищені",
+                "hours": "годин",
+                "liters": "літрів",
+                "macros_cal": "Калорії",
+                "macros_prot": "Білки",
+                "macros_fat": "Жири",
+                "macros_carb": "Вуглеводи",
+                "imt_no_data": "Немає даних",
+                "imt_severe_def": "Виражений дефіцит",
+                "imt_def": "Дефіцит ваги",
+                "imt_norm": "Норма",
+                "imt_pre_obese": "Предожиріння",
+                "imt_obese": "Ожиріння",
+                "err_sus": "Ви впевнені у даних? Значення виглядають підозріло.",
+                "vit_c_desc": "Зміцнює імунітет та допомагає засвоєнню заліза",
+                "vit_d_desc": "Потрібний для кісток та імунітету",
+                "vit_a_desc": "Підтримує зір і здоров’я шкіри",
+                "vit_b1_desc": "Необхідний для нервової системи",
+                "vit_b6_desc": "Важливий для мозку та обміну білків",
+                "vit_b12_desc": "Потрібний для крові та нервів",
+                "vit_approx": "Це приблизно",
+                "vit_lemon": "г лимону",
+                "vit_salmon": "г лосося",
+                "vit_carrot": "г моркви",
+                "vit_pork": "г свинини",
+                "vit_tuna": "г тунця",
+                "vit_liver": "г курячої печінки"
+            },
+            en: {
+                "disclaimer_title": "ATTENTION!",
+                "disclaimer_text_1": "All information on this site is provided for informational purposes only. The materials on the site are not medical advice, diagnosis, treatment recommendation, or individual nutritional plan and cannot replace consultation with a doctor, nutritionist, or other qualified specialist.",
+                "disclaimer_text_2": "The site administration is not responsible for any consequences, direct or indirect, arising from the use of information from this site.",
+                "disclaimer_btn": "I confirm everything",
+                "menu_home": "Home",
+                "menu_info": "Info",
+                "menu_calc": "Calculator",
+                "menu_diet": "Diet",
+                "menu_admin": "Admin Panel",
+                "hero_subtitle": "Your personal path to health and ideal shape.",
+                "hero_btn": "Start Calculation",
+                "section_diag": "Complex Diagnostics",
+                "card_imt": "BMI",
+                "card_imt_desc": "Body mass assessment.",
+                "card_cal": "Calories",
+                "card_cal_desc": "Norm calculation.",
+                "card_vit": "Vitamins",
+                "card_vit_desc": "Nutrient selection.",
+                "card_sleep": "Sleep",
+                "card_sleep_desc": "Rest norms.",
+                "world_title": "World of Nutriway",
+                "world_subtitle": "Deep understanding of your body.",
+                "feature_1_title": "Nutritiology",
+                "feature_1_desc": "We study how each nutrient affects energy.",
+                "feature_2_title": "Smart Diet",
+                "feature_2_desc": "80/20 Rule: 80% healthy food and 20% for the soul.",
+                "water_title": "Hydration is basic",
+                "water_desc": "Water regulates body temperature, removes toxins, and improves brain function. Even a 2% water deficit reduces your productivity by half.",
+                "water_card1_title": "30-35 ml",
+                "water_card1_desc": "per 1 kg of weight — your ideal norm of pure water per day.",
+                "water_card2_title": "Glass in the morning",
+                "water_card2_desc": "immediately after waking up to \"start\" the digestive system.",
+                "water_card3_title": "No sugar",
+                "water_card3_desc": "coffee and juices are food, not water. Prefer pure resource.",
+                "faq_title": "Nutriway Encyclopedia",
+                "faq_subtitle": "We have collected answers to the most difficult and important questions about health",
+                "faq_q1": "● Is it really necessary to drink 2 liters of water?",
+                "faq_a1": "No, the \"2 liters\" concept is outdated. Your norm depends on weight, activity level, and climate.",
+                "faq_q2": "● Should you really not eat when on a diet?",
+                "faq_a2": "No, you need to eat fewer calories than you use.",
+                "info_title": "Useful Information",
+                "info_subtitle": "Learn more about how your body works and what habits will help you feel better.",
+                "tag_food": "NUTRITION",
+                "tag_sport": "SPORT",
+                "article_1_title": "The Plate Rule",
+                "article_1_desc": "Imagine your plate divided into parts. Half should be vegetables and greens, a quarter - high-quality protein (fish, meat, eggs), and another quarter - complex carbohydrates (porridge, whole grain bread). This approach ensures balance without counting calories.",
+                "article_2_title": "Why is activity important?",
+                "article_2_desc": "Movement is not just about burning calories. Regular activity lowers cortisol levels (stress hormone), improves insulin sensitivity, and strengthens the cardiovascular system. Even 30 minutes of walking a day can change your life.",
+                "mission_title": "Our Mission",
+                "mission_desc": "Nutriway was created to make a healthy lifestyle accessible and understandable. We believe that health begins with understanding the needs of one's own body, not with strict restrictions.",
+                "calc_params": "Your parameters",
+                "lbl_age": "AGE (years)",
+                "lbl_height": "HEIGHT (cm)",
+                "lbl_weight": "WEIGHT (kg)",
+                "lbl_sex": "GENDER",
+                "opt_male": "Male",
+                "opt_female": "Female",
+                "lbl_activity": "ACTIVITY",
+                "act_low": "Low",
+                "act_small": "Small",
+                "act_medium": "Medium",
+                "act_high": "High",
+                "act_sport": "Sport",
+                "err_fill": "Fill in all fields correctly!",
+                "btn_calc": "CALCULATE",
+                "btn_correct": "Data correct",
+                "btn_fix": "Fix",
+                "res_rec": "Nutrition Recommendations",
+                "lbl_allergy": "ALLERGIES",
+                "lbl_health": "HEALTH",
+                "btn_get_rec": "GET RECOMMENDATIONS",
+                "res_main": "Main Indicators",
+                "res_sleep": "Recommended Sleep",
+                "res_duration": "Duration",
+                "res_water": "Recommended Water Amount",
+                "res_amount": "Amount",
+                "res_vit": "Your Vitamin Map",
+                "copyright": "All rights reserved",
+                "hours": "hours",
+                "liters": "liters",
+                "macros_cal": "Calories",
+                "macros_prot": "Proteins",
+                "macros_fat": "Fats",
+                "macros_carb": "Carbs",
+                "imt_no_data": "No data",
+                "imt_severe_def": "Severe deficit",
+                "imt_def": "Weight deficit",
+                "imt_norm": "Norm",
+                "imt_pre_obese": "Pre-obesity",
+                "imt_obese": "Obesity",
+                "err_sus": "Are you sure about the data? Values look suspicious.",
+                "vit_c_desc": "Strengthens immunity and helps iron absorption",
+                "vit_d_desc": "Needed for bones and immunity",
+                "vit_a_desc": "Supports vision and skin health",
+                "vit_b1_desc": "Necessary for the nervous system",
+                "vit_b6_desc": "Important for brain and protein metabolism",
+                "vit_b12_desc": "Needed for blood and nerves",
+                "vit_approx": "This is about",
+                "vit_lemon": "g lemon",
+                "vit_salmon": "g salmon",
+                "vit_carrot": "g carrot",
+                "vit_pork": "g pork",
+                "vit_tuna": "g tuna",
+                "vit_liver": "g chicken liver"
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'uk';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'uk' ? 'en' : 'uk';
+            localStorage.setItem('lang', currentLang);
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            // Update button text
+            const btn = document.getElementById('lang-toggle');
+            btn.innerText = currentLang === 'uk' ? 'UA' : 'EN';
+            
+            // Update all elements with data-lang-key
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+
+            // Re-render calculator results if they are visible (to update dynamic text)
+            if(!document.getElementById('resultArea').classList.contains('hidden')) {
+                calculateAndDisplay();
+            }
+        }
+        
+        // Initialize language on load
+        window.addEventListener('DOMContentLoaded', () => {
+            updateLanguage();
+        });
+
+        // Helper for dynamic translations
+        function getTrans(key) {
+            return translations[currentLang][key] || key;
+        }
+
         // --- THEME LOGIC START ---
         const themeBtn = document.getElementById('theme-toggle');
         const themeIcon = themeBtn.querySelector('i');
@@ -1099,12 +1357,12 @@
         }
 
         function IMT_Interpretation(imt_value){
-            if(!isFinite(imt_value)) return 'Немає даних';
-            if(imt_value<16) return 'Виражений дефіцит';
-            if(imt_value<18.5) return 'Дефіцит ваги';
-            if(imt_value<25) return 'Норма';
-            if(imt_value<30) return 'Предожиріння';
-            return 'Ожиріння';
+            if(!isFinite(imt_value)) return getTrans('imt_no_data');
+            if(imt_value<16) return getTrans('imt_severe_def');
+            if(imt_value<18.5) return getTrans('imt_def');
+            if(imt_value<25) return getTrans('imt_norm');
+            if(imt_value<30) return getTrans('imt_pre_obese');
+            return getTrans('imt_obese');
         }
 
         function BMR(age,height,weight,gender,activity){
@@ -1144,20 +1402,21 @@
         }
 
         function getSleepRecommendation(age) {
-            if (age >= 1 && age <= 2) return "13 годин";
-            if (age >= 3 && age <= 5) return "12 годин";
-            if (age >= 6 && age <= 13) return "10 годин";
-            if (age >= 14 && age <= 17) return "9 годин";
-            if (age >= 18 && age <= 25) return "8 годин";
-            if (age >= 26 && age <= 64) return "8 годин";
-            if (age >= 65) return "7 годин";
-            if (age < 1 && age >= 0) return "14-17 годин (немовлята)";
-            return "8 годин";
+            const h = getTrans('hours');
+            if (age >= 1 && age <= 2) return `13 ${h}`;
+            if (age >= 3 && age <= 5) return `12 ${h}`;
+            if (age >= 6 && age <= 13) return `10 ${h}`;
+            if (age >= 14 && age <= 17) return `9 ${h}`;
+            if (age >= 18 && age <= 25) return `8 ${h}`;
+            if (age >= 26 && age <= 64) return `8 ${h}`;
+            if (age >= 65) return `7 ${h}`;
+            if (age < 1 && age >= 0) return `14-17 ${h}`;
+            return `8 ${h}`;
         }
 
         function getWaterRecommendation(weight) {
             const water = weight * 0.033;
-            return water.toFixed(2) + " літрів";
+            return water.toFixed(2) + " " + getTrans('liters');
         }
 
         function showData(){
@@ -1171,7 +1430,7 @@
             
             // Validation
             if(!ageRaw||!heightRaw||!weightRaw){
-                document.getElementById('calc-error-msg').innerText = 'Заповніть всі поля!';
+                document.getElementById('calc-error-msg').innerText = getTrans('err_fill');
                 document.getElementById('calc-error-msg').classList.remove('hidden');
                 return;
             }
@@ -1179,7 +1438,7 @@
 
             // Suspicious data check
             if(((age>100||height>210||weight>200)||(age<=1||height<=35||weight<=2)) && ReTryBut==0){
-                 document.getElementById('calc-error-msg').innerText = 'Ви впевнені у даних? Значення виглядають підозріло.';
+                 document.getElementById('calc-error-msg').innerText = getTrans('err_sus');
                  document.getElementById('calc-error-msg').classList.remove('hidden');
                  document.getElementById('confirm-buttons').classList.remove('hidden');
                  ReTryBut=1; 
@@ -1217,23 +1476,23 @@
                 const macrosHTML = `
                     <div class="flex flex-col items-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-2xl border border-orange-100 dark:border-orange-900/30">
                         <div class="text-orange-500 text-2xl mb-2"><i class="fas fa-fire"></i></div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">Калорії</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">${getTrans('macros_cal')}</div>
                         <div class="text-lg font-bold text-gray-900 dark:text-white">${calVal}</div>
                     </div>
                     <div class="flex flex-col items-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-900/30">
                         <div class="text-blue-500 text-2xl mb-2"><i class="fas fa-dumbbell"></i></div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">Білки</div>
-                        <div class="text-lg font-bold text-gray-900 dark:text-white">${protVal} г</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">${getTrans('macros_prot')}</div>
+                        <div class="text-lg font-bold text-gray-900 dark:text-white">${protVal} g</div>
                     </div>
                     <div class="flex flex-col items-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-2xl border border-yellow-100 dark:border-yellow-900/30">
                         <div class="text-yellow-500 text-2xl mb-2"><i class="fas fa-tint"></i></div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">Жири</div>
-                        <div class="text-lg font-bold text-gray-900 dark:text-white">${fatVal} г</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">${getTrans('macros_fat')}</div>
+                        <div class="text-lg font-bold text-gray-900 dark:text-white">${fatVal} g</div>
                     </div>
                     <div class="flex flex-col items-center p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl border border-amber-100 dark:border-amber-900/30">
                         <div class="text-amber-500 text-2xl mb-2"><i class="fas fa-bread-slice"></i></div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">Вуглеводи</div>
-                        <div class="text-lg font-bold text-gray-900 dark:text-white">${carbVal} г</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">${getTrans('macros_carb')}</div>
+                        <div class="text-lg font-bold text-gray-900 dark:text-white">${carbVal} g</div>
                     </div>  
                 `;
                 document.getElementById('macros-grid-container').innerHTML = macrosHTML;
@@ -1256,7 +1515,7 @@
 
                 document.getElementById('imt-display').innerHTML = `
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                        <span class="text-xl font-bold dark:text-gray-200">ІМТ: <span class="text-2xl">${imtVal}</span></span>
+                        <span class="text-xl font-bold dark:text-gray-200">${getTrans('card_imt')}: <span class="text-2xl">${imtVal}</span></span>
                         <span class="px-4 py-2 rounded-xl font-bold border ${statusColorClass} ${statusBgClass} border-current shadow-sm transition-all duration-300">
                             ${imtStatus}
                         </span>
@@ -1267,8 +1526,8 @@
                 `;
 
                 let extraInfo = '';
-                if(allergy) extraInfo += `Алергії: ${allergy}\n`;
-                if(health) extraInfo += `Особливості здоров'я: ${health}`;
+                if(allergy) extraInfo += `${getTrans('lbl_allergy')}: ${allergy}\n`;
+                if(health) extraInfo += `${getTrans('lbl_health')}: ${health}`;
                 document.getElementById('text-info').innerText = extraInfo;
 
                 document.getElementById('sleep-value').innerText = sleepRec;
@@ -1279,34 +1538,34 @@
 
                 const vitaminInfo = {
                     Vitamin_C: {
-                        name: "Вітамін C", unit: "мг", icon: "lemon", color: "text-orange-500",
-                        desc: "Зміцнює імунітет та допомагає засвоєнню заліза",
-                        info_desc: (val) => { const grams = (val / 53 * 100).toFixed(0); return `Це приблизно ${grams} г лимону`; }
+                        name: "Vitamin C", unit: "mg", icon: "lemon", color: "text-orange-500",
+                        desc: getTrans('vit_c_desc'),
+                        info_desc: (val) => { const grams = (val / 53 * 100).toFixed(0); return `${getTrans('vit_approx')} ${grams} ${getTrans('vit_lemon')}`; }
                     },
                     Vitamin_D: {
-                        name: "Вітамін D", unit: "IU", icon: "sun", color: "text-yellow-500",
-                        desc: "Потрібний для кісток та імунітету",
-                        info_desc: (val) => { const grams = (val / 526 * 100).toFixed(0); return `Це приблизно ${grams} г лосося`; }
+                        name: "Vitamin D", unit: "IU", icon: "sun", color: "text-yellow-500",
+                        desc: getTrans('vit_d_desc'),
+                        info_desc: (val) => { const grams = (val / 526 * 100).toFixed(0); return `${getTrans('vit_approx')} ${grams} ${getTrans('vit_salmon')}`; }
                     },
                     Vitamin_A: {
-                        name: "Вітамін A", unit: "мкг", icon: "eye", color: "text-green-500",
-                        desc: "Підтримує зір і здоров’я шкіри",
-                        info_desc: (val) => { const grams = (val / 835 * 100).toFixed(0); return `Це приблизно ${grams} г моркви`; }
+                        name: "Vitamin A", unit: "mcg", icon: "eye", color: "text-green-500",
+                        desc: getTrans('vit_a_desc'),
+                        info_desc: (val) => { const grams = (val / 835 * 100).toFixed(0); return `${getTrans('vit_approx')} ${grams} ${getTrans('vit_carrot')}`; }
                     },
                     Vitamin_B1: {
-                        name: "Вітамін B1", unit: "мг", icon: "bolt", color: "text-red-500",
-                        desc: "Необхідний для нервової системи",
-                        info_desc: (val) => { const grams = (val / 0.8 * 100).toFixed(0); return `Це приблизно ${grams} г свинини`; }
+                        name: "Vitamin B1", unit: "mg", icon: "bolt", color: "text-red-500",
+                        desc: getTrans('vit_b1_desc'),
+                        info_desc: (val) => { const grams = (val / 0.8 * 100).toFixed(0); return `${getTrans('vit_approx')} ${grams} ${getTrans('vit_pork')}`; }
                     },
                     Vitamin_B6: {
-                        name: "Вітамін B6", unit: "мг", icon: "capsules", color: "text-purple-500",
-                        desc: "Важливий для мозку та обміну білків",
-                        info_desc: (val) => { const grams = (val / 1.0 * 100).toFixed(0); return `Це приблизно ${grams} г тунця`; }
+                        name: "Vitamin B6", unit: "mg", icon: "capsules", color: "text-purple-500",
+                        desc: getTrans('vit_b6_desc'),
+                        info_desc: (val) => { const grams = (val / 1.0 * 100).toFixed(0); return `${getTrans('vit_approx')} ${grams} ${getTrans('vit_tuna')}`; }
                     },
                     Vitamin_B12: {
-                        name: "Вітамін B12", unit: "мкг", icon: "brain", color: "text-pink-500",
-                        desc: "Потрібний для крові та нервів",
-                        info_desc: (val) => { const grams = (val / 20 * 100).toFixed(0); return `Це приблизно ${grams} г курячої печінки`; }
+                        name: "Vitamin B12", unit: "mcg", icon: "brain", color: "text-pink-500",
+                        desc: getTrans('vit_b12_desc'),
+                        info_desc: (val) => { const grams = (val / 20 * 100).toFixed(0); return `${getTrans('vit_approx')} ${grams} ${getTrans('vit_liver')}`; }
                     }
                 };
                 
@@ -1639,4 +1898,5 @@
         }
     </script>
 </body>
+<!-- end-->
 </html>
