@@ -130,4 +130,4 @@ async function send() {
         resultDiv.style.color = "red";
         console.error("Помилка fetch:", error);
     }
-}
+} 
