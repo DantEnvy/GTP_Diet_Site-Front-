@@ -136,8 +136,12 @@ async function send() {
 
 // ... (ваші функції calculateBMR та vitam залишаються без змін) ...
 function calculateBMR(age, height, weight, gender, activity) {
-    // ... ваш код розрахунку ...
-    return 2000; // (заглушка для прикладу, залиште вашу логіку)
+    age = Number(age);
+    height = Number(height);
+    weight = Number(weight);
+    const multipliers = { very_high: 1.9, high: 1.725, medium: 1.55, small: 1.375, low: 1.2 };
+    const base = (10 * weight) + (6.25 * height) - (5 * age) + (gender === "male" ? 5 : -161);
+    return Math.round(base * (multipliers[activity] || 1.2)); 
 }
 function vitam(age, gender, weight, activity){ return {}; } // (ваша функція)
 
@@ -146,13 +150,21 @@ document.getElementById("diet-form").addEventListener("submit", async function(e
     
     // 1. Збір даних (як у вас було)
     const age = document.getElementById("age").value;
-    // ... інші поля ...
+    const gender = document.getElementById("gender").value;
+    const height = document.getElementById("height").value;
+    const weight = document.getElementById("weight").value;
+    const activity = document.getElementById("activity").value;
+    const allergy = document.getElementById("allergy").value || "немає";
+    const health = document.getElementById("health").value || "здоровий";
     
-    // (Для прикладу скорочую збір даних, залиште ваш код)
+    const bmr = calculateBMR(age, height, weight, gender, activity);
+    let protein = Math.round(weight * 2);
+    let fat = Math.round(weight * 1);
+    let carb = Math.round((bmr - (protein * 4) - (fat * 9)) / 4);
+    
     const requestData = {
-        age: 25, height: 180, weight: 75, gender: "male", // Замініть на реальні .value
-        bmr: 2500, protein: 150, fat: 80, carb: 300,
-        allergy: "немає", health: "здоровий", vitamins: {}
+        age, height, weight, gender, bmr, protein, fat, carb, allergy, health,
+        vitamins: vitam(age, gender, weight, activity)
     };
 
     const resultDiv = document.getElementById("result");
