@@ -131,12 +131,6 @@
             <section class="py-20 container mx-auto px-4">
                 <h2 class="text-3xl font-bold mb-12 text-center editable-text dark:text-white" data-lang-key="section_diag">Комплексна діагностика</h2>
                 <div id="diag-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24 text-center">
-                    <!-- Cards -->
-                    <!-- <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-colors duration-1200">
-                        <i class="fas fa-heartbeat text-red-500 text-3xl mb-4"></i>
-                        <h3 class="font-bold mb-2 editable-text dark:text-white">ІМТ</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text">Оцінка маси тіла.</p>
-                    </div> -->
                     <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer">
                         <i class="fas fa-heartbeat text-red-500 text-3xl mb-4"></i>
                         <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_imt">ІМТ</h3>
@@ -357,7 +351,6 @@
              <div class="container mx-auto px-4 max-w-5xl">
                 <h2 class="text-4xl font-black text-center mb-12 editable-text dark:text-white" data-lang-key="menu_diet">Дієта</h2>
                 <div id="result" class="flex items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-3xl dark:border-gray-700">
-                     <!--<p id ='result' class="text-xl text-gray-400 font-bold uppercase tracking-widest"> Ввердіть данні</p>-->
                 </div>
             </div>
         </main>
@@ -389,17 +382,6 @@
                                 <input id="weight" type="number" placeholder="70" class="w-full p-4 bg-gray-50 dark:bg-gray-700 dark:text-white rounded-2xl outline-none focus:ring-2 focus:ring-green-400 transition">
                             </div>
                         </div>
-
-                        <!-- <div class="grid md:grid-cols-2 gap-6 mb-6">
-                            <div>
-                                <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">АЛЕРГІЇ</label>
-                                <input id="allergy" type="text" placeholder="Горіхи, мед..." class="w-full p-4 bg-gray-50 dark:bg-gray-700 dark:text-white rounded-2xl outline-none focus:ring-2 focus:ring-green-400 transition">
-                            </div>
-                            <div>
-                                <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">ЗДОРОВ'Я</label>
-                                <input id="health" type="text" placeholder="Травми..." class="w-full p-4 bg-gray-50 dark:bg-gray-700 dark:text-white rounded-2xl outline-none focus:ring-2 focus:ring-green-400 transition">
-                            </div>
-                        </div> -->
 
                         <div class="mb-6">
                             <label class="text-xs font-bold text-gray-400 mb-2 block ml-1" data-lang-key="lbl_sex">СТАТЬ</label>
@@ -447,14 +429,6 @@
                         <button onclick="showData()" class="w-full py-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition transform text-lg" data-lang-key="btn_calc">
                             РОЗРАХУВАТИ
                         </button>
-                        <!-- <div class ="mb-8"> 
-                            <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">   </label>
-                            <div></div>
-                            <label class="text-xs font-bold text-gray-400 mb-2 block ml-1">   </label>
-                            <div></div>
-                         -->
-                        
-                        <!-- Confirmation Buttons (Hidden by default) -->
                         <div id="confirm-buttons" class="hidden mt-4 flex gap-4">
                              <button onclick="showResultsInPlace()" class="flex-1 py-3 bg-green-500 text-white rounded-xl font-bold hover:bg-green-600" data-lang-key="btn_correct">Дані вірні</button>
                              <button onclick="reTry()" class="flex-1 py-3 bg-red-500 text-white rounded-xl font-bold hover:bg-red-600" data-lang-key="btn_fix">Виправити</button>
