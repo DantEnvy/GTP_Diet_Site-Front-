@@ -134,100 +134,33 @@ async function send() {
 } */
 
 
-    // ===============================
-// РОЗРАХУНОК BMR
-// ===============================
+// ... (ваші функції calculateBMR та vitam залишаються без змін) ...
 function calculateBMR(age, height, weight, gender, activity) {
-    age = Number(age);
-    height = Number(height);
-    weight = Number(weight);
-
-    const multipliers = {
-        very_high: 1.9,
-        high: 1.725,
-        medium: 1.55,
-        small: 1.375,
-        low: 1.2
-    };
-
-    const base =
-        (10 * weight) +
-        (6.25 * height) -
-        (5 * age) +
-        (gender === "male" ? 5 : -161);
-
-    return Math.round(base * (multipliers[activity] || 1.2)); 
+    // ... ваш код розрахунку ...
+    return 2000; // (заглушка для прикладу, залиште вашу логіку)
 }
+function vitam(age, gender, weight, activity){ return {}; } // (ваша функція)
 
-function vitam(age, gender, weight, activity){
-    // Ваша логіка вітамінів (залишаємо без змін, скорочено для прикладу)
-    return { C: 90, D: 800 }; 
-}
-
-// ===============================
-// ВІДПРАВКА ДАНИХ
-// ===============================
-// ===============================
-// РОЗРАХУНОК BMR
-// ===============================
-function calculateBMR(age, height, weight, gender, activity) {
-    age = Number(age);
-    height = Number(height);
-    weight = Number(weight);
-
-    const multipliers = {
-        very_high: 1.9,
-        high: 1.725,
-        medium: 1.55,
-        small: 1.375,
-        low: 1.2
-    };
-
-    const base =
-        (10 * weight) +
-        (6.25 * height) -
-        (5 * age) +
-        (gender === "male" ? 5 : -161);
-
-    return Math.round(base * (multipliers[activity] || 1.2)); 
-}
-
-function vitam(age, gender, weight, activity){
-    // Ваша функция витаминов (сокращено для примера, оставьте свою версию если она больше)
-    return { Vitamin_C: 90, Vitamin_D: 800 }; 
-}
-
-// ===============================
-// ОБРОБКА ФОРМИ
-// ===============================
 document.getElementById("diet-form").addEventListener("submit", async function(event) {
     event.preventDefault();
-
-    const age = document.getElementById("age").value;
-    const gender = document.getElementById("gender").value;
-    const height = document.getElementById("height").value;
-    const weight = document.getElementById("weight").value;
-    const activity = document.getElementById("activity").value;
-    const goal = document.getElementById("goal").value;
-    const allergy = document.getElementById("allergy").value;
-    const health = document.getElementById("health").value;
-
-    const bmr = calculateBMR(age, height, weight, gender, activity);
     
-    // Данные для отправки
+    // 1. Збір даних (як у вас було)
+    const age = document.getElementById("age").value;
+    // ... інші поля ...
+    
+    // (Для прикладу скорочую збір даних, залиште ваш код)
     const requestData = {
-        age, height, weight, gender, activity, goal, allergy, health,
-        bmr: bmr,
-        vitamins: vitam(age, gender, weight, activity)
+        age: 25, height: 180, weight: 75, gender: "male", // Замініть на реальні .value
+        bmr: 2500, protein: 150, fat: 80, carb: 300,
+        allergy: "немає", health: "здоровий", vitamins: {}
     };
 
     const resultDiv = document.getElementById("result");
-    resultDiv.innerHTML = '<div class="loader">🥗 ШІ складає ваше меню... це займе 5-10 секунд...</div>';
     
-    // Адрес сервера
-    const apiUrl = location.hostname === "localhost" || location.hostname === "127.0.0.1"
-            ? "http://localhost:3000"
-            : "https://back-end-daij.onrender.com";
+    // Поки вантажиться, залишаємо красиву рамку, але змінюємо текст
+    resultDiv.innerHTML = '<div class="text-xl text-blue-500 font-bold animate-pulse">⏳ Генеруємо меню...</div>';
+    
+    const apiUrl = window.location.hostname === "localhost" ? "http://localhost:3000" : "https://back-end-daij.onrender.com";
 
     try {
         const response = await fetch(apiUrl, { 
@@ -241,63 +174,59 @@ document.getElementById("diet-form").addEventListener("submit", async function(e
         if (data.error) throw new Error(data.error);
 
         if (data.diet) {
-            renderDiet(data.diet); // Вызываем функцию отрисовки
+            // === КЛЮЧОВИЙ МОМЕНТ ===
+            // Ми прибираємо класи заглушки (h-64, center, border-dashed), 
+            // щоб контент міг розтягнути блок.
+            resultDiv.className = "w-full mt-8"; // Даємо ширину і відступ
+            
+            renderDietPlan(data.diet);
         }
 
     } catch (error) {
-        resultDiv.innerHTML = `<div style="color:red; text-align:center; padding:20px;">❌ Помилка: ${error.message}</div>`;
-        console.error(error);
+        resultDiv.innerHTML = `<div class="text-red-500 font-bold p-4">❌ Помилка: ${error.message}</div>`;
     }
 });
 
-// ===============================
-// ФУНКЦІЯ ОТРИСОВКИ (НОВА)
-// ===============================
-function renderDiet(jsonString) {
+function renderDietPlan(jsonString) {
     const resultDiv = document.getElementById("result");
     
     try {
-        // Очищаем строку от возможных остатков Markdown (хотя сервер теперь отдает чистый JSON)
-        const cleanJson = jsonString.replace(/```json/g, '').replace(/```/g, '').trim();
-        const dietData = JSON.parse(cleanJson);
-        
+        const dietData = JSON.parse(jsonString);
         let html = '';
 
-        // 1. Блок рекомендаций
-        if(dietData.recommendations) {
-            html += `
-            <div class="recommendation-card">
-                <h3>💡 Поради дієтолога</h3>
-                <p>${dietData.recommendations}</p>
-            </div>`;
+        // Рекомендації
+        if (dietData.recommendations) {
+            html += `<div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded shadow-sm">
+                        <h3 class="text-lg font-bold text-blue-800">💡 Рекомендації</h3>
+                        <p class="text-blue-700">${dietData.recommendations}</p>
+                     </div>`;
         }
 
-        // 2. Блок дней и приемов пищи
-        if (dietData.days && Array.isArray(dietData.days)) {
+        // Дні та їжа
+        if (dietData.days) {
             dietData.days.forEach(day => {
                 html += `
-                <div class="day-card">
-                    <div class="day-header">
-                        <h2>📅 ${day.day_number}</h2>
-                        <div class="day-stats">
-                            <span>🔥 ${day.total_calories} ккал</span>
-                            <span class="macro-p">Білки: ${day.macros.protein}г</span>
-                            <span class="macro-f">Жири: ${day.macros.fat}г</span>
-                            <span class="macro-c">Вугл: ${day.macros.carbs}г</span>
+                <div class="day-card bg-white rounded-xl shadow-lg border border-gray-100 mb-6 overflow-hidden">
+                    <div class="day-header bg-gray-800 text-white p-4 flex justify-between items-center flex-wrap gap-2">
+                        <h2 class="text-xl font-bold">📅 ${day.day_number}</h2>
+                        <div class="text-sm bg-gray-700 px-3 py-1 rounded-full">
+                            🔥 ${day.total_calories} ккал 
+                            <span class="text-gray-400 mx-1">|</span> 
+                            Б: ${day.macros.protein} Ж: ${day.macros.fat} В: ${day.macros.carbs}
                         </div>
                     </div>
                     
-                    <div class="meals-container">
+                    <div class="divide-y divide-gray-100">
                         ${day.meals.map(meal => `
-                            <div class="meal-row">
-                                <div class="meal-info">
-                                    <span class="meal-type">${meal.type}</span>
-                                    <div class="meal-name">${meal.name}</div>
-                                    <div class="meal-desc">${meal.description}</div>
+                            <div class="p-4 hover:bg-gray-50 transition-colors flex justify-between items-start gap-4">
+                                <div>
+                                    <span class="text-xs font-bold uppercase text-gray-400 tracking-wider">${meal.type}</span>
+                                    <h4 class="text-lg font-semibold text-gray-800 mt-1">${meal.name}</h4>
+                                    <p class="text-sm text-gray-600 mt-1">${meal.description}</p>
                                 </div>
-                                <div class="meal-macros">
-                                    <div class="cal-badge">${meal.calories} ккал</div>
-                                    <div class="micro-stats">Б:${meal.protein} Ж:${meal.fat} В:${meal.carbs}</div>
+                                <div class="text-right whitespace-nowrap">
+                                    <div class="text-green-600 font-bold">${meal.calories} ккал</div>
+                                    <div class="text-xs text-gray-400 mt-1">Б:${meal.p} Ж:${meal.f} В:${meal.c}</div>
                                 </div>
                             </div>
                         `).join('')}
@@ -305,11 +234,11 @@ function renderDiet(jsonString) {
                 </div>`;
             });
         }
-
+        
         resultDiv.innerHTML = html;
 
     } catch (e) {
-        console.error("JSON Parse Error:", e);
-        resultDiv.innerHTML = `<div class="error-box">Не вдалося відобразити меню. Спробуйте ще раз.<br><small>${e.message}</small></div>`;
+        console.error(e);
+        resultDiv.innerHTML = `<div class="text-red-500">Не вдалося розібрати відповідь.</div>`;
     }
 }
