@@ -79,7 +79,12 @@ async function send() {
     const carbGrams = carbKcal / 4; // В 1г углеводов 4 ккал
 
     // Формируем объект (не забудьте округлять и про витамины!)
+    // ... (ваш код вычислений)
     const requestData = {
+        age: age,          // <--- ДОБАВИТЬ ЭТО
+        height: height,    // <--- ДОБАВИТЬ ЭТО
+        weight: weight,    // <--- ДОБАВИТЬ ЭТО
+        gender: gender,    // <--- ДОБАВИТЬ ЭТО
         bmr: Math.round(totalCalories),
         protein: Math.round(proteinGrams),
         fat: Math.round(fatGrams),
