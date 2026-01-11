@@ -94,9 +94,30 @@
                 <i class="fas fa-home w-6"></i> <span data-lang-key="menu_home">Головна</span>
             </a>
             <!-- Новий пункт: Інформація -->
-            <a href="javascript:void(0)" onclick="showPage('info'); toggleMenu();" class="menu-item delay-2 hover:text-green-500 flex items-center space-x-4">
+            <!-- <a href="javascript:void(0)" onclick="showPage('info'); toggleMenu();" class="menu-item delay-2 hover:text-green-500 flex items-center space-x-4">
                 <i class="fas fa-info-circle w-6"></i> <span data-lang-key="menu_info">Інформація</span>
-            </a>
+            </a>-->
+
+            <div class="menu-item-group">
+                <button onclick="document.getElementById('info-submenu').classList.toggle('hidden'); document.getElementById('info-arrow').classList.toggle('rotate-180');" class="w-full text-left menu-item delay-2 hover:text-green-500 flex items-center justify-between focus:outline-none group">
+                    <div class="flex items-center space-x-4">
+                        <i class="fas fa-info-circle w-6"></i>
+                        <span data-lang-key="menu_info">Інформація</span>
+                    </div>
+                    <i class="fas fa-chevron-down transition-transform duration-300" id="info-arrow"></i>
+                </button>
+                <!-- Випадаючий список кнопок -->
+                <div id="info-submenu" class="hidden pl-10 space-y-3 mt-3 text-base border-l-2 border-gray-100 dark:border-gray-700 ml-3 transition-all duration-300">
+                    <a href="javascript:void(0)" onclick="showPage('page1'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors">🍏 Основи харчування</a>
+                    <a href="javascript:void(0)" onclick="showPage('page2'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors">💧 Водний баланс</a>
+                    <a href="javascript:void(0)" onclick="showPage('page3'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors">🏃 Спорт та рух</a>
+                    <a href="javascript:void(0)" onclick="showPage('page4'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors">💤 Сон та відновлення</a>
+                    <a href="javascript:void(0)" onclick="showPage('page5'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors">🧘 Стрес менеджмент</a>
+                    <a href="javascript:void(0)" onclick="showPage('page6'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors">🥗 Корисні рецепти</a>
+                </div>
+            </div>
+            
+            <!-- Новий пункт: Калькулятор -->
             <a href="javascript:void(0)" onclick="showPage('calculator'); toggleMenu();" class="menu-item delay-3 hover:text-green-500 flex items-center space-x-4">
                 <i class="fas fa-calculator w-6"></i> <span data-lang-key="menu_calc">Калькулятор</span>
             </a>
