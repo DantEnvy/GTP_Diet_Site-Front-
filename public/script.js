@@ -53,7 +53,7 @@ async function send() {
     const age = document.getElementById("age").value;
     const height = document.getElementById("height").value;
     const weight = document.getElementById("weight").value;
-    const gender = document.querySelector('input[name="gender"]:checked')?.value;
+    const gender = document.querySelector('input[name="gender"]:checked')?.value || 'male';
     const activity = document.querySelector("input[name='activity']:checked")?.value;
     const allergy = document.getElementById("allergy").value;
     const health = document.getElementById("health").value;    
@@ -177,7 +177,7 @@ const translations = {
         "card_carb": "Вуглеводи",
         "card_carb_desc": "Це головне джерело енергії, тому надавайте перевагу цілозерновим продуктам, які дають тривалу ситість. Намагайтеся мінімізувати вживання цукру та білого борошна.",
         "card_vit": "Вітаміни",
-        "card_vit_desc": "Підбір нутрієнтів.",
+        "card_vit_desc": "Життєво важливі елементи для імунітету та обміну речовин. Найкраще отримувати їх із різноманітного, кольорового раціону, а не з таблеток.",
         "card_prot": "Білок",
         "card_prot_desc": "Основний будівельний матеріал для м’язів та клітин організму. Найкращими джерелами є риба, птиця, бобові та горіхи.",
         "world_title": "Світ Nutriway",
