@@ -53,7 +53,7 @@ async function send() {
     const age = document.getElementById("age").value;
     const height = document.getElementById("height").value;
     const weight = document.getElementById("weight").value;
-    const gender = document.getElementById("gender").value;
+    const gender = document.querySelector('input[name="gender"]:checked')?.value;
     const activity = document.querySelector("input[name='activity']:checked")?.value;
     const allergy = document.getElementById("allergy").value;
     const health = document.getElementById("health").value;    
