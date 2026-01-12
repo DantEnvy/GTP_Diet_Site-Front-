@@ -128,6 +128,24 @@ async function generateDiet() {
             //resultDiv.innerText = data.diet; 
             resultDiv.innerHTML = marked.parse(data.diet);
             console.log("Ответ получен:", data.diet); 
+            if (data.diet) {
+            resultDiv.style.color = "black";
+            
+            // --- НАЧАЛО ИЗМЕНЕНИЙ ---
+            
+            // 1. Убираем классы, которые делают центровку и фиксированную высоту
+            resultDiv.classList.remove("flex", "items-center", "justify-center", "h-64");
+            
+            // 2. Добавляем классы для нормального текста: отступы, авто-высота
+            resultDiv.className = "prose-content bg-white dark:bg-gray-800 p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700 h-auto text-left";
+            
+            // 3. Превращаем Markdown в HTML
+            resultDiv.innerHTML = marked.parse(data.diet);
+            
+            // --- КОНЕЦ ИЗМЕНЕНИЙ ---
+            
+            console.log("Ответ получен"); 
+        }
         } else {
             resultDiv.innerText = "Сталася помилка при генерації.";
             resultDiv.style.color = "red";
