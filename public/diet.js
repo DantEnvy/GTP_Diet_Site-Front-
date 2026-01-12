@@ -21,6 +21,12 @@ function calculateBMR(age, height, weight, gender, activity) {
     return base * (multipliers[activity]); 
 }
 
+function toggleLanguage() {
+    currentLang = currentLang === 'uk' ? 'en' : 'uk';
+    localStorage.setItem('lang', currentLang);
+    updateLanguage();
+}
+
 function vitam(age,gender,weight,activity){
     age=Number(age);
     weight=Number(weight);
@@ -53,6 +59,7 @@ async function generateDiet() {
     const height = document.getElementById("height").value;
     const weight = document.getElementById("weight").value;
     const gender = document.querySelector('input[name="gender"]:checked')?.value || 'male';
+    const language = document.getElementById("lang-text").value;
     
     // ИСПРАВЛЕНИЕ 1: Дефолтное значение активности
     const activity = document.querySelector("input[name='activity']:checked")?.value || 'medium';
@@ -82,7 +89,8 @@ async function generateDiet() {
         carb: Math.round(Math.max(0, carbGrams)), 
         allergy: allergy || "немає",
         health: health || "немає",
-        vitamins: vitam(age, gender, weight, activity)
+        vitamins: vitam(age, gender, weight, activity),
+        language: language || "uk"
     };
 
     console.log("Отправляем данные:", requestData);
