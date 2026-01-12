@@ -115,8 +115,13 @@ async function generateDiet() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
-        
+        const data = await response.json(); // Спочатку читаємо відповідь сервера
+
+        if (!response.ok) {
+            // Якщо помилка, беремо текст помилки з сервера, а не просто статус
+            throw new Error(data.error || `HTTP error! status: ${response.status}`);
+        }
+
         if (data.diet) {
             resultDiv.style.color = "black";
             // Используем форматирование переносов строк, если нужно
