@@ -97,7 +97,7 @@ async function generateDiet() {
         document.body.appendChild(resultDiv); // Или добавьте в нужное место
     }
 
-    resultDiv.innerText = "⏳ Генеруємо меню, зачекайте (сервер может просыпаться до 1 мин)...";
+    resultDiv.innerText = "⏳ Генеруємо меню, зачекайте це може зайняти декілька хвилин...";
     resultDiv.style.color = "blue";
 
     const apiUrl = location.hostname === "localhost" || location.hostname === "127.0.0.1"
