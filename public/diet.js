@@ -125,7 +125,8 @@ async function generateDiet() {
         if (data.diet) {
             resultDiv.style.color = "black";
             // Используем форматирование переносов строк, если нужно
-            resultDiv.innerText = data.diet; 
+            //resultDiv.innerText = data.diet; 
+            resultDiv.innerHTML = marked.parse(data.diet);
             console.log("Ответ получен:", data.diet); 
         } else {
             resultDiv.innerText = "Сталася помилка при генерації.";
