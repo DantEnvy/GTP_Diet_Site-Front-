@@ -1066,5 +1066,3 @@ function closeDisclaimer() {
         overlay.style.display = 'none';
     }, 500);
 }
-
-// Fuh
