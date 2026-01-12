@@ -106,6 +106,10 @@ async function generateDiet() {
     }
 
     resultDiv.innerText = "⏳ Генеруємо меню, зачекайте це може зайняти декілька хвилин...";
+    // ЗАМІСТЬ resultDiv.style.color = "blue"; ПИШЕМО:
+    resultDiv.className = "flex items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-3xl dark:border-gray-700 text-blue-600 dark:text-blue-400 animate-pulse";
+    // Видаляємо старий стиль, якщо він залишився
+    resultDiv.removeAttribute("style");
     resultDiv.style.color = "blue";
 
     const apiUrl = location.hostname === "localhost" || location.hostname === "127.0.0.1"
@@ -137,22 +141,21 @@ async function generateDiet() {
             resultDiv.innerHTML = marked.parse(data.diet);
             console.log("Ответ получен:", data.diet); 
             if (data.diet) {
-            resultDiv.style.color = "black";
+            // 1. ВИДАЛЯЄМО цей рядок, бо він блокує темну тему:
+            // resultDiv.style.color = "black"; 
             
-            // --- НАЧАЛО ИЗМЕНЕНИЙ ---
+            // 2. Очищуємо попередні класи центрування
+            resultDiv.classList.remove("flex", "items-center", "justify-center", "h-64", "text-red-500", "text-blue-500");
             
-            // 1. Убираем классы, которые делают центровку и фиксированную высоту
-            resultDiv.classList.remove("flex", "items-center", "justify-center", "h-64");
+            // 3. Додаємо класи:
+            // text-gray-800 - темний колір для світлої теми
+            // dark:text-gray-100 - світлий колір для темної теми
+            resultDiv.className = "prose-content bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700 h-auto text-left transition-colors duration-300";
             
-            // 2. Добавляем классы для нормального текста: отступы, авто-высота
-            resultDiv.className = "prose-content bg-white dark:bg-gray-800 p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700 h-auto text-left";
-            
-            // 3. Превращаем Markdown в HTML
+            // 4. Перетворюємо Markdown в HTML
             resultDiv.innerHTML = marked.parse(data.diet);
             
-            // --- КОНЕЦ ИЗМЕНЕНИЙ ---
-            
-            console.log("Ответ получен"); 
+            console.log("Відповідь отримана"); 
         }
         } else {
             resultDiv.innerText = "Сталася помилка при генерації.";
