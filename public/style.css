@@ -314,3 +314,17 @@ html.dark .faq-item.active {
 .prose-content p {
     margin-bottom: 1rem;
 }
+.logo-nutriway {
+    /* Указываем размеры, иначе блок будет невидимым! */
+    width: 200px; 
+    height: 100px; /* Подберите высоту под ваш логотип */
+    
+    /* Подключаем картинку */
+    /* ВАЖНО: Если CSS файл лежит в папке css, нужно выйти из нее через ../ */
+    background-image: url('/GPT-Diet-Site/Front-Diet/pictures/nutriway.svg'); 
+    
+    /* Настройки отображения */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain; /* Картинка масштабируется, чтобы влезать целиком */
+}
