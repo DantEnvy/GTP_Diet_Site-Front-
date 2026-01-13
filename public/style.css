@@ -326,7 +326,7 @@ html.dark .faq-item.active {
     
     /* 2. ПОДКЛЮЧЕНИЕ КАРТИНКИ */
     /* Вариант А: Если CSS лежит в папке (например, css/style.css), а картинки в соседней (pictures/) */
-    /* background-image: url('../pictures/nutriway.svg');*/
+    background-image: url('pictures/nutriway.svg');
 
     /* Вариант Б: Если CSS и HTML лежат в одной папке рядом с папкой pictures */
     /* background-image: url('pictures/nutriway.svg'); */
