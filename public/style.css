@@ -315,16 +315,26 @@ html.dark .faq-item.active {
     margin-bottom: 1rem;
 }
 .logo-nutriway {
-    /* Указываем размеры, иначе блок будет невидимым! */
     width: 200px; 
-    height: 100px; /* Подберите высоту под ваш логотип */
+    height: 100px;
     
-    /* Подключаем картинку */
-    /* ВАЖНО: Если CSS файл лежит в папке css, нужно выйти из нее через ../ */
-    background-image: url('/GPT-Diet-Site/Front-Diet/pictures/nutriway.svg'); 
+    /* 1. ВРЕМЕННО: Красный фон. 
+       Если вы видите красный прямоугольник — значит CSS работает, 
+       и мы просто ищем правильный путь к картинке. 
+       Если красного нет — значит CSS вообще не подключен к HTML! */
+    background-color: red; 
     
-    /* Настройки отображения */
+    /* 2. ПОДКЛЮЧЕНИЕ КАРТИНКИ */
+    /* Вариант А: Если CSS лежит в папке (например, css/style.css), а картинки в соседней (pictures/) */
+    /*background-image: url('../pictures/nutriway.svg');*/
+
+    /* Вариант Б: Если CSS и HTML лежат в одной папке рядом с папкой pictures */
+    /* background-image: url('pictures/nutriway.svg'); */
+
+    /* Вариант В: Полный путь (но без первого слэша!) */
+    background-image: url('GPT-Diet-Site/Front-Diet/pictures/nutriway.svg');
+    
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain; /* Картинка масштабируется, чтобы влезать целиком */
+    background-size: contain;
 }
