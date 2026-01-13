@@ -353,7 +353,7 @@ const translations = {
         "lbl_allergy": "ALLERGIES",
         "lbl_health": "HEALTH",
         "placeholder_health": "Injuries, illnesses...",
-        "placeholder_allergies": "",
+        "placeholder_allergies": "Nuts, honey, lactose...",
         "btn_get_rec": "GET RECOMMENDATIONS",
         "res_main": "Main Indicators",
         "res_sleep": "Recommended Sleep",
@@ -407,22 +407,36 @@ function updateLanguage() {
     } else {
             // Fallback if structure changes
             const btn = document.getElementById('lang-toggle');
-            btn.innerText = currentLang === 'uk' ? 'UA' : 'EN';
+            if (btn) btn.innerText = currentLang === 'uk' ? 'UA' : 'EN';
     }
     
     // Update all elements with data-lang-key
     document.querySelectorAll('[data-lang-key]').forEach(el => {
         const key = el.getAttribute('data-lang-key');
-        if (translations[currentLang][key]) {
-            el.innerText = translations[currentLang][key];
+        
+        // Проверяем, существует ли перевод для этого ключа
+        if (translations[currentLang] && translations[currentLang][key]) {
+            
+            // --- НОВАЯ ЛОГИКА ---
+            // Если это поле ввода, меняем подсказку (placeholder)
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = translations[currentLang][key];
+            } 
+            // Иначе меняем текст внутри тега
+            else {
+                el.innerText = translations[currentLang][key];
+            }
+            // ---------------------
         }
     });
 
     // Re-render calculator results if they are visible (to update dynamic text)
-    if(!document.getElementById('resultArea').classList.contains('hidden')) {
+    const resultArea = document.getElementById('resultArea');
+    if(resultArea && !resultArea.classList.contains('hidden')) {
         calculateAndDisplay();
     }
 }
+
 
 // --------------------------------------------------------------------------------------------------------------------
 
