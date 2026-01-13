@@ -332,7 +332,7 @@ html.dark .faq-item.active {
     /* background-image: url('pictures/nutriway.svg'); */
 
     /* Вариант В: Полный путь (но без первого слэша!) */
-    background-image: url('GPT-Diet-Site/Front-Diet/pictures/nutriway.svg');
+    /* background-image: url('GPT-Diet-Site/Front-Diet/pictures/nutriway.svg'); */
     
     background-repeat: no-repeat;
     background-position: center;
