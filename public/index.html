@@ -113,12 +113,12 @@
                 </button>
                 <!-- Випадаючий список кнопок -->
                 <div id="info-submenu" class="hidden pl-10 space-y-3 mt-3 text-base border-l-2 border-gray-100 dark:border-gray-700 ml-3 transition-all duration-300">
-                    <a href="javascript:void(0)" onclick="showPage('Plate-page'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_1">Тарілка та піраміда для здорового харчування</a>
-                    <a href="javascript:void(0)" onclick="showPage('Carbohydrates-page'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_2">Вуглеводи</a>
-                    <a href="javascript:void(0)" onclick="showPage('Protein-page'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_3">Білок</a>
-                    <a href="javascript:void(0)" onclick="showPage('Fat-page'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_4">Жири та холестерин</a>
-                    <a href="javascript:void(0)" onclick="showPage('Vegetables-page'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_5">Овочі та фрукти</a>
-                    <a href="javascript:void(0)" onclick="showPage('Vitamins-page'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_6">Вітаміни та мінерали</a>
+                    <a href="javascript:void(0)" onclick="showPage('Plate'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_1">Тарілка та піраміда для здорового харчування</a>
+                    <a href="javascript:void(0)" onclick="showPage('Carbohydrates'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_2">Вуглеводи</a>
+                    <a href="javascript:void(0)" onclick="showPage('Protein'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_3">Білок</a>
+                    <a href="javascript:void(0)" onclick="showPage('Fat'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_4">Жири та холестерин</a>
+                    <a href="javascript:void(0)" onclick="showPage('Vegetables'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_5">Овочі та фрукти</a>
+                    <a href="javascript:void(0)" onclick="showPage('Vitamins'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_6">Вітаміни та мінерали</a>
                 </div>
             </div>
             
@@ -160,36 +160,36 @@
             <section class="py-20 container mx-auto px-4">
                 <h2 class="text-3xl font-bold mb-12 text-center editable-text dark:text-white" data-lang-key="section_diag">Комплексна діагностика</h2>
                 <div id="diag-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24 text-center">
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Plate-page');">
+                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Plate');">
                         <i class="fas fa-heartbeat text-red-500 text-3xl mb-4"></i>
                         <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_imt">Тарілка харчування</h3>
                         <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_imt_desc">Це модель для балансу в раціоні: половину порції мають складати овочі та фрукти. Іншу половину слід порівну розділити між корисними білками та цілозерновими гарнірами.</p>
                     </div>
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Carbohydrates-page');">
+                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Carbohydrates');">
                         <i class="fas fa-fire text-orange-500 text-3xl mb-4"></i>
                         <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_carb">Вуглеводи</h3>
                         <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_carb_desc">Це головне джерело енергії, тому надавайте перевагу цілозерновим продуктам, які дають тривалу ситість. Намагайтеся мінімізувати вживання цукру та білого борошна.</p>
                     </div>
 
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Protein-page');">
+                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Protein');">
                         <i class="fas fa-dumbbell text-blue-500 text-2xl mb-2"></i>
                         <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_prot">Білок</h3>
                         <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_prot_desc">Основний будівельний матеріал для м’язів та клітин організму. Найкращими джерелами є риба, птиця, бобові та горіхи.</p>
                     </div>
 
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Fat-page');">
+                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Fat');">
                         <i class="fas fa-tint text-yellow-500 text-2xl mb-2"></i>
                         <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_fat">Жири та холестерин</h3>
                         <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_fat_desc">Жири є важливим джерелом енергії та необхідними жирними кислотами. Важливо обирати здорові джерела жиру, такі як оливкова олія, авокадо та риба.</p>
                     </div>
 
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Vegetables-page');">
+                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Vegetables');">
                         <i class="fa fa-leaf text-green-500 text-3xl mb-4"></i>
                         <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_Vegetable">Овочі та фрукти</h3>
                         <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_vegetable_desc">Вони повинні займати половину вашої тарілки під час кожного прийому їжі. Це головне джерело клітковини для гарного травлення.</p>
                     </div>
 
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Vitamins-page');">
+                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Vitamins');">
                         <i class="fas fa-pills text-purple-500 text-3xl mb-4"></i>
                         <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_vit">Вітаміни</h3>
                         <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_vit_desc">Життєво важливі елементи для імунітету та обміну речовин. Найкраще отримувати їх із різноманітного, кольорового раціону, а не з таблеток.</p>
