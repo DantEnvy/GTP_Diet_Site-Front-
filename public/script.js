@@ -340,7 +340,7 @@ const translations = {
         "footer_sources": "Джерела інформації: ВООЗ, The Nutrition Source, EUFIC.",
         "footer_copyright": "© 2024 Здорове Харчування. Інформація носить ознайомлювальний характер.",
 
-        "goal_bid": "Набрати",
+        "goal_big": "Набрати",
         "goal_normal": "Підтримувати",
         "goal_low": "Знизити",
         "lbl_goal": "ЦІЛЬ"
@@ -532,7 +532,7 @@ const translations = {
         
         "footer_sources": "Sources: WHO, The Nutrition Source, EUFIC.",
         "footer_copyright": "© 2024 Healthy Eating. Information is for educational purposes.",
-        "goal_bid": "Gain",
+        "goal_big": "Gain",
         "goal_normal": "Maintain",
         "goal_low": "Lose",
         "lbl_goal": "GOAL"
