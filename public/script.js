@@ -3,7 +3,6 @@
 // ===============================
 // --- TRANSLATION LOGIC START ---
 
-
 let currentLang = localStorage.getItem('lang') || 'uk';
 
 function toggleLanguage() {
