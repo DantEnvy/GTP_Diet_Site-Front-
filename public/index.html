@@ -380,13 +380,13 @@
         <main id = "Vegetables-page" class="page-content pt-32 pb-20">
             <section class="max-w-4xl mx-auto px-6 mb-20 md:mb-24 pt-10 text-center">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 text-sm font-semibold mb-6 border border-blue-100">
-                <i class="fa-solid fa-circle-check text-xs"></i> Рекомендація ВООЗ: 400г на день
+                <i class="fa-solid fa-circle-check text-xs"></i> <span data-lang-key="header_pill">Рекомендація ВООЗ: 400г на день</span>
             </div>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-black text-slate-900 mb-8 leading-tight tracking-tight">
-                Овочі та фрукти:<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-500">Фундамент вашого здоров'я</span>
+                <span data-lang-key="vegetables_title">Овочі та фрукти:</span><br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-500" data-lang-key="vegetables_subtitle">Фундамент вашого здоров'я</span>
             </h1>
-            <p class="text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            <p class="text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto" data-lang-key="vegetables_desc">
                 Вони не просто їжа, а джерело життя. Вітаміни, мінерали та клітковина працюють разом, щоб захистити ваше серце, зміцнити імунітет та подарувати енергію.
             </p>
         </section>
@@ -396,10 +396,10 @@
             <div class="prose prose-lg prose-slate mx-auto">
                 <h2 class="text-3xl font-display font-bold text-slate-900 mb-6 flex items-center gap-3">
                     <span class="w-2 h-8 bg-blue-600 rounded-full"></span>
-                    Чому це так важливо?
+                    <span data-lang-key="why_important">Чому це так важливо?</span>
                 </h2>
-                
-                <p class="mb-6 text-lg leading-relaxed text-slate-600">
+
+                <p class="mb-6 text-lg leading-relaxed text-slate-600" data-lang-key="why_important_desc">
                     Овочі та фрукти — це невід’ємна частина здорового раціону. Дослідження підтверджують, що регулярне споживання рослинної їжі суттєво впливає на тривалість та якість життя.
                 </p>
 
@@ -409,7 +409,7 @@
                             <i class="fa-solid fa-heart-pulse text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Здоров'я серця та судин</h3>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2" data-lang-key="heart_health">Здоров'я серця та судин</h3>
                             <p class="text-slate-600 leading-relaxed">Достатнє споживання овочів допомагає знизити артеріальний тиск та зменшує ризик інфаркту й інсульту. Калій та магній, що містяться в них, підтримують роботу серцевого м'яза.</p>
                         </div>
                     </div>
@@ -419,7 +419,7 @@
                             <i class="fa-solid fa-weight-scale text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Контроль ваги</h3>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2" data-lang-key="weight_control">Контроль ваги</h3>
                             <p class="text-slate-600 leading-relaxed">Завдяки низькій калорійності та великій кількості клітковини, овочі створюють відчуття ситості без зайвих калорій. Це ідеальний інструмент для підтримки здорової маси тіла.</p>
                         </div>
                     </div>
@@ -429,8 +429,8 @@
                             <i class="fa-solid fa-shield-virus text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Захист клітин</h3>
-                            <p class="text-slate-600 leading-relaxed">Антиоксиданти та фітонутрієнти захищають клітини організму від пошкоджень та запальних процесів, знижуючи ризик розвитку хронічних захворювань та деяких видів раку.</p>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2" data-lang-key="cell_protection">Захист клітин</h3>
+                            <p class="text-slate-600 leading-relaxed" data-lang-key="cell_protection_desc">Антиоксиданти та фітонутрієнти захищають клітини організму від пошкоджень та запальних процесів, знижуючи ризик розвитку хронічних захворювань та деяких видів раку.</p>
                         </div>
                     </div>
                 </div>
@@ -439,55 +439,55 @@
 
         <!-- Data Table Section (Instead of cartoons) -->
         <section class="max-w-4xl mx-auto px-6 mb-24">
-            <h2 class="text-2xl font-display font-bold text-slate-900 mb-6 pl-4 border-l-4 border-blue-600">
+            <h2 class="text-2xl font-display font-bold text-slate-900 mb-6 pl-4 border-l-4 border-blue-600" data-lang-key="main_nutrients">
                 Основні поживні речовини
             </h2>
             <div class="overflow-x-auto shadow-sm rounded-xl border border-slate-200">
                 <table class="nutrition-table bg-white text-sm md:text-base">
                     <thead>
                         <tr class="text-slate-500 uppercase text-xs tracking-wider font-semibold">
-                            <th class="w-1/4">Продукт</th>
-                            <th class="w-1/3">Ключові речовини</th>
-                            <th>Вплив на здоров’я</th>
+                            <th class="w-1/4" data-lang-key="product">Продукт</th>
+                            <th class="w-1/3" data-lang-key="key_nutrients">Ключові речовини</th>
+                            <th data-lang-key="health_impact">Вплив на здоров’я</th>
                         </tr>
                     </thead>
                     <tbody class="text-slate-700">
                         <tr>
-                            <td class="font-bold text-slate-900">Морква</td>
-                            <td>β-каротин, клітковина</td>
-                            <td>Підтримує зір та імунітет</td>
+                            <td class="font-bold text-slate-900" data-lang-key="td_carrot">Морква</td>
+                            <td data-lang-key="td_carrot_nutrients">β-каротин, клітковина</td>
+                            <td data-lang-key="td_carrot_impact">Підтримує зір та імунітет</td>
                         </tr>
                         <tr>
-                            <td class="font-bold text-slate-900">Броколі</td>
-                            <td>Вітаміни C, K, фолат, калій</td>
-                            <td>Зміцнює кістки та серце, протиракова дія</td>
+                            <td class="font-bold text-slate-900" data-lang-key="td_broccoli">Броколі</td>
+                            <td data-lang-key="td_broccoli_nutrients">Вітаміни C, K, фолат, калій</td>
+                            <td data-lang-key="td_broccoli_impact">Зміцнює кістки та серце, протиракова дія</td>
                         </tr>
                         <tr>
-                            <td class="font-bold text-slate-900">Помідор</td>
-                            <td>Лікопін, вітамін C</td>
-                            <td>Потужний антиоксидант, захист шкіри</td>
+                            <td class="font-bold text-slate-900" data-lang-key="tomato">Помідор</td>
+                            <td data-lang-key="td_tomato_nutrients">Лікопін, вітамін C</td>
+                            <td data-lang-key="td_tomato_impact">Потужний антиоксидант, захист шкіри</td>
                         </tr>
                         <tr>
-                            <td class="font-bold text-slate-900">Яблуко</td>
-                            <td>Пектин, калій, вітамін C</td>
-                            <td>Корисне для мікрофлори та рівня холестерину</td>
+                            <td class="font-bold text-slate-900" data-lang-key="td_apple">Яблуко</td>
+                            <td data-lang-key="td_apple_nutrients">Пектин, калій, вітамін C</td>
+                            <td data-lang-key="td_apple_impact">Корисне для мікрофлори та рівня холестерину</td>
                         </tr>
                         <tr>
-                            <td class="font-bold text-slate-900">Шпинат</td>
-                            <td>Залізо, магній, вітамін K</td>
-                            <td>Кровотворення та здоров’я кісток</td>
+                            <td class="font-bold text-slate-900" data-lang-key="td_spinach">Шпинат</td>
+                            <td data-lang-key="td_spinach_nutrients">Залізо, магній, вітамін K</td>
+                            <td data-lang-key="td_spinach_impact">Кровотворення та здоров’я кісток</td>
                         </tr>
                         <tr>
-                            <td class="font-bold text-slate-900">Чорниця</td>
-                            <td>Антоціани, вітамін C</td>
-                            <td>Покращує пам’ять та зір</td>
+                            <td class="font-bold text-slate-900" data-lang-key="td_blueberry">Чорниця</td>
+                            <td data-lang-key="td_blueberry_nutrients">Антоціани, вітамін C</td>
+                            <td data-lang-key="td_blueberry_impact">Покращує пам’ять та зір</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="mt-8 bg-blue-50 p-6 rounded-xl border border-blue-100">
-                <h3 class="font-bold text-blue-900 mb-2">🎨 Магія кольору</h3>
-                <p class="text-slate-700 text-sm leading-relaxed">
+                <h3 class="font-bold text-blue-900 mb-2" data-lang-key="color_title">🎨 Магія кольору</h3>
+                <p class="text-slate-700 text-sm leading-relaxed" data-lang-key="color_desc">
                     Експерти радять "їсти різнокольорово". Кожен колір вказує на унікальні фітохімічні речовини: <span class="font-semibold text-red-600">червоний</span> (лікопін) для серця, <span class="font-semibold text-orange-500">помаранчевий</span> (каротин) для зору, <span class="font-semibold text-purple-600">фіолетовий</span> (антоціани) для мозку, а <span class="font-semibold text-green-600">зелений</span> — для очищення та захисту клітин.
                 </p>
             </div>
@@ -496,7 +496,7 @@
         <!-- Practical Tips (Cards kept as requested) -->
         <section class="max-w-5xl mx-auto px-6 mb-24">
             <div class="flex items-end justify-between mb-10">
-                <h2 class="text-3xl font-display font-bold text-slate-900">Практичні поради</h2>
+                <h2 class="text-3xl font-display font-bold text-slate-900" data-lang-key="tips_title">Практичні поради</h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
@@ -505,11 +505,11 @@
                 <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-lg shadow-slate-200/50 article-card flex flex-col h-full">
                     <div class="h-64 overflow-hidden relative bg-slate-100">
                         <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" alt="Healthy Plate" class="w-full h-full object-cover article-image">
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-blue-600 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm tracking-wide">БАЛАНС</div>
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-blue-600 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm tracking-wide" data-lang-key="card1_tag">БАЛАНС</div>
                     </div>
                     <div class="p-8 flex-grow">
-                        <h3 class="text-2xl font-bold text-slate-800 mb-3">Правило тарілки</h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3" data-lang-key="card1_title">Правило тарілки</h3>
+                        <p class="text-slate-600 leading-relaxed" data-lang-key="card1_desc">
                             Уявіть свою тарілку розділеною навпіл. Половину повинні займати овочі та зелень, чверть — якісний білок (риба, м'ясо), а ще чверть — складні вуглеводи. Цей простий візуальний метод забезпечує баланс нутрієнтів без нудного підрахунку калорій.
                         </p>
                     </div>
@@ -519,11 +519,11 @@
                 <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-lg shadow-slate-200/50 article-card flex flex-col h-full">
                     <div class="h-64 overflow-hidden relative bg-slate-100">
                         <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=800&q=80" alt="Fruit Bowl" class="w-full h-full object-cover article-image">
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-cyan-600 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm tracking-wide">ЗВИЧКА</div>
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-cyan-600 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm tracking-wide" data-lang-key="card2_tag">ЗВИЧКА</div>
                     </div>
                     <div class="p-8 flex-grow">
-                        <h3 class="text-2xl font-bold text-slate-800 mb-3">На видному місці</h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3" data-lang-key="card2_title">На видному місці</h3>
+                        <p class="text-slate-600 leading-relaxed" data-lang-key="card2_desc">
                             Ми їмо те, що бачимо. Складайте фрукти у прозору вазу на столі або розміщуйте нарізані овочі на рівні очей у холодильнику. "Чаша з яблуками" на столі значно підвищує шанси на корисний перекус.
                         </p>
                     </div>
@@ -533,11 +533,11 @@
                 <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-lg shadow-slate-200/50 article-card flex flex-col h-full">
                     <div class="h-64 overflow-hidden relative bg-slate-100">
                         <img src="https://images.unsplash.com/photo-1511690656952-34342d5c71df?auto=format&fit=crop&w=800&q=80" alt="Cooking" class="w-full h-full object-cover article-image">
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-indigo-600 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm tracking-wide">КУЛІНАРІЯ</div>
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-indigo-600 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm tracking-wide" data-lang-key="card3_tag">КУЛІНАРІЯ</div>
                     </div>
                     <div class="p-8 flex-grow">
-                        <h3 class="text-2xl font-bold text-slate-800 mb-3">Овочі всюди</h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3" data-lang-key="card3_title">Овочі всюди</h3>
+                        <p class="text-slate-600 leading-relaxed" data-lang-key="card3_desc">
                             Додавайте овочі навіть туди, де їх зазвичай немає. Шпинат в омлет, терта морква в котлети, гриби в соус до пасти. Це робить страву об’ємнішою, ситнішою та менш калорійною.
                         </p>
                     </div>
@@ -547,11 +547,11 @@
                 <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-lg shadow-slate-200/50 article-card flex flex-col h-full">
                     <div class="h-64 overflow-hidden relative bg-slate-100">
                         <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" alt="Shopping" class="w-full h-full object-cover article-image">
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-teal-600 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm tracking-wide">ПЛАНУВАННЯ</div>
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-teal-600 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm tracking-wide" data-lang-key="card4_tag">ПЛАНУВАННЯ</div>
                     </div>
                     <div class="p-8 flex-grow">
-                        <h3 class="text-2xl font-bold text-slate-800 mb-3">Розумні покупки</h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3" data-lang-key="card4_title">Розумні покупки</h3>
+                        <p class="text-slate-600 leading-relaxed" data-lang-key="card4_desc">
                             Плануйте хоча б одну овочеву страву на день перед походом у магазин. Купуйте сезонні продукти — вони найсмачніші. І пам'ятайте: заморожені овочі взимку часто корисніші за "свіжі" з теплиць.
                         </p>
                     </div>
@@ -561,7 +561,7 @@
 
         <!-- FAQ Section -->
         <section class="max-w-3xl mx-auto px-6 mb-16">
-            <h2 class="text-2xl font-display font-bold text-slate-900 mb-8 text-center">Питання та відповіді</h2>
+            <h2 class="text-2xl font-display font-bold text-slate-900 mb-8 text-center" data-lang-key="faq_title">Питання та відповіді</h2>
             <div class="space-y-6"></div>
                 <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
                     <div class="flex justify-between items-center">
@@ -578,12 +578,12 @@
                 </div>
                 <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
                     <div class="flex justify-between items-center">
-                        <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_q1">● Свіжі чи заморожені?</h4>
+                        <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_q2">● Свіжі чи заморожені?</h4>
                         <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
                     </div>
                     <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
                         <div class="overflow-hidden">
-                            <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300" data-lang-key="faq_a1">
+                            <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300" data-lang-key="faq_a2">
                             Обидва варіанти чудові. Заморожування часто відбувається на піку зрілості, тому такі овочі можуть зберігати навіть більше вітамінів, ніж ті, що довго лежали на полиці.
                             </div>
                         </div>
@@ -604,7 +604,6 @@
                 </div>
             </div>
         </section>
-
         
         <footer class="border-t border-slate-100 pt-10 pb-6">
             <div class="max-w-4xl mx-auto px-6 text-center">
