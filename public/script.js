@@ -343,7 +343,7 @@ const translations = {
         "goal_bid": "Набрати",
         "goal_normal": "Підтримувати",
         "goal_low": "Знизити",
-        "lbl_goal": "ЦІЛЬ",
+        "lbl_goal": "ЦІЛЬ"
     },
     en: {
         "disclaimer_title": "ATTENTION!",
@@ -697,11 +697,31 @@ function IMT_Interpretation(imt_value){
     return getTrans('imt_obese');
 }
 
-function BMR(age,height,weight,gender,activity){
-    age=Number(age);height=Number(height);weight=Number(weight);
-    const multipliers={very_high:1.9,high:1.725,medium:1.55,small:1.375,low:1.2};
-    let bmr = (10*weight)+(6.25*height)-(5*age)+(gender==='male'?5:-161);
-    return bmr*(multipliers[activity]??1.55);
+function calculateBMR(age, height, weight, gender, activity, goal) {
+    age = Number(age);
+    height = Number(height);
+    weight = Number(weight);
+    const multipliers_goal = {
+        big: 1.15,
+        normal: 1,
+        low: 0.85
+    };
+
+    const multipliers = {
+        very_high: 1.9,
+        high: 1.725,
+        medium: 1.55,
+        small: 1.375,
+        low: 1.2
+    };
+
+    const base =
+        (10 * weight) +
+        (6.25 * height) -
+        (5 * age) +
+        (gender === "male" ? 5 : -161);
+
+    return base * (multipliers[activity]) * (multipliers_goal[goal] || 1); 
 }
 
 function proteins(activity,weight){const m={very_high:2,high:1.8,medium:1.4,small:1.2,low:0.8}; return Number(weight)*(m[activity]??1.4)}
@@ -757,6 +777,7 @@ function showData(){
     const weightRaw = document.getElementById('weight').value;
     const allergy = document.getElementById('allergy').value; 
     const health = document.getElementById('health').value;   
+    const goal = document.querySelector("input[name='goal']:checked")?.value || 'normal';
 
     const age = Number(ageRaw), height = Number(heightRaw), weight = Number(weightRaw);
     
@@ -777,12 +798,11 @@ function showData(){
             return;
     }
 
-    // Valid data proceed - show results immediately (restored behavior)
+    
     ReTryBut=0;
     document.getElementById('confirm-buttons').classList.add('hidden');
     calculateAndDisplay();
 }
-
 function calculateAndDisplay() {
         const age = Number(document.getElementById('age').value);
         const height = Number(document.getElementById('height').value);
@@ -791,11 +811,12 @@ function calculateAndDisplay() {
         const activity = document.querySelector('input[name="activity"]:checked')?.value || 'medium';
         const allergy = document.getElementById('allergy').value; 
         const health = document.getElementById('health').value;   
-        
+        const goal = document.querySelector("input[name='goal']:checked")?.value || 'normal';
+
         document.getElementById('resultArea').classList.remove('hidden');
 
     try{
-        const bmrVal = BMR(age,height,weight,gender,activity);
+        const bmrVal = calculateBMR(age, height, weight, gender, activity, goal);
         const imtVal = IMT();
         const sleepRec = getSleepRecommendation(age);
         const waterRec = getWaterRecommendation(weight);
