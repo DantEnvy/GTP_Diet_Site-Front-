@@ -575,8 +575,49 @@ function updateLanguage() {
         calculateAndDisplay();
     }
 }*/
+let currentLang = localStorage.getItem('lang') || 'uk';
 
+function toggleLanguage() {
+    currentLang = currentLang === 'uk' ? 'en' : 'uk';
+    localStorage.setItem('lang', currentLang);
+    updateLanguage();
+}
 
+function updateLanguage() {
+    // Оновлення тексту кнопки
+    const langText = document.getElementById('lang-text');
+    if(langText) {
+        langText.innerText = currentLang === 'uk' ? 'UA' : 'EN';
+    } else {
+            const btn = document.getElementById('lang-toggle');
+            if (btn) btn.innerText = currentLang === 'uk' ? 'UA' : 'EN';
+    }
+    
+    // Оновлення тексту сторінки
+    document.querySelectorAll('[data-lang-key]').forEach(el => {
+        const key = el.getAttribute('data-lang-key');
+        
+        if (translations[currentLang] && translations[currentLang][key]) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = translations[currentLang][key];
+            } else {
+                // Використовуємо innerHTML для підтримки HTML-тегів (кольорів)
+                el.innerHTML = translations[currentLang][key];
+            }
+        }
+    });
+
+    // Якщо у вас є калькулятор, оновлюємо його
+    const resultArea = document.getElementById('resultArea');
+    if(resultArea && !resultArea.classList.contains('hidden') && typeof calculateAndDisplay === 'function') {
+        calculateAndDisplay();
+    }
+}
+
+// Запускаємо один раз при завантаженні сторінки, щоб встановити правильну мову
+document.addEventListener('DOMContentLoaded', () => {
+    updateLanguage();
+});
 // --------------------------------------------------------------------------------------------------------------------
 
 // Initialize language on load
