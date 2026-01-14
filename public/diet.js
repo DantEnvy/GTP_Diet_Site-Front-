@@ -1,8 +1,13 @@
 // ПЕРЕИМЕНУЙТЕ ФУНКЦИЮ, чтобы не было конфликта!
-function calculateBMR(age, height, weight, gender, activity) {
+function calculateBMR(age, height, weight, gender, activity, goal) {
     age = Number(age);
     height = Number(height);
     weight = Number(weight);
+    const multipliers_goal = {
+        big: 1.15,
+        normal: 1,
+        low: 0.85
+    };
 
     const multipliers = {
         very_high: 1.9,
@@ -18,7 +23,7 @@ function calculateBMR(age, height, weight, gender, activity) {
         (5 * age) +
         (gender === "male" ? 5 : -161);
 
-    return base * (multipliers[activity]); 
+    return base * (multipliers[activity]) * (multipliers_goal[goal] || 1); 
 }
 
 function toggleLanguage() {
@@ -63,7 +68,8 @@ async function generateDiet() {
     
     // ИСПРАВЛЕНИЕ 1: Дефолтное значение активности
     const activity = document.querySelector("input[name='activity']:checked")?.value || 'medium';
-    
+    const goal = document.querySelector("input[name='goal']:checked")?.value || 'normal';
+
     const allergy = document.getElementById("allergy").value;
     const health = document.getElementById("health").value;    
 
@@ -73,7 +79,7 @@ async function generateDiet() {
     }
 
     // Расчеты
-    const totalCalories = calculateBMR(age, height, weight, gender, activity);
+    const totalCalories = calculateBMR(age, height, weight, gender, activity, goal);
     const proteinGrams = prot(activity, weight);
     const proteinKcal = proteinGrams * 4;
     const fatKcal = totalCalories * 0.3;
@@ -88,6 +94,7 @@ async function generateDiet() {
         fat: Math.round(fatGrams),
         carb: Math.round(Math.max(0, carbGrams)), 
         allergy: allergy || "немає",
+        goal: goal || "підтримання",
         health: health || "немає",
         vitamins: vitam(age, gender, weight, activity),
         language: language || "uk"
@@ -110,7 +117,7 @@ async function generateDiet() {
     resultDiv.className = "flex items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-3xl dark:border-gray-700 text-blue-600 dark:text-blue-400 animate-pulse";
     // Видаляємо старий стиль, якщо він залишився
     resultDiv.removeAttribute("style");
-    resultDiv.style.color = "blue";
+    // resultDiv.style.color = "blue";
 
     const apiUrl = location.hostname === "localhost" || location.hostname === "127.0.0.1"
             ? "http://localhost:3000"

@@ -338,7 +338,12 @@ const translations = {
         "faq_a3": "Краще надавати перевагу цілим плодам. Сік позбавлений клітковини, тому він дуже швидко підвищує рівень цукру в крові і не дає відчуття ситості.",
         
         "footer_sources": "Джерела інформації: ВООЗ, The Nutrition Source, EUFIC.",
-        "footer_copyright": "© 2024 Здорове Харчування. Інформація носить ознайомлювальний характер."
+        "footer_copyright": "© 2024 Здорове Харчування. Інформація носить ознайомлювальний характер.",
+
+        "goal_bid": "Набрати",
+        "goal_normal": "Підтримувати",
+        "goal_low": "Знизити",
+        "lbl_goal": "ЦІЛЬ",
     },
     en: {
         "disclaimer_title": "ATTENTION!",
@@ -526,55 +531,14 @@ const translations = {
         "faq_a3": "It is better to prefer whole fruits. Juice lacks fiber, so it raises blood sugar levels very quickly and does not provide a feeling of fullness.",
         
         "footer_sources": "Sources: WHO, The Nutrition Source, EUFIC.",
-        "footer_copyright": "© 2024 Healthy Eating. Information is for educational purposes."
+        "footer_copyright": "© 2024 Healthy Eating. Information is for educational purposes.",
+        "goal_bid": "Gain",
+        "goal_normal": "Maintain",
+        "goal_low": "Lose",
+        "lbl_goal": "GOAL"
     }
 };
 
-/*let currentLang = localStorage.getItem('lang') || 'uk';
-
-function toggleLanguage() {
-    currentLang = currentLang === 'uk' ? 'en' : 'uk';
-    localStorage.setItem('lang', currentLang);
-    updateLanguage();
-}
-
-function updateLanguage() {
-    // Update button text SAFELY targeting the span inside
-    const langText = document.getElementById('lang-text');
-    if(langText) {
-        langText.innerText = currentLang === 'uk' ? 'UA' : 'EN';
-    } else {
-            // Fallback if structure changes
-            const btn = document.getElementById('lang-toggle');
-            if (btn) btn.innerText = currentLang === 'uk' ? 'UA' : 'EN';
-    }
-    
-    // Update all elements with data-lang-key
-    document.querySelectorAll('[data-lang-key]').forEach(el => {
-        const key = el.getAttribute('data-lang-key');
-        
-        // Проверяем, существует ли перевод для этого ключа
-        if (translations[currentLang] && translations[currentLang][key]) {
-            
-            // --- НОВАЯ ЛОГИКА ---
-            // Если это поле ввода, меняем подсказку (placeholder)
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                el.placeholder = translations[currentLang][key];
-            } 
-            // Иначе меняем текст внутри тега
-            else {
-                el.innerText = translations[currentLang][key];
-            }
-            // ---------------------
-        }
-    });
-
-    // Re-render calculator results if they are visible (to update dynamic text)
-    const resultArea = document.getElementById('resultArea');
-    if(resultArea && !resultArea.classList.contains('hidden')) {
-        calculateAndDisplay();
-    }
-}*/
 let currentLang = localStorage.getItem('lang') || 'uk';
 
 function toggleLanguage() {
