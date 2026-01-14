@@ -391,7 +391,7 @@ const translations = {
         "faq_q1": "● Are fruits harmful because of sugar?",
         "faq_a1": "No. In whole fruit, the sugar is \"packed\" with fiber, vitamins, and water. This provides slow absorption and satiety, unlike candy or sugary drinks.",
         "faq_q2": "● Fresh or frozen?",
-        "faq_a2": "No, you need to eat fewer calories than you use.",
+        "faq_a2": "Both options are great. Freezing often occurs at peak ripeness, so such vegetables may retain even more vitamins than those that have been sitting on shelves for a long time.",
         "info_title": "Useful Information",
         "info_subtitle": "Learn more about how your body works and what habits will help you feel better.",
         "tag_food": "NUTRITION",
