@@ -169,7 +169,7 @@ const translations = {
         "menu_calc": "Калькулятор",
         "menu_diet": "Дієта",
         "menu_admin": "Адмін Панель",
-        "hero_subtitle": "Nutriway — це сучасна онлайн-платформа, яка допомагає створити ідеальний план харчування на основі аналізу потреб вашого організму. Сервіс автоматично розраховує індивідуальні норми калорій, білків, жирів, вуглеводів та вітамінів, перетворюючи сухі цифри на смачне й збалансоване меню. Головна перевага Nutriway полягає в уважному ставленні до вашого здоров’я: алгоритм суворо враховує наявні захворювання та медичні протипоказання при виборі страв. З Nutriway турбота про здоров'я стає простою та системною, позбавляючи вас необхідності самостійно вираховувати кожен грам їжі.",
+        "hero_subtitle": "Ваш персональний шлях до здоров'я та ідеальної форми.",
         "hero_btn": "Почати розрахунок",
         "section_diag": "Комплексна діагностика",
         "IMT_title": "Індекс маси тіла (ІМТ)",
@@ -567,7 +567,7 @@ const translations = {
         "menu_calc": "Calculator",
         "menu_diet": "Diet",
         "menu_admin": "Admin Panel",
-        "hero_subtitle": "Nutriway is a modern online platform that helps create the ideal meal plan based on an analysis of your body's needs. The service automatically calculates individual requirements for calories, proteins, fats, carbohydrates, and vitamins, transforming dry figures into a delicious and balanced menu. The key advantage of Nutriway lies in its attentive approach to your health: the algorithm strictly accounts for existing medical conditions and contraindications when selecting meals. With Nutriway, taking care of your health becomes simple and systematic, freeing you from the need to calculate every gram of food yourself.",
+        "hero_subtitle": "Your personal path to health and ideal shape.",
         "hero_btn": "Start Calculation",
         "section_diag": "Complex Diagnostics",
         "card_imt": "Plate and pyramid for a healthy diet",
@@ -947,7 +947,7 @@ const translations = {
         "faq_deficiency_a": "Symptoms: chronic fatigue, skin problems, immunity issues. Blood tests and a doctor help determine it accurately.",
         "disclaimer": "Material based on data from Harvard Nutrition Source and NIH ODS. Not medical advice.",
         "lbl_eat": "PRODUCTS TO AVOID",
-        "placeholder_eat": "Milk, pork, radish..."
+        "placeholder_eat": "Молоко, свинина, редис..."
     }
 };
 
