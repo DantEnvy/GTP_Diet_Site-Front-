@@ -133,9 +133,7 @@ async function generateDiet() {
                         <div class="fish"></div>
                     </div>
                     <div class="cat">
-                        <div class="arm left">
-                            <div class="spatula"></div>
-                        </div>
+                        <div class="arm left"></div>
                         <div class="arm right"></div>
                         <div class="body"></div>
                         <div class="head">
@@ -167,9 +165,7 @@ async function generateDiet() {
                         <div class="fish"></div>
                     </div>
                     <div class="cat">
-                        <div class="arm left">
-                            <div class="spatula"></div>
-                        </div>
+                        <div class="arm left"></div>
                         <div class="arm right"></div>
                         <div class="body"></div>
                         <div class="head">
@@ -214,7 +210,8 @@ async function generateDiet() {
             resultDiv.innerHTML = "";
 
             // Застосовуємо стилі для тексту результату
-            resultDiv.className = "prose-content bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700 h-auto text-left transition-colors duration-300 shadow-lg";
+            // Стало:
+        resultDiv.className = "prose-content bg-white dark:bg-gray-800 text-gray-800 dark:text-white [&_*]:dark:text-white p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700 h-auto text-left transition-colors duration-300 shadow-lg";
             
             // Вставляємо згенерований текст (Markdown -> HTML)
             resultDiv.innerHTML = marked.parse(data.diet);
