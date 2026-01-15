@@ -583,7 +583,7 @@ const translations = {
         "card_fat": "Fats and Cholesterol",
         "card_fat_desc": "Fats are an important source of energy and essential fatty acids. It's important to choose healthy fat sources such as olive oil, avocado, and fish.",
         "world_title": "World of Nutriway",
-        "world_subtitle": "Deep understanding of your body.",
+        "world_subtitle": "Nutriway is a cutting-edge online platform designed to craft your perfect nutrition plan based on your body's specific needs. It automatically calculates your personal targets for calories, proteins, fats, carbs, and vitamins, turning raw data into a tasty and balanced menu. Nutriway’s standout feature is its commitment to your safety: our algorithm strictly considers any existing medical conditions and contraindications when choosing your dishes. With Nutriway, looking after your health becomes simple and systematic, eliminating the hassle of counting every gram of food on your own.",
         "feature_1_title": "Nutritiology",
         "feature_1_desc": "We study how each nutrient affects energy.",
         "feature_2_title": "Smart Diet",
@@ -990,7 +990,6 @@ function updateLanguage() {
     }
 }
 
-// Запускаємо один раз при завантаженні сторінки, щоб встановити правильну мову
 document.addEventListener('DOMContentLoaded', () => {
     updateLanguage();
 });
