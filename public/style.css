@@ -6,6 +6,15 @@
     --site-color-bot: #2563eb;
     --site-gradient-angle: 135deg;
     --site-gradient: linear-gradient(var(--site-gradient-angle), var(--site-color-top) 0%, var(--site-color-bot) 100%);
+
+    --cat-color: #ffb74d;       /* Колір котика */
+    --cat-belly: #ffe0b2;   
+    --pan-color: #37474f;     
+    --stove-color: #b0bec5;     
+    --fish-color: #4fc3f7;     
+    --fish-cooked: #ff8a65;   
+    --text-color: #880e4f;  
+    --steam-color: rgba(255, 255, 255, 0.7); 
 }
 
 body {
