@@ -475,12 +475,7 @@
 
                 </div>
         </section>
-        
-        <footer class="border-t border-slate-100 pt-10 pb-6">
-            <div class="max-w-4xl mx-auto px-6 text-center">
-                <p class="text-slate-500 text-sm mb-2">Джерела інформації: ВООЗ, The Nutrition Source, EUFIC.</p>
-            </div>
-        </footer>
+
          </main>
 
          <main id="Protein-page" class="page-content pt-20 pb-20">    
@@ -608,28 +603,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                <!-- Comparison Box -->
-                <div class="mt-8 bg-gradient-to-br from-indigo-50 to-blue-50 p-8 rounded-2xl border border-blue-100 relative overflow-hidden dark:bg-gray-800 dark:border-gray-800 w-full">
-                    <div class="relative z-10 dark:bg-gray-800 dark:border-gray-800 w-full">
-                        <h3 class="font-bold text-xl text-blue-900 mb-3 flex items-center gap-2">
-                            <i class="fa-solid fa-scale-balanced"></i> Тваринні чи Рослинні?
-                        </h3>
-                        <div class="grid md:grid-cols-2 gap-6 text-slate-700 text-sm leading-relaxed">
-                            <div>
-                                <p class="font-semibold text-orange-700 mb-1">🥩 Тваринні білки</p>
-                                <p>Вважаються «повноцінними», бо містять усі 9 незамінних амінокислот, які організм не виробляє сам. Багаті на залізо, цинк та B12.</p>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-green-700 mb-1">🥦 Рослинні білки</p>
-                                <p>Багаті на клітковину та антиоксиданти, не містять холестерину. Щоб отримати повний набір амінокислот, їх варто комбінувати (наприклад, рис + квасоля).</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Decorative background elements -->
-                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-200 rounded-full opacity-20 blur-2xl"></div>
-                    <div class="absolute bottom-0 left-0 -mb-4 -ml-4 w-32 h-32 bg-indigo-200 rounded-full opacity-20 blur-2xl"></div>
-                </div>
             </section>
 
             <!-- Practical Tips Cards -->
@@ -701,53 +674,51 @@
 
             <!-- FAQ Section -->
             <section class="max-w-3xl mx-auto px-6 mb-16">
-                <h2 class="text-2xl font-display font-bold text-slate-900 mb-8 text-center">Питання та норми</h2>
-                <div class="space-y-4"> 
-                    
-                    <div class="faq-item group border border-slate-200 bg-white rounded-2xl p-6 cursor-pointer hover:shadow-md transition-all duration-300" onclick="toggleFaq(this)">
-                        <div class="flex justify-between items-center">
-                            <h4 class="font-bold text-slate-800">● Скільки білка потрібно літнім людям?</h4>
-                            <i class="fas fa-plus text-blue-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
-                        </div>
-                        <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
-                            <div class="overflow-hidden">
-                                <p class="pt-4 text-slate-600 text-sm leading-relaxed">
+                <h2 class="text-2xl font-display font-bold text-slate-900 mb-8 text-center" data-lang-key="faq_title">Питання та відповіді</h2>
+                    <div class="space-y-6"> 
+                        <div class="space-y-6">
+                            <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_q1">● Скільки білка потрібно літнім людям?</h4>
+                                    <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
+                                </div>
+                                <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
+                                    <div class="overflow-hidden">
+                                        <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300" data-lang-key="faq_a1">
                                     Літнім людям рекомендовано трохи більше норми: 1–1.2 г на 1 кг ваги. Це допомагає запобігти втраті м'язової маси та зберегти силу, що критично важливо для активного довголіття.
-                                </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item group border border-slate-200 bg-white rounded-2xl p-6 cursor-pointer hover:shadow-md transition-all duration-300" onclick="toggleFaq(this)">
-                        <div class="flex justify-between items-center">
-                            <h4 class="font-bold text-slate-800">● Чи можна набрати норму без м'яса?</h4>
-                            <i class="fas fa-plus text-blue-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
-                        </div>
-                        <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
-                            <div class="overflow-hidden">
-                                <p class="pt-4 text-slate-600 text-sm leading-relaxed">
+                        <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_q2">● Чи можна набрати норму без м'яса?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
+                            </div>
+                            <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
+                                <div class="overflow-hidden">
+                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300" data-lang-key="faq_a2">
                                     Так! Але потрібно бути уважнішим. Рослинні білки (окрім сої та кіноа) часто не мають повного набору амінокислот. Тому вегетаріанцям важливо комбінувати різні джерела: бобові, горіхи, насіння та цільні злаки протягом дня.
-                                </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="faq-item group border border-slate-200 bg-white rounded-2xl p-6 cursor-pointer hover:shadow-md transition-all duration-300" onclick="toggleFaq(this)">
-                        <div class="flex justify-between items-center">
-                            <h4 class="font-bold text-slate-800">● Що щодо вагітних та жінок, що годують?</h4>
-                            <i class="fas fa-plus text-blue-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
-                        </div>
-                        <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
-                            <div class="overflow-hidden">
-                                <p class="pt-4 text-slate-600 text-sm leading-relaxed">
+                        <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_q1">● Що щодо вагітних та жінок, що годують?</h4> <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
+                            </div>
+                            <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
+                                <div class="overflow-hidden">
+                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-gray-300" data-lang-key="faq_a1"> 
                                     Потреба у білку зростає, оскільки він потрібен для розвитку дитини та вироблення молока. Рекомендована норма становить 1.2–1.5 г на 1 кг ваги.
-                                </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-            </section>
+                    </div>
+                </section>
         </main>
 
          <!-- ДІЄТА- -->
