@@ -590,7 +590,57 @@ const translations = {
         "faq_fat_q": "● Чи потрібні жири?",
         "faq_fat_a": "Так, але корисні. Обирайте ненасичені жири (олія, горіхи, риба) для серця і мозку. Уникайте трансжирів (випічка, маргарин).",
         "faq_count_q": "● Скільки тарілок їсти на день?",
-        "faq_count_a": "Залежить від вашого віку та активності. Можна їсти 3-5 разів, головне — дотримуватись пропорцій «здорової тарілки» при кожному прийомі їжі."
+        "faq_count_a": "Залежить від вашого віку та активності. Можна їсти 3-5 разів, головне — дотримуватись пропорцій «здорової тарілки» при кожному прийомі їжі.",
+        "plate_Vegetables_ul_1": "• Капуста, морква, буряк",
+        "plate_Vegetables_ul_2": "• Огірки, помідори, перець",
+        "plate_Vegetables_ul_3": "• Шпинат, салат, зелень",
+        "plate_Vegetables_ul_4": "• Баклажани, кабачки",
+        "plate_Fruits_ul_1": "• Яблука, банани, груші",
+        "plate_Fruits_ul_2": "• Цитрусові (апельсин, мандарин)",
+        "plate_Fruits_ul_3": "• Ягоди (полуниця, чорниця)",
+        "plate_Fruits_ul_4": "• Ківі, персики, виноград",
+        "plate_Whole_ul_1":"• Гречка, вівсянка, перловка",
+        "plate_Whole_ul_2":"• Булгур, кіноа, бурий рис",
+        "plate_Whole_ul_3":"• Цільнозерновий хліб",
+        "plate_Whole_ul_4":"• Макарони з твердих сортів",
+        "cat_protein": "Білки",
+        "list_prot_1": "• Риба, курка, індичка",
+        "list_prot_2": "• Яйця",
+        "list_prot_3": "• Бобові (сочевиця, нут, квасоля)",
+        "list_prot_4": "• Горіхи та насіння",
+        
+        "cat_oils": "Корисні жири",
+        "list_oil_1": "• Оливкова, рапсова олії",
+        "list_oil_2": "• Соняшникова, кукурудзяна",
+        "list_oil_3": "• Авокадо",
+        "list_oil_4": "• Горіхи (волоські, мигдаль)",
+
+        "cat_drinks": "Напої",
+        "list_drink_1": "• Негазована вода",
+        "list_drink_2": "• Чай, кава (без цукру)",
+        "list_drink_3": "• Натуральний йогурт/кефір",
+        "cat_avoid": "УНИКАТИ: Солодка газована вода",
+
+        // Menu Section
+        "menu_title": "Приклади денного меню",
+        
+        // Child Menu
+        "menu_child_title": "Дитина (6-10 років)",
+        "menu_child_breakfast": "Сніданок: Вівсяна каша на молоці з ягодами, цільнозерновий хліб, чай без цукру.",
+        "menu_child_lunch": "Обід: Овочевий суп, куряча котлета, гречка, салат з огірків, вода.",
+        "menu_child_dinner": "Вечеря: Запечена риба, тушковані овочі, хліб, яблуко, вода.",
+
+        // Adult Menu
+        "menu_adult_title": "Дорослий (25-40 років)",
+        "menu_adult_breakfast": "Сніданок: Омлет з овочами та цільнозерновим хлібом, фрукти, кава.",
+        "menu_adult_lunch": "Обід: Рагу з куркою та овочами, бурий рис, зелений салат.",
+        "menu_adult_dinner": "Вечеря: Суп-пюре, риба на пару, салат, йогурт.",
+
+        // Elderly Menu
+        "menu_elderly_title": "Літня людина (65+)",
+        "menu_elderly_breakfast": "Сніданок: Йогурт з вівсянкою та ягодами, трав'яний чай.",
+        "menu_elderly_lunch": "Обід: Легкий суп, риба, пюре з броколі, оливкова олія.",
+        "menu_elderly_dinner": "Вечеря: Варена курка, тушкована капуста, хліб, компот без цукру."
     },
     en: {
         "disclaimer_title": "Pay attention!",
@@ -1029,7 +1079,57 @@ const translations = {
         "faq_fat_q": "● Are fats necessary?",
         "faq_fat_a": "Yes, but healthy ones. Choose unsaturated fats (oil, nuts, fish) for the heart and brain. Avoid trans fats (pastries, margarine).",
         "faq_count_q": "● How many plates should I eat per day?",
-        "faq_count_a": "It depends on your age and activity. You can eat 3-5 times a day, the main thing is to follow the 'Healthy Plate' proportions at every meal."
+        "faq_count_a": "It depends on your age and activity. You can eat 3-5 times a day, the main thing is to follow the 'Healthy Plate' proportions at every meal.",
+        "plate_Vegetables_ul_1": "• Cabbage, carrots, broccoli",
+        "plate_Vegetables_ul_2": "• Cucumbers, tomatoes, peppers",
+        "plate_Vegetables_ul_3": "• Spinach, lettuce, greens",
+        "plate_Vegetables_ul_4": "• Eggplants, zucchini",
+        "plate_Fruits_ul_1": "• Apples, bananas, pears",
+        "plate_Fruits_ul_2": "• Citrus fruits (orange, mandarin)",
+        "plate_Fruits_ul_3": "• Berries (strawberry, blackberry)",
+        "plate_Fruits_ul_4": "• Kiwi, peaches, grapes",
+        "plate_Whole_ul_1":"• Buckwheat, oats, barley",
+        "plate_Whole_ul_2":"• Bulgur, quinoa, brown rice",
+        "plate_Whole_ul_3":"• Whole grain bread",
+        "plate_Whole_ul_4":"• Pasta made from hard wheat",
+        "cat_protein": "Proteins",
+        "list_prot_1": "• Fish, chicken, turkey",
+        "list_prot_2": "• Eggs",
+        "list_prot_3": "• Legumes (lentils, chickpeas, beans)",
+        "list_prot_4": "• Nuts and seeds",
+
+        "cat_oils": "Healthy Fats",
+        "list_oil_1": "• Olive, canola oils",
+        "list_oil_2": "• Sunflower, corn oils",
+        "list_oil_3": "• Avocado",
+        "list_oil_4": "• Nuts (walnuts, almonds)",
+
+        "cat_drinks": "Drinks",
+        "list_drink_1": "• Still water",
+        "list_drink_2": "• Tea, coffee (unsweetened)",
+        "list_drink_3": "• Natural yogurt/kefir",
+        "cat_avoid": "AVOID: Sugary soda",
+
+        // Menu Section
+        "menu_title": "Daily Menu Examples",
+
+        // Child Menu
+        "menu_child_title": "Child (6-10 years)",
+        "menu_child_breakfast": "Breakfast: Oatmeal with milk and berries, whole grain bread, unsweetened tea.",
+        "menu_child_lunch": "Lunch: Vegetable soup, chicken cutlet, buckwheat, cucumber salad, water.",
+        "menu_child_dinner": "Dinner: Baked fish, stewed vegetables, bread, apple, water.",
+
+        // Adult Menu
+        "menu_adult_title": "Adult (25-40 years)",
+        "menu_adult_breakfast": "Breakfast: Omelet with vegetables and whole grain bread, fruit, coffee.",
+        "menu_adult_lunch": "Lunch: Stew with chicken and vegetables, brown rice, green salad.",
+        "menu_adult_dinner": "Dinner: Puree soup, steamed fish, salad, yogurt.",
+
+        // Elderly Menu
+        "menu_elderly_title": "Elderly (65+)",
+        "menu_elderly_breakfast": "Breakfast: Yogurt with oatmeal and berries, herbal tea.",
+        "menu_elderly_lunch": "Lunch: Light soup, fish, broccoli puree, olive oil.",
+        "menu_elderly_dinner": "Dinner: Boiled chicken, stewed cabbage, bread, unsweetened compote."
     }
 };
 
