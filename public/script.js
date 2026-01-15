@@ -154,10 +154,10 @@ async function send() {
 // --- TRANSLATION LOGIC START ---
 const translations = {
     uk: {
-        "disclaimer_title": "УВАГА!",
-        "disclaimer_text_1": "Вся інформація, розміщена на даному сайті, надається виключно з інформаційною та ознайомчою метою. Матеріали сайту не є медичною консультацією, не є діагнозом, не є рекомендацією до лікування, не є індивідуальним планом харчування та не можуть замінити консультацію лікаря, дієтолога або іншого кваліфікованого спеціаліста.",
+        "disclaimer_title": "Зверніть увагу!",
+        "disclaimer_text_1": "Інформація на сайті має виключно ознайомчий характер і не є медичною порадою. Використовуючи сервіс, ви берете відповідальність за своє здоров'я на себе. Перед будь-якими змінами в харчуванні обов'язково порадьтеся з лікарем.",
         "disclaimer_text_2": "Адміністрація сайту не несе відповідальності за будь-які наслідки, прямі або непрямі, що можуть виникнути в результаті використання інформації з цього сайту.",
-        "disclaimer_btn": "Я підтверджую усе",
+        "disclaimer_btn": "Зрозуміло",
         "menu_home": "Головна",
         "menu_info": "Інформація",
         "menu_info_sub_1": "Тарілка та піраміда для здорового харчування",
@@ -593,10 +593,10 @@ const translations = {
         "faq_count_a": "Залежить від вашого віку та активності. Можна їсти 3-5 разів, головне — дотримуватись пропорцій «здорової тарілки» при кожному прийомі їжі."
     },
     en: {
-        "disclaimer_title": "ATTENTION!",
-        "disclaimer_text_1": "All information on this site is provided for informational purposes only. The materials on the site are not medical advice, diagnosis, treatment recommendation, or individual nutritional plan and cannot replace consultation with a doctor, nutritionist, or other qualified specialist.",
+        "disclaimer_title": "Pay attention!",
+        "disclaimer_text_1": "The information on the site is for informational purposes only and does not constitute medical advice. By using the service, you assume responsibility for your health. Before making any changes to your diet, be sure to consult your doctor.",
         "disclaimer_text_2": "The site administration is not responsible for any consequences, direct or indirect, arising from the use of information from this site.",
-        "disclaimer_btn": "I confirm everything",
+        "disclaimer_btn": "Of course",
         "menu_home": "Home",
         "menu_info": "Info",
         "menu_info_sub_1": "Healthy Eating Plate & Pyramid",
