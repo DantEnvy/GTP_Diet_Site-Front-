@@ -120,7 +120,7 @@ async function generateDiet() {
     resultDiv.removeAttribute("style");
     
     // Вставляємо HTML котика
-    if (language === 'uk') {
+    if (language == 'uk') {
         resultDiv.innerHTML = `
             <div class="loader-container" style="margin: 0 auto; transform: scale(0.8); height: 300px;">
                 <div class="scene">
@@ -152,7 +152,7 @@ async function generateDiet() {
                 </div>
             </div>
         `;
-    } else {
+    } else if (language == 'e') {
         resultDiv.innerHTML = `
             <div class="loader-container" style="margin: 0 auto; transform: scale(0.8); height: 300px;">
                 <div class="scene">
