@@ -548,7 +548,7 @@ const translations = {
         "faq_deficiency_q": "● Як визначити дефіцит?",
         "faq_deficiency_a": "Симптоми: хронічна втома, проблеми зі шкірою, імунітетом. Точно визначити допоможе аналіз крові та лікар.",
         "disclaimer": "Матеріал базується на даних Harvard Nutrition Source та NIH ODS. Не є медичною консультацією.",
-        "lbl_eat": "ПРОДУКТИ, ЯКІ ТРЕБА ВИКЛЮЧИТИ",
+        "lbl_eat": "ПРОДУКТИ ДЛЯ ВИКЛЮЧЕНЯЯ",
         "placeholder_eat": "Молоко, свинина, редис..."
     },
     en: {
@@ -983,7 +983,6 @@ function updateLanguage() {
         }
     });
 
-    // Якщо у вас є калькулятор, оновлюємо його
     const resultArea = document.getElementById('resultArea');
     if(resultArea && !resultArea.classList.contains('hidden') && typeof calculateAndDisplay === 'function') {
         calculateAndDisplay();
