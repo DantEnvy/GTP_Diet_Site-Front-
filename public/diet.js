@@ -152,7 +152,7 @@ async function generateDiet() {
                 </div>
             </div>
         `;
-    } else if (language == 'e') {
+    } else{
         resultDiv.innerHTML = `
             <div class="loader-container" style="margin: 0 auto; transform: scale(0.8); height: 300px;">
                 <div class="scene">
