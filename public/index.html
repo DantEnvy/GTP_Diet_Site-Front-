@@ -98,10 +98,6 @@
             <a href="javascript:void(0)" onclick="showPage('home'); toggleMenu();" class="menu-item delay-1 hover:text-green-500 flex items-center space-x-4">
                 <i class="fas fa-home w-6"></i> <span data-lang-key="menu_home">Головна</span>
             </a>
-            <!-- Новий пункт: Інформація -->
-            <!-- <a href="javascript:void(0)" onclick="showPage('info'); toggleMenu();" class="menu-item delay-2 hover:text-green-500 flex items-center space-x-4">
-                <i class="fas fa-info-circle w-6"></i> <span data-lang-key="menu_info">Інформація</span>
-            </a>-->
 
             <div class="menu-item-group">
                 <button onclick="document.getElementById('info-submenu').classList.toggle('hidden'); document.getElementById('info-arrow').classList.toggle('rotate-180');" class="w-full text-left menu-item delay-2 hover:text-green-500 flex items-center justify-between focus:outline-none group">
@@ -308,48 +304,48 @@
                 Основні поживні речовини
             </h2>
             <div class="overflow-x-auto shadow-lg shadow-slate-200/50 rounded-xl border border-slate-200 bg-white dark:bg-gray-800 dark:border-gray-700">
-    <table class="w-full text-left border-collapse w-full">
-        <thead>
-            <tr class="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider font-semibold border-b border-slate-200 dark:bg-gray-700 dark:text-white dark:border-gray-600">
-                <th class="p-4 w-1/4" data-lang-key="th_product">Продукт</th>
-                <th class="p-4 w-1/3" data-lang-key="th_nutrients">Ключові речовини</th>
-                <th class="p-4" data-lang-key="th_impact">Вплив на здоров’я</th>
-            </tr>
-        </thead>
-        <tbody class="text-slate-700 text-sm md:text-base divide-y divide-slate-100 dark:divide-gray-700">
-            <tr>
-                <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="td_carrot">Морква</td>
-                <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_carrot_nutrients">β-каротин, клітковина</td>
-                <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_carrot_impact">Підтримує зір та імунітет</td>
-            </tr>
-            <tr>
-                <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="td_broccoli">Броколі</td>
-                <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_broccoli_nutrients">Вітаміни C, K, фолат, калій</td>
-                <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_broccoli_impact">Зміцнює кістки та серце, протиракова дія</td>
-            </tr>
-            <tr>
-                <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="tomato">Помідор</td>
-                <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_tomato_nutrients">Лікопін, вітамін C</td>
-                <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_tomato_impact">Потужний антиоксидант, захист шкіри</td>
-            </tr>
-            <tr>
-                <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="td_apple">Яблуко</td>
-                <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_apple_nutrients">Пектин, калій, вітамін C</td>
-                <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_apple_impact">Корисне для мікрофлори та рівня холестерину</td>
-            </tr>
-            <tr>
-                <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="td_spinach">Шпинат</td>
-                <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_spinach_nutrients">Залізо, магній, вітамін K</td>
-                <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_spinach_impact">Кровотворення та здоров’я кісток</td>
-            </tr>
-            <tr>
-                <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="td_blueberry">Чорниця</td>
-                <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_blueberry_nutrients">Антоціани, вітамін C</td>
-                <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_blueberry_impact">Покращує пам’ять та зір</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                <table class="w-full text-left border-collapse w-full">
+                    <thead>
+                        <tr class="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider font-semibold border-b border-slate-200 dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                            <th class="p-4 w-1/4" data-lang-key="th_product">Продукт</th>
+                            <th class="p-4 w-1/3" data-lang-key="th_nutrients">Ключові речовини</th>
+                            <th class="p-4" data-lang-key="th_impact">Вплив на здоров’я</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-700 text-sm md:text-base divide-y divide-slate-100 dark:divide-gray-700">
+                        <tr>
+                            <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="td_carrot">Морква</td>
+                            <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_carrot_nutrients">β-каротин, клітковина</td>
+                            <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_carrot_impact">Підтримує зір та імунітет</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="td_broccoli">Броколі</td>
+                            <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_broccoli_nutrients">Вітаміни C, K, фолат, калій</td>
+                            <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_broccoli_impact">Зміцнює кістки та серце, протиракова дія</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="tomato">Помідор</td>
+                            <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_tomato_nutrients">Лікопін, вітамін C</td>
+                            <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_tomato_impact">Потужний антиоксидант, захист шкіри</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="td_apple">Яблуко</td>
+                            <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_apple_nutrients">Пектин, калій, вітамін C</td>
+                            <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_apple_impact">Корисне для мікрофлори та рівня холестерину</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="td_spinach">Шпинат</td>
+                            <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_spinach_nutrients">Залізо, магній, вітамін K</td>
+                            <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_spinach_impact">Кровотворення та здоров’я кісток</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-slate-900 dark:text-white" data-lang-key="td_blueberry">Чорниця</td>
+                            <td class="p-4 font-bold text-blue-700 dark:text-blue-400" data-lang-key="td_blueberry_nutrients">Антоціани, вітамін C</td>
+                            <td class="p-4 text-slate-500 dark:text-white" data-lang-key="td_blueberry_impact">Покращує пам’ять та зір</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="mt-8 bg-blue-50 p-6 rounded-xl border border-blue-100 dark:bg-gray-800 dark:border-gray-700 w-full">
                 <h3 class="font-bold text-blue-900 mb-2 dark:text-gray-100" data-lang-key="color_title">🎨 Магія кольору</h3>
                 <p class="text-slate-700 text-sm leading-relaxed dark:text-white" data-lang-key="color_desc">
