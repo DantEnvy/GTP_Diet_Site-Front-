@@ -314,3 +314,371 @@ html.dark .faq-item.active {
 .prose-content p {
     margin-bottom: 1rem;
 }
+.loader-container {
+    position: relative;
+    width: 320px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.scene {
+    position: relative;
+    width: 300px;
+    height: 250px;
+}
+
+/* --- Плита --- */
+.stove {
+    position: absolute;
+    bottom: 0;
+    left: 40px;
+    width: 140px;
+    height: 45px;
+    background: var(--stove-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 0 #78909c;
+    z-index: 1;
+}
+/* Конфорки */
+.stove::before, .stove::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    width: 50px;
+    height: 10px;
+    background: #546e7a;
+    border-radius: 5px;
+}
+.stove::before { left: 15px; }
+.stove::after { right: 15px; }
+
+/* --- Сковорода (Группа) --- */
+.pan-group {
+    position: absolute;
+    bottom: 60px; /* Исходная высота над плитой */
+    left: 50px;
+    width: 140px;
+    height: 40px;
+    z-index: 10;
+    transform-origin: 120px 20px; /* Точка вращения у ручки */
+    animation: panFlip 3s infinite ease-in-out;
+}
+
+.pan-body {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100px;
+    height: 25px;
+    background: var(--pan-color);
+    border-radius: 0 0 20px 20px;
+    border-top: 5px solid #263238;
+}
+
+.pan-handle {
+    position: absolute;
+    right: 0;
+    bottom: 15px;
+    width: 50px;
+    height: 12px;
+    background: #263238;
+    border-radius: 0 5px 5px 0;
+    transform: rotate(-5deg);
+}
+
+/* --- Рыбка --- */
+.fish {
+    position: absolute;
+    left: 30px;
+    bottom: 15px; /* Внутри сковороды */
+    width: 40px;
+    height: 20px;
+    background: var(--fish-color);
+    border-radius: 50%;
+    z-index: 11;
+    transform-origin: center center;
+    animation: fishFlip 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Хвостик */
+.fish::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 5px;
+    width: 0; height: 0;
+    border-right: 12px solid var(--fish-color);
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    animation: fishColorTail 3s infinite steps(1); 
+}
+/* Глаз */
+.fish::after {
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: 5px;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 1px 0 0 black;
+}
+
+/* Анимация смены цвета рыбки (поджарилась в полете) */
+@keyframes fishFlip {
+    0%, 10% { transform: translateY(0) rotate(0); background: var(--fish-color); }
+    15% { transform: translateY(0) rotate(0); } /* Подготовка */
+    
+    /* Бросок */
+    45% { transform: translateY(-180px) rotate(360deg); background: var(--fish-cooked); }
+    
+    /* Падение */
+    75% { transform: translateY(0) rotate(720deg); background: var(--fish-cooked); }
+    
+    /* Стабилизация */
+    80%, 100% { transform: translateY(0) rotate(720deg); background: var(--fish-cooked); }
+}
+/* Чтобы хвост тоже менял цвет */
+@keyframes fishColorTail {
+    0%, 20% { border-right-color: var(--fish-color); }
+    21%, 100% { border-right-color: var(--fish-cooked); }
+}
+
+
+/* --- Котик --- */
+.cat {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 90px;
+    height: 130px;
+    z-index: 5;
+}
+
+.head {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 70px;
+    height: 65px;
+    background: var(--cat-color);
+    border-radius: 50% 50% 45% 45%;
+    z-index: 20;
+    box-shadow: inset -2px -2px 0 rgba(0,0,0,0.1);
+    animation: headFollow 3s infinite ease-in-out;
+}
+
+/* Уши */
+.head::before, .head::after {
+    content: '';
+    position: absolute;
+    top: -12px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 25px solid var(--cat-color);
+}
+.head::before { left: -5px; transform: rotate(-25deg); }
+.head::after { right: -5px; transform: rotate(25deg); }
+
+/* Мордочка */
+.face {
+    position: absolute;
+    top: 25px;
+    left: 12px;
+    width: 46px;
+    height: 25px;
+}
+.eyes {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.eye {
+    width: 10px;
+    height: 10px;
+    background: #37474f;
+    border-radius: 50%;
+    position: relative;
+}
+/* Блик в глазах */
+.eye::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+}
+
+.nose {
+    position: absolute;
+    top: 14px;
+    left: 19px;
+    width: 8px;
+    height: 6px;
+    background: #ff7043;
+    border-radius: 50%;
+}
+
+.body {
+    position: absolute;
+    bottom: 0;
+    width: 90px;
+    height: 85px;
+    background: var(--cat-color);
+    border-radius: 45px 45px 25px 25px;
+    z-index: 4;
+}
+.body::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 22px;
+    width: 46px;
+    height: 40px;
+    background: var(--cat-belly);
+    border-radius: 50%;
+}
+
+/* Лапки */
+.arm {
+    position: absolute;
+    width: 25px;
+    height: 45px;
+    background: var(--cat-color);
+    border-radius: 12px;
+    z-index: 15;
+    transform-origin: top center;
+}
+
+/* Правая лапа держит сковороду */
+.arm.right {
+    right: 0px;
+    top: 50px;
+    /* Она привязана к анимации сковороды косвенно, но мы анимируем ее отдельно для гибкости */
+    animation: armFlip 3s infinite ease-in-out;
+}
+
+/* Левая лапа с лопаткой */
+.arm.left {
+    left: -5px;
+    top: 50px;
+    transform: rotate(40deg);
+    z-index: 3; /* За телом чуть-чуть */
+    animation: armSpatula 3s infinite ease-in-out;
+}
+
+/* Лопатка в левой руке */
+.spatula {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    width: 6px;
+    height: 40px;
+    background: #5d4037;
+    transform: rotate(-10deg);
+}
+.spatula::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: -8px;
+    width: 22px;
+    height: 15px;
+    background: #8d6e63;
+    border-radius: 4px;
+}
+
+
+/* ================= АНИМАЦИИ ================= */
+
+/* Цикл 3 секунды */
+
+/* 1. Сковорода */
+@keyframes panFlip {
+    0%, 10% { transform: rotate(0deg) translateY(0); }
+    15% { transform: rotate(-5deg) translateY(5px); } /* Замах вниз */
+    25% { transform: rotate(15deg) translateY(-20px); } /* Рывок вверх */
+    35% { transform: rotate(10deg) translateY(-10px); } /* Зависание */
+    70% { transform: rotate(10deg) translateY(-10px); } /* Ждем рыбу */
+    75% { transform: rotate(-5deg) translateY(5px); } /* Ловим (амортизация) */
+    85%, 100% { transform: rotate(0deg) translateY(0); } /* Возврат */
+}
+
+/* 2. Правая лапа (синхронно со сковородой) */
+@keyframes armFlip {
+    0%, 10% { transform: rotate(-60deg); } /* Держит ровно */
+    15% { transform: rotate(-50deg); } /* Замах */
+    25% { transform: rotate(-90deg); } /* Бросок */
+    35% { transform: rotate(-80deg); } 
+    75% { transform: rotate(-50deg); } /* Поймал */
+    85%, 100% { transform: rotate(-60deg); }
+}
+
+/* 3. Голова (следит за рыбой) */
+@keyframes headFollow {
+    0%, 15% { transform: rotate(0deg); }
+    30% { transform: rotate(-20deg) translateY(-5px); } /* Смотрит вверх */
+    50% { transform: rotate(-25deg) translateY(-8px); } /* Высшая точка */
+    75% { transform: rotate(0deg) translateY(0); } /* Смотрит вниз (поймал) */
+    80% { transform: rotate(5deg); } /* Довольный кивок */
+    100% { transform: rotate(0deg); }
+}
+
+/* 4. Левая лапа (балансирует) */
+@keyframes armSpatula {
+    0%, 10% { transform: rotate(40deg); }
+    25% { transform: rotate(70deg); } /* Поднимает для баланса */
+    75% { transform: rotate(40deg); }
+    100% { transform: rotate(40deg); }
+}
+
+
+/* Текст */
+.loading-text {
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+    letter-spacing: 1.5px;
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+.dots::after {
+    content: '.';
+    animation: dots 1.5s infinite steps(4);
+}
+@keyframes dots {
+    0% { content: ''; }
+    25% { content: '.'; }
+    50% { content: '..'; }
+    75% { content: '...'; }
+}
+
+/* Пар от готовой рыбки */
+.steam {
+    position: absolute;
+    top: -20px;
+    left: 50px;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    filter: blur(5px);
+    animation: steam 3s infinite;
+    animation-delay: 2.5s; /* Появляется после поимки */
+}
+@keyframes steam {
+    0% { transform: translateY(0) scale(1); opacity: 0.6; }
+    100% { transform: translateY(-30px) scale(2); opacity: 0; }
+}
