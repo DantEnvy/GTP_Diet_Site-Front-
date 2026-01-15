@@ -7,7 +7,7 @@
     --site-gradient-angle: 135deg;
     --site-gradient: linear-gradient(var(--site-gradient-angle), var(--site-color-top) 0%, var(--site-color-bot) 100%);
 
-    --cat-color: #ffb74d;       /* Колір котика */
+    --cat-color: #ffb74d;
     --cat-belly: #ffe0b2;   
     --pan-color: #37474f;     
     --stove-color: #b0bec5;     
@@ -690,4 +690,9 @@ html.dark .faq-item.active {
 @keyframes steam {
     0% { transform: translateY(0) scale(1); opacity: 0.6; }
     100% { transform: translateY(-30px) scale(2); opacity: 0; }
+}
+/* Принудительно красим все внутри #result в белый при темной теме */
+.dark #result, 
+.dark #result * {
+    color: #ffffff !important;
 }
