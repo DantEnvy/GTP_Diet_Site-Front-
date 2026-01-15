@@ -66,7 +66,6 @@ async function generateDiet() {
     const gender = document.querySelector('input[name="gender"]:checked')?.value || 'male';
     const language = document.getElementById("lang-text").value;
     
-    // ИСПРАВЛЕНИЕ 1: Дефолтное значение активности
     const activity = document.querySelector("input[name='activity']:checked")?.value || 'medium';
     const goal = document.querySelector("input[name='goal']:checked")?.value || 'normal';
 
@@ -78,7 +77,7 @@ async function generateDiet() {
         return;
     }
 
-    // Расчеты
+    // Розрахунки
     const totalCalories = calculateBMR(age, height, weight, gender, activity, goal);
     const proteinGrams = prot(activity, weight);
     const proteinKcal = proteinGrams * 4;
@@ -102,22 +101,56 @@ async function generateDiet() {
 
     console.log("Отправляем данные:", requestData);
 
-    // ИСПРАВЛЕНИЕ 2: Убедитесь, что этот элемент существует в HTML!
-    // Если его нет, создайте <div id="ai-result"></div> в HTML
     let resultDiv = document.getElementById("result");
     if (!resultDiv) {
         console.warn("Элемент id='result' не найден! Создаю временный.");
         resultDiv = document.createElement("div");
         resultDiv.id = "result";
-        document.body.appendChild(resultDiv); // Или добавьте в нужное место
+        document.body.appendChild(resultDiv);
     }
 
-    resultDiv.innerText = "⏳ Генеруємо меню, зачекайте це може зайняти декілька хвилин...";
-    // ЗАМІСТЬ resultDiv.style.color = "blue"; ПИШЕМО:
-    resultDiv.className = "flex items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-3xl dark:border-gray-700 text-blue-600 dark:text-blue-400 animate-pulse";
-    // Видаляємо старий стиль, якщо він залишився
+    // ==========================================
+    // 1. ЗАПУСК АНІМАЦІЇ ЗАВАНТАЖЕННЯ (КОТИК)
+    // ==========================================
+    
+    // Скидаємо старі стилі та класи перед анімацією
+    resultDiv.className = ""; 
     resultDiv.removeAttribute("style");
-    // resultDiv.style.color = "blue";
+    
+    // Вставляємо HTML котика
+    resultDiv.innerHTML = `
+        <div class="loader-container" style="margin: 0 auto; transform: scale(0.8); height: 300px;">
+            <div class="scene">
+                <div class="stove"></div>
+                <div class="pan-group">
+                    <div class="pan-body">
+                        <div class="steam"></div>
+                    </div>
+                    <div class="pan-handle"></div>
+                    <div class="fish"></div>
+                </div>
+                <div class="cat">
+                    <div class="arm left">
+                        <div class="spatula"></div>
+                    </div>
+                    <div class="arm right"></div>
+                    <div class="body"></div>
+                    <div class="head">
+                        <div class="face">
+                            <div class="eyes">
+                                <div class="eye"></div>
+                                <div class="eye"></div>
+                            </div>
+                            <div class="nose"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="loading-text" style="text-align: center; margin-top: 20px;">
+                Генеруємо меню<span class="dots"></span>
+            </div>
+        </div>
+    `;
 
     const apiUrl = location.hostname === "localhost" || location.hostname === "127.0.0.1"
             ? "http://localhost:3000"
@@ -130,48 +163,34 @@ async function generateDiet() {
             body: JSON.stringify(requestData) 
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json(); // Спочатку читаємо відповідь сервера
+        const data = await response.json();
 
         if (!response.ok) {
-            // Якщо помилка, беремо текст помилки з сервера, а не просто статус
             throw new Error(data.error || `HTTP error! status: ${response.status}`);
         }
 
+        // ==========================================
+        // 2. ОБРОБКА УСПІШНОЇ ВІДПОВІДІ
+        // ==========================================
         if (data.diet) {
-            resultDiv.style.color = "black";
-            // Используем форматирование переносов строк, если нужно
-            //resultDiv.innerText = data.diet; 
-            resultDiv.innerHTML = marked.parse(data.diet);
-            console.log("Ответ получен:", data.diet); 
-            if (data.diet) {
-            // 1. ВИДАЛЯЄМО цей рядок, бо він блокує темну тему:
-            // resultDiv.style.color = "black"; 
+            // Видаляємо котика (очищаємо div)
+            resultDiv.innerHTML = "";
+
+            // Застосовуємо стилі для тексту результату
+            resultDiv.className = "prose-content bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700 h-auto text-left transition-colors duration-300 shadow-lg";
             
-            // 2. Очищуємо попередні класи центрування
-            resultDiv.classList.remove("flex", "items-center", "justify-center", "h-64", "text-red-500", "text-blue-500");
-            
-            // 3. Додаємо класи:
-            // text-gray-800 - темний колір для світлої теми
-            // dark:text-gray-100 - світлий колір для темної теми
-            resultDiv.className = "prose-content bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700 h-auto text-left transition-colors duration-300";
-            
-            // 4. Перетворюємо Markdown в HTML
+            // Вставляємо згенерований текст (Markdown -> HTML)
             resultDiv.innerHTML = marked.parse(data.diet);
             
             console.log("Відповідь отримана"); 
-        }
         } else {
-            resultDiv.innerText = "Сталася помилка при генерації.";
+            resultDiv.innerText = "Сталася помилка при генерації (відсутнє поле diet).";
             resultDiv.style.color = "red";
         }
 
     } catch (error) {
+        resultDiv.className = "p-5 text-center text-red-600 font-bold bg-red-100 rounded-xl border border-red-300";
         resultDiv.innerText = "Помилка: " + error.message;
-        resultDiv.style.color = "red";
         console.error("Помилка fetch:", error);
     }
 }
