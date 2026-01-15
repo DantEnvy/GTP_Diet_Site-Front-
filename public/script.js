@@ -172,6 +172,7 @@ const translations = {
         "hero_subtitle": "Ваш персональний шлях до здоров'я та ідеальної форми.",
         "hero_btn": "Почати розрахунок",
         "section_diag": "Комплексна діагностика",
+        "IMT_title": "Індекс маси тіла (ІМТ)",
         "card_imt": "Тарілка харчування",
         "card_imt_desc": "Це модель для балансу в раціоні: половину порції мають складати овочі та фрукти. Іншу половину слід порівну розділити між корисними білками та цілозерновими гарнірами.",
         "card_carb": "Вуглеводи",
@@ -442,6 +443,7 @@ const translations = {
         "macros_prot": "Proteins",
         "macros_fat": "Fats",
         "macros_carb": "Carbs",
+        "IMT_title": "Вody mass index (BMI)",
         "imt_no_data": "No data",
         "imt_severe_def": "Severe deficit",
         "imt_def": "Weight deficit",
@@ -868,7 +870,7 @@ function calculateAndDisplay() {
 
         document.getElementById('imt-display').innerHTML = `
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <span class="text-xl font-bold dark:text-gray-200">${getTrans('card_imt')}: <span class="text-2xl">${imtVal}</span></span>
+                <span class="text-xl font-bold dark:text-gray-200">${getTrans('IMT_title')}: <span class="text-2xl">${imtVal}</span></span>
                 <span class="px-4 py-2 rounded-xl font-bold border ${statusColorClass} ${statusBgClass} border-current shadow-sm transition-all duration-300">
                     ${imtStatus}
                 </span>
