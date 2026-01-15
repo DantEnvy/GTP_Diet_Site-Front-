@@ -64,7 +64,8 @@ async function generateDiet() {
     const height = document.getElementById("height").value;
     const weight = document.getElementById("weight").value;
     const gender = document.querySelector('input[name="gender"]:checked')?.value || 'male';
-    const language = document.getElementById("lang-text").value;
+    const langText = document.getElementById("lang-text").innerText; // Вернет "UA" или "EN"
+    const language = langText === 'UA' ? 'uk' : 'en';
     
     const activity = document.querySelector("input[name='activity']:checked")?.value || 'medium';
     const goal = document.querySelector("input[name='goal']:checked")?.value || 'normal';
@@ -77,7 +78,6 @@ async function generateDiet() {
         return;
     }
 
-    // Розрахунки
     const totalCalories = calculateBMR(age, height, weight, gender, activity, goal);
     const proteinGrams = prot(activity, weight);
     const proteinKcal = proteinGrams * 4;
