@@ -118,40 +118,75 @@ async function generateDiet() {
     resultDiv.removeAttribute("style");
     
     // Вставляємо HTML котика
-    resultDiv.innerHTML = `
-        <div class="loader-container" style="margin: 0 auto; transform: scale(0.8); height: 300px;">
-            <div class="scene">
-                <div class="stove"></div>
-                <div class="pan-group">
-                    <div class="pan-body">
-                        <div class="steam"></div>
+    if (language === 'uk') {
+        resultDiv.innerHTML = `
+            <div class="loader-container" style="margin: 0 auto; transform: scale(0.8); height: 300px;">
+                <div class="scene">
+                    <div class="stove"></div>
+                    <div class="pan-group">
+                        <div class="pan-body">
+                            <div class="steam"></div>
+                        </div>
+                        <div class="pan-handle"></div>
+                        <div class="fish"></div>
                     </div>
-                    <div class="pan-handle"></div>
-                    <div class="fish"></div>
-                </div>
-                <div class="cat">
-                    <div class="arm left">
-                        <div class="spatula"></div>
-                    </div>
-                    <div class="arm right"></div>
-                    <div class="body"></div>
-                    <div class="head">
-                        <div class="face">
-                            <div class="eyes">
-                                <div class="eye"></div>
-                                <div class="eye"></div>
+                    <div class="cat">
+                        <div class="arm left">
+                            <div class="spatula"></div>
+                        </div>
+                        <div class="arm right"></div>
+                        <div class="body"></div>
+                        <div class="head">
+                            <div class="face">
+                                <div class="eyes">
+                                    <div class="eye"></div>
+                                    <div class="eye"></div>
+                                </div>
+                                <div class="nose"></div>
                             </div>
-                            <div class="nose"></div>
                         </div>
                     </div>
                 </div>
+                <div class="loading-text" style="text-align: center; margin-top: 20px;">
+                    Генеруємо меню<span class="dots"></span>
+                </div>
             </div>
-            <div class="loading-text" style="text-align: center; margin-top: 20px;">
-                Генеруємо меню<span class="dots"></span>
+        `;
+    } else {
+        resultDiv.innerHTML = `
+            <div class="loader-container" style="margin: 0 auto; transform: scale(0.8); height: 300px;">
+                <div class="scene">
+                    <div class="stove"></div>
+                    <div class="pan-group">
+                        <div class="pan-body">
+                            <div class="steam"></div>
+                        </div>
+                        <div class="pan-handle"></div>
+                        <div class="fish"></div>
+                    </div>
+                    <div class="cat">
+                        <div class="arm left">
+                            <div class="spatula"></div>
+                        </div>
+                        <div class="arm right"></div>
+                        <div class="body"></div>
+                        <div class="head">
+                            <div class="face">
+                                <div class="eyes">
+                                    <div class="eye"></div>
+                                    <div class="eye"></div>
+                                </div>
+                                <div class="nose"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loading-text" style="text-align: center; margin-top: 20px;">
+                    Generating menu<span class="dots"></span>
+                </div>
             </div>
-        </div>
-    `;
-
+        `;
+    }
     const apiUrl = location.hostname === "localhost" || location.hostname === "127.0.0.1"
             ? "http://localhost:3000"
             : "https://back-end-daij.onrender.com";
