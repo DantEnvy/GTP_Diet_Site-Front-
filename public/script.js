@@ -186,7 +186,7 @@ const translations = {
         "card_fat": "Жири та холестеринг",
         "card_fat_desc": "Жири є важливим джерелом енергії та необхідними жирними кислотами. Важливо обирати здорові джерела жиру, такі як оливкова олія, авокадо та риба.",
         "world_title": "Світ Nutriway",
-        "world_subtitle": "Глибоке розуміння вашого тіла.",
+        "world_subtitle": "Nutriway — це сучасна онлайн-платформа, яка допомагає створити ідеальний план харчування на основі аналізу потреб вашого організму. Сервіс автоматично розраховує індивідуальні норми калорій, білків, жирів, вуглеводів та вітамінів, перетворюючи сухі цифри на смачне й збалансоване меню. Головна перевага Nutriway полягає в уважному ставленні до вашого здоров’я: алгоритм суворо враховує наявні захворювання та медичні протипоказання при виборі страв. З Nutriway турбота про здоров'я стає простою та системною, позбавляючи вас необхідності самостійно вираховувати кожен грам їжі.",
         "feature_1_title": "Нутриціологія",
         "feature_1_desc": "Ми вивчаємо, як кожен нутрієнт впливає на енергію.",
         "feature_2_title": "Розумна Дієта",
@@ -947,7 +947,7 @@ const translations = {
         "faq_deficiency_a": "Symptoms: chronic fatigue, skin problems, immunity issues. Blood tests and a doctor help determine it accurately.",
         "disclaimer": "Material based on data from Harvard Nutrition Source and NIH ODS. Not medical advice.",
         "lbl_eat": "PRODUCTS TO AVOID",
-        "placeholder_eat": "Молоко, свинина, редис..."
+        "placeholder_eat": "Milk, pork, radish..."
     }
 };
 
