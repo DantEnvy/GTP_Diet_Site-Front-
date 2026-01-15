@@ -85,6 +85,7 @@ async function generateDiet() {
     const fatGrams = fatKcal / 9;
     const carbKcal = totalCalories - proteinKcal - fatKcal;
     const carbGrams = carbKcal / 4;
+    const food = document.getElementById("food").value;
 
     const requestData = {
         age, height, weight, gender,
@@ -96,7 +97,8 @@ async function generateDiet() {
         goal: goal || "підтримання",
         health: health || "немає",
         vitamins: vitam(age, gender, weight, activity),
-        language: language || "uk"
+        language: language || "uk",
+        food: food || "немає"
     };
 
     console.log("Отправляем данные:", requestData);
