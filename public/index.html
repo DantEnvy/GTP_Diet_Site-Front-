@@ -1848,8 +1848,12 @@
                         </div>
 
                         <div class="mb-8">
-                            <label class="text-xs font-bold text-gray-400 ml-1" data-lang-key="lbl_activity">АКТИВНІСТЬ</label>
-                            <button class="info-btn" onclick="toggleInfo()">!</button>
+                            <div class="flex items-center mb-2 ml-1">
+                                <label class="text-xs font-bold text-gray-400 cursor-default" data-lang-key="lbl_activity">
+                                    АКТИВНІСТЬ
+                                </label>
+                                <button type="button" onclick="toggleInfo()" class="ml-2 w-5 h-5 rounded-full bg-gray-600 text-white text-xs flex items-center justify-center hover:bg-green-500 transition" style="min-width: 20px; min-height: 20px;">!</button>
+                            </div>
                             <div class="buttons-container"></div>
                             <div id="infoModal" class="modal-overlay" onclick="closeInfo(event)">
                                 <div class="modal-content">
