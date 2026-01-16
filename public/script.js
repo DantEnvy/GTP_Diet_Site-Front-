@@ -712,7 +712,7 @@ const translations = {
         "opt_female": "Female",
         "lbl_activity": "ACTIVITY",
         "act_low": "Minimum",
-        "act_small": "Ea",
+        "act_small": "Easy",
         "act_medium": "Medium",
         "act_high": "High",
         "act_sport": "Sport",
@@ -1840,4 +1840,20 @@ function closeDisclaimer() {
     setTimeout(() => {
         overlay.style.display = 'none';
     }, 500);
+}
+function toggleInfo() {
+    const modal = document.getElementById('infoModal');
+    // Если окно сейчас flex (видимо), то скрываем, иначе показываем
+    if (modal.style.display === 'flex') {
+        modal.style.display = 'none';
+    } else {
+        modal.style.display = 'flex';
+    }
+}
+
+// Закрытие окна при клике на затемненный фон
+function closeInfo(event) {
+    if (event.target.id === 'infoModal') {
+        toggleInfo();
+    }
 }
