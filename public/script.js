@@ -645,7 +645,8 @@ const translations = {
         "menu_elderly_title": "Літня людина (65+)",
         "menu_elderly_breakfast": "Сніданок: Йогурт з вівсянкою та ягодами, трав'яний чай.",
         "menu_elderly_lunch": "Обід: Легкий суп, риба, пюре з броколі, оливкова олія.",
-        "menu_elderly_dinner": "Вечеря: Варена курка, тушкована капуста, хліб, компот без цукру."
+        "menu_elderly_dinner": "Вечеря: Варена курка, тушкована капуста, хліб, компот без цукру.",
+        "info_activity": "Як обрати активність?"
     },
     en: {
         "disclaimer_title": "Pay attention!",
@@ -1139,7 +1140,8 @@ const translations = {
         "menu_elderly_title": "Elderly (65+)",
         "menu_elderly_breakfast": "Breakfast: Yogurt with oatmeal and berries, herbal tea.",
         "menu_elderly_lunch": "Lunch: Light soup, fish, broccoli puree, olive oil.",
-        "menu_elderly_dinner": "Dinner: Boiled chicken, stewed cabbage, bread, unsweetened compote."
+        "menu_elderly_dinner": "Dinner: Boiled chicken, stewed cabbage, bread, unsweetened compote.",
+        "info_activity": "How to chose activity level?"
     }
 };
 
