@@ -211,7 +211,7 @@ async function generateDiet() {
 
             // Застосовуємо стилі для тексту результату
             // Стало:
-        resultDiv.className = "prose-content bg-white dark:bg-gray-800 text-gray-800 dark:text-white [&_*]:dark:text-white p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700 h-auto text-left transition-colors duration-300 shadow-lg";
+            resultDiv.className = "prose-content bg-white dark:bg-gray-800 text-gray-800 dark:text-white [&_*]:dark:text-white p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700 h-auto text-left transition-colors duration-300 shadow-lg";
             
             // Вставляємо згенерований текст (Markdown -> HTML)
             resultDiv.innerHTML = marked.parse(data.diet);
