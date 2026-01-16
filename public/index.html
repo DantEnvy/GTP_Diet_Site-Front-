@@ -1849,21 +1849,20 @@
 
                         <div class="mb-8">
                             <div class="flex items-center mb-2 ml-1">
-                                <label class="text-xs font-bold text-gray-400 cursor-default" data-lang-key="lbl_activity">
-                                    АКТИВНІСТЬ
-                                </label>
-                                <button type="button" onclick="toggleInfo()" class="ml-2 w-5 h-5 rounded-full bg-gray-600 text-white text-xs flex items-center justify-center hover:bg-green-500 transition" style="min-width: 20px; min-height: 20px;">!</button>
+                                <label class="text-xs font-bold text-gray-400 cursor-default" data-lang-key="lbl_activity">АКТИВНІСТЬ</label>
+                                <button type="button" onclick="toggleInfo()" class="ml-2 w-5 h-5 rounded-full bg-gray-400 text-white text-xs flex items-center justify-center hover:bg-green-500 transition" style="min-width: 20px; min-height: 20px;">!</button>
                             </div>
                             <div class="buttons-container"></div>
                             <div id="infoModal" class="modal-overlay" onclick="closeInfo(event)">
                                 <div class="modal-content">
                                     <span class="close-cross" onclick="toggleInfo()">&times;</span>
-                                    <h3>Как выбрать активность?</h3>
+                                    <h3>Як обрати активність?</h3>
                                     <ul>
-                                        <li><strong>Минимальная:</strong> Сидячая работа, нет тренировок.</li>
-                                        <li><strong>Легкая:</strong> Тренировки 1-3 раза в неделю.</li>
-                                        <li><strong>Средняя:</strong> Тренировки 3-5 раз в неделю.</li>
-                                        <li><strong>Высокая:</strong> Интенсивные нагрузки 6-7 раз в неделю.</li>
+                                        <li><strong data-lang-key="act_low">Мінімальна:</strong> <span data-lang-key="act_low_desc">Сидяча робота, немає тренувань.</span></li>
+                                        <li><strong data-lang-key="act_small">Легка:</strong> <span data-lang-key="act_small_desc">Тренування 1-3 раза у тиждень.</span></li>
+                                        <li><strong data-lang-key="act_medium">Середня:</strong> <span data-lang-key="act_medium_desc">Тренування 3-5 раз у тиждень.</span></li>
+                                        <li><strong data-lang-key="act_high">Висока:</strong> <span data-lang-key="act_high_desc">Інтенсивні навантаження 6-7 раз у тиждень.</span></li>
+                                        <li><strong data-lang-key="act_sport">Спорт:</strong> <span data-lang-key="act_sport_desc">Щоденні інтенсивні тренування або фізична робота.</span></li>
                                     </ul>
                                 </div>
                             </div>
