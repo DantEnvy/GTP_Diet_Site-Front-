@@ -670,6 +670,9 @@ const translations = {
         "гормональний баланс": " гормональний баланс.",
         "normalizes_cholesterol": " нормалізують холестерин.",
         "корисні для суглобів": " корисні для суглобів.",
+        "джерело мононенасичених жирів": " джерело мононенасичених жирів.",
+        "унікальний набір кислот": " унікальний набір кислот.",
+        "вітаміни засвоюються з жирами": " вітаміни засвоюються з жирами."
     },
     en: {
         "disclaimer_title": "Pay attention!",
@@ -1186,7 +1189,10 @@ const translations = {
         "Omega-3": " leader in Omega-3 fatty acids.",
         "гормональний баланс": " hormonal balance.",
         "normalizes_cholesterol": " normalizes cholesterol levels.",
-        "корисні для суглобів": " ",
+        "корисні для суглобів": " beneficial for joints.",
+        "джерело мононенасичених жирів": " source of monounsaturated fats.",
+        "унікальний набір кислот": " unique set of acids.",
+        "вітаміни засвоюються з жирами": " vitamins are absorbed with fats.",
     }
 };
 
