@@ -773,3 +773,7 @@ html.dark .faq-item.active {
     font-size: 20px;
     color: #aaa;
 }
+.logo-svg {
+  height: 40px;
+  color: white; /* меняет цвет лого */
+}
