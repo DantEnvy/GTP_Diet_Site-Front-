@@ -646,7 +646,13 @@ const translations = {
         "menu_elderly_breakfast": "Сніданок: Йогурт з вівсянкою та ягодами, трав'яний чай.",
         "menu_elderly_lunch": "Обід: Легкий суп, риба, пюре з броколі, оливкова олія.",
         "menu_elderly_dinner": "Вечеря: Варена курка, тушкована капуста, хліб, компот без цукру.",
-        "info_activity": "Як обрати активність?"
+        "info_activity": "Як обрати активність?",
+        "Vit_A": "Вітамін A",
+        "Vit_D": "Вітамін D",
+        "Vit_E": "Вітамін E",
+        "Vit_K": "Вітамін K",
+        "Vit_C": "Вітамін C",
+        "B_Complex": "Вітаміни групи B"
     },
     en: {
         "disclaimer_title": "Pay attention!",
@@ -1141,7 +1147,13 @@ const translations = {
         "menu_elderly_breakfast": "Breakfast: Yogurt with oatmeal and berries, herbal tea.",
         "menu_elderly_lunch": "Lunch: Light soup, fish, broccoli puree, olive oil.",
         "menu_elderly_dinner": "Dinner: Boiled chicken, stewed cabbage, bread, unsweetened compote.",
-        "info_activity": "How to chose activity level?"
+        "info_activity": "How to chose activity level?",
+        "Vit_A": "Vit A",
+        "Vit_D": "Vit D",
+        "Vit_E": "Vit E",
+        "Vit_K": "Vit K",
+        "Vit_C": "Vit C",
+        "B_Complex": "B-Complex"
     }
 };
 
