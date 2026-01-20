@@ -687,6 +687,7 @@ const translations = {
         "19 г": "19 г",
         "~6 г": "~6 г",
         "8-9 г": "8-9 г",
+        "menu_info_sub_7": "Про нас",
     },
     en: {
         "disclaimer_title": "Pay attention!",
@@ -1219,8 +1220,9 @@ const translations = {
         "21 г": "21 g",
         "20 г": "20 g",
         "19 г": "19 g",
-        "~6 г": "~6 г",
-        "8-9 г": "8-9 г",
+        "~6 г": "~6 g",
+        "8-9 г": "8-9 g",
+        "menu_info_sub_7": "About us"
     }
 };
 
