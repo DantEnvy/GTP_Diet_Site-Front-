@@ -63,30 +63,30 @@
 
     <!-- Навігація -->
     <nav class="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-md border-b border-gray-100 transition-colors duration-300 dark:bg-gray-900/90 dark:border-gray-800">
-    <div class="w-full px-4 md:px-8 py-4 flex justify-between items-center">
-        
-        <div class="flex items-center cursor-pointer" onclick="showPage('home')">
-            <img src="pictures/nutriway-logo.png" alt="Nutriway Logo" class="h-12 md:h-16">
-        </div>
-
-        <div class="flex items-center gap-2 md:gap-4">
+        <div class="w-full px-4 md:px-8 py-4 flex justify-between items-center">
             
-            <button id="lang-toggle" onclick="toggleLanguage()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-green-500 text-green-600 font-bold hover:bg-green-500 hover:text-white transition-all shadow-sm">
-                <i class="fas fa-globe"></i>
-                <span id="lang-text">UA</span>
-            </button>
+            <div class="flex items-center cursor-pointer" onclick="showPage('home')">
+                <img src="pictures/nutriway-logo.png" alt="Nutriway Logo" class="h-12 md:h-16">
+            </div>
 
-            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 transition transform hover:scale-110">
-                <i class="fas fa-moon text-xl"></i>
-            </button>
+            <div class="flex items-center gap-2 md:gap-4">
+                
+                <button id="lang-toggle" onclick="toggleLanguage()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-green-500 text-green-600 font-bold hover:bg-green-500 hover:text-white transition-all shadow-sm">
+                    <i class="fas fa-globe"></i>
+                    <span id="lang-text">UA</span>
+                </button>
 
-            <button onclick="toggleMenu()" class="p-2 text-gray-900 dark:text-white hover:text-green-500 transition">
-                <i id="menu-icon" class="fas fa-bars text-2xl"></i>
-            </button>
-            
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 transition transform hover:scale-110">
+                    <i class="fas fa-moon text-xl"></i>
+                </button>
+
+                <button onclick="toggleMenu()" class="p-2 text-gray-900 dark:text-white hover:text-green-500 transition">
+                    <i id="menu-icon" class="fas fa-bars text-2xl"></i>
+                </button>
+                
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <!-- Overlay -->
     <div id="menu-overlay" onclick="toggleMenu()"></div>
@@ -154,7 +154,7 @@
             <!-- Діагностика -->
             <section class="py-20 container mx-auto px-4">
                 <h2 class="text-3xl font-bold mb-12 text-center editable-text dark:text-white" data-lang-key="section_diag">Комплексна діагностика</h2>
-                <div id="diag-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24 text-center">
+                <div id="diag-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24 text-center">
                     <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer" onclick="showPage('Plate');">
                         <i class="fas fa-heartbeat text-red-500 text-3xl mb-4"></i>
                         <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_imt">Тарілка харчування</h3>
@@ -1800,6 +1800,7 @@
              <div class="container mx-auto px-4 max-w-5xl">
                 <h2 class="text-4xl font-black text-center mb-12 editable-text dark:text-white" data-lang-key="menu_diet">Дієта</h2>
                 <div id="result" class="flex items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-3xl dark:border-gray-700">
+                    <span class="text-gray-400 dark:text-gray-500" data-lang-key="diet_coming_soon">Отримання дієти відбувається на сторінці калькулятора</span>
                 </div>
             </div>
         </main>
