@@ -185,54 +185,55 @@
             <!-- Діагностика -->
             <section class="py-20 container mx-auto px-4">
                 <h2 class="text-3xl font-bold mb-12 text-center editable-text dark:text-white" data-lang-key="add_info">Куточок освіти</h2>
-                <div class="bg-blue-350 rounded-3xl p-8 border border-blue-400 dark:bg-gray-800 dark:border-gray-700">
-                    <div class="text-slate-600 mb-4 dark:text-white">
-                        <p data-lang-key="diet_text"></p>
+                <div class="mb-6">
+                    <div class="bg-blue-350 rounded-3xl p-8 border border-blue-400 dark:bg-gray-800 dark:border-gray-700">
+                        <div class="text-slate-600 mb-4 dark:text-white">
+                            <p data-lang-key="diet_text"></p>
+                        </div>
                     </div>
-                </div>
                     <div id="diag-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24 text-center">
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Plate');">
-                        <i class="fas fa-heartbeat text-red-500 text-3xl mb-4"></i>
-                        <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_imt">Тарілка харчування</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_imt_desc">Це модель для балансу в раціоні: половину порції мають складати овочі та фрукти. Іншу половину слід порівну розділити між корисними білками та цілозерновими гарнірами.</p>
-                    </div>
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Carbohydrates');">
-                        <i class="fas fa-fire text-orange-500 text-3xl mb-4"></i>
-                        <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_carb">Вуглеводи</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_carb_desc">Це головне джерело енергії, тому надавайте перевагу цілозерновим продуктам, які дають тривалу ситість. Намагайтеся мінімізувати вживання цукру та білого борошна.</p>
-                    </div>
+                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Plate');">
+                            <i class="fas fa-heartbeat text-red-500 text-3xl mb-4"></i>
+                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_imt">Тарілка харчування</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_imt_desc">Це модель для балансу в раціоні: половину порції мають складати овочі та фрукти. Іншу половину слід порівну розділити між корисними білками та цілозерновими гарнірами.</p>
+                        </div>
+                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Carbohydrates');">
+                            <i class="fas fa-fire text-orange-500 text-3xl mb-4"></i>
+                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_carb">Вуглеводи</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_carb_desc">Це головне джерело енергії, тому надавайте перевагу цілозерновим продуктам, які дають тривалу ситість. Намагайтеся мінімізувати вживання цукру та білого борошна.</p>
+                        </div>
 
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Protein');">
-                        <i class="fas fa-dumbbell text-blue-500 text-2xl mb-2"></i>
-                        <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_prot">Білок</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_prot_desc">Основний будівельний матеріал для м’язів та клітин організму. Найкращими джерелами є риба, птиця, бобові та горіхи.</p>
-                    </div>
+                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Protein');">
+                            <i class="fas fa-dumbbell text-blue-500 text-2xl mb-2"></i>
+                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_prot">Білок</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_prot_desc">Основний будівельний матеріал для м’язів та клітин організму. Найкращими джерелами є риба, птиця, бобові та горіхи.</p>
+                        </div>
 
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Fat');">
-                        <i class="fas fa-tint text-yellow-500 text-2xl mb-2"></i>
-                        <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_fat">Жири та холестерин</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_fat_desc">Жири є важливим джерелом енергії та необхідними жирними кислотами. Важливо обирати здорові джерела жиру, такі як оливкова олія, авокадо та риба.</p>
-                    </div>
+                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Fat');">
+                            <i class="fas fa-tint text-yellow-500 text-2xl mb-2"></i>
+                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_fat">Жири та холестерин</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_fat_desc">Жири є важливим джерелом енергії та необхідними жирними кислотами. Важливо обирати здорові джерела жиру, такі як оливкова олія, авокадо та риба.</p>
+                        </div>
 
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Vegetables');">
-                        <i class="fa fa-leaf text-green-500 text-3xl mb-4"></i>
-                        <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_Vegetable">Овочі та фрукти</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_vegetable_desc">Вони повинні займати половину вашої тарілки під час кожного прийому їжі. Це головне джерело клітковини для гарного травлення.</p>
-                    </div>
+                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Vegetables');">
+                            <i class="fa fa-leaf text-green-500 text-3xl mb-4"></i>
+                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_Vegetable">Овочі та фрукти</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_vegetable_desc">Вони повинні займати половину вашої тарілки під час кожного прийому їжі. Це головне джерело клітковини для гарного травлення.</p>
+                        </div>
 
-                    <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Vitamins');">
-                        <i class="fas fa-pills text-purple-500 text-3xl mb-4"></i>
-                        <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_vit">Вітаміни</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_vit_desc">Життєво важливі елементи для імунітету та обміну речовин. Найкраще отримувати їх із різноманітного, кольорового раціону, а не з таблеток.</p>
+                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Vitamins');">
+                            <i class="fas fa-pills text-purple-500 text-3xl mb-4"></i>
+                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_vit">Вітаміни</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_vit_desc">Життєво важливі елементи для імунітету та обміну речовин. Найкраще отримувати їх із різноманітного, кольорового раціону, а не з таблеток.</p>
+                        </div>
                     </div>
-                    
-                </div>
-            </section>
-            <div class="space-y-24 mb-14">
-                <div class="max-w-4xl mx-auto text-center">
-                    <h2 class="text-4xl font-black text-gray-900 dark:text-white mb-4 editable-text" data-lang-key="world_title">Світ Nutriway</h2>
-                    <p class="text-gray-500 dark:text-gray-400 text-lg editable-text" data-lang-key="world_subtitle">Nutriway — це сучасна онлайн-платформа, яка допомагає створити ідеальний план харчування на основі аналізу потреб вашого організму. Сервіс автоматично розраховує індивідуальні норми калорій, білків, жирів, вуглеводів та вітамінів, перетворюючи сухі цифри на смачне й збалансоване меню. Головна перевага Nutriway полягає в уважному ставленні до вашого здоров’я: алгоритм суворо враховує наявні захворювання та медичні протипоказання при виборі страв. З Nutriway турбота про здоров'я стає простою та системною, позбавляючи вас необхідності самостійно вираховувати кожен грам їжі.</p>
-                </div>
+                    </div>
+                </section>
+                <div class="space-y-24 mb-14">
+                    <div class="max-w-4xl mx-auto text-center">
+                        <h2 class="text-4xl font-black text-gray-900 dark:text-white mb-4 editable-text" data-lang-key="world_title">Світ Nutriway</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-lg editable-text" data-lang-key="world_subtitle">Nutriway — це сучасна онлайн-платформа, яка допомагає створити ідеальний план харчування на основі аналізу потреб вашого організму. Сервіс автоматично розраховує індивідуальні норми калорій, білків, жирів, вуглеводів та вітамінів, перетворюючи сухі цифри на смачне й збалансоване меню. Головна перевага Nutriway полягає в уважному ставленні до вашого здоров’я: алгоритм суворо враховує наявні захворювання та медичні протипоказання при виборі страв. З Nutriway турбота про здоров'я стає простою та системною, позбавляючи вас необхідності самостійно вираховувати кожен грам їжі.</p>
+                    </div>
             </div>
         </main>
 
