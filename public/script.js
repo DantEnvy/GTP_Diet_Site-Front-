@@ -1960,41 +1960,25 @@ function closeInfo(event) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // Мобільне меню
     const mobileBtn = document.getElementById('mobileMenuBtn');
     const nav = document.querySelector('.nav');
 
-    if(mobileBtn) {
+    if (mobileBtn) {
         mobileBtn.addEventListener('click', () => {
-            // У реальному проекті тут краще додавати клас 'is-open'
-            if (nav.style.display === 'block') {
+            if (nav.style.display === 'flex') {
                 nav.style.display = 'none';
             } else {
-                nav.style.display = 'block';
+                nav.style.display = 'flex';
+                nav.style.flexDirection = 'column';
                 nav.style.position = 'absolute';
-                nav.style.top = '100%';
+                nav.style.top = '70px';
                 nav.style.left = '0';
                 nav.style.width = '100%';
                 nav.style.background = '#fff';
                 nav.style.padding = '20px';
-                nav.style.boxShadow = '0 5px 10px rgba(0,0,0,0.1)';
+                nav.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+                nav.style.zIndex = '999';
             }
         });
     }
-
-    // Плавний скрол до якорів (якщо будуть посилання типу #about)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
 });
