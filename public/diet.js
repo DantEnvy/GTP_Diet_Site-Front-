@@ -388,7 +388,7 @@ async function generateDiet() {
             
             // 3. Створюємо кнопку завантаження
             const downloadBtn = document.createElement('button');
-            downloadBtn.innerText = language === 'uk' ? "📄 Завантажити у PDF" : "📄 Download PDF";
+            downloadBtn.innerText = language === 'uk' ? "Завантажити у PDF" : "Download PDF";
             downloadBtn.className = "mb-6 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl transition duration-300 no-print";
             downloadBtn.onclick = downloadPDF;
 
