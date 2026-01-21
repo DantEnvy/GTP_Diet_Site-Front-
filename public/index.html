@@ -63,90 +63,87 @@
     </div>
 
     <!-- Навігація -->
-    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-md border-b border-gray-100 transition-colors duration-300 dark:bg-gray-900/90 dark:border-gray-800">
-        <div class="w-full px-4 md:px-8 py-4 flex justify-between items-center">
-            
-            <div class="flex items-center cursor-pointer" onclick="showPage('home')">
-                <img src="pictures/nutriway-logo.png" alt="Nutriway Logo" class="h-12 md:h-16">
-            </div>
-
-            <div class="flex items-center gap-2 md:gap-4">
+    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-md border-b border-gray-100 transition-colors duration-300 dark:bg-gray-900/95 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
                 
-                <button id="lang-toggle" onclick="toggleLanguage()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-green-500 text-green-600 font-bold hover:bg-green-500 hover:text-white transition-all shadow-sm">
-                    <i class="fas fa-globe"></i>
-                    <span id="lang-text">UA</span>
-                </button>
+                <!-- Логотип -->
+                <div class="flex items-center cursor-pointer gap-2" onclick="showPage('home')">
+                    <!-- Якщо є картинка -->
+                    <img src="pictures/nutriway-logo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" alt="Nutriway" class="h-10 w-auto">
+                    <!-- Запасний варіант логотипу текстом -->
+                    <div class="hidden items-center gap-2">
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">NW</div>
+                        <span class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">Nutriway</span>
+                    </div>
+                </div>
 
-                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 transition transform hover:scale-110">
-                    <i class="fas fa-moon text-xl"></i>
-                </button>
+                <!-- ГОЛОВНЕ МЕНЮ (По центру, завжди видиме на великих екранах) -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="javascript:void(0)" onclick="showPage('home')" class="text-gray-700 hover:text-green-600 font-medium transition-colors dark:text-gray-200 dark:hover:text-green-400 flex items-center gap-2">
+                        <i class="fas fa-home"></i> Головна
+                    </a>
 
-                <button onclick="toggleMenu()" class="p-2 text-gray-900 dark:text-white hover:text-green-500 transition">
-                    <i id="menu-icon" class="fas fa-bars text-2xl"></i>
-                </button>
-                
+                    <!-- Випадаюче меню "Інформація" -->
+                    <div class="relative dropdown group">
+                        <button class="text-gray-700 hover:text-green-600 font-medium transition-colors dark:text-gray-200 dark:hover:text-green-400 flex items-center gap-2 py-6">
+                            <i class="fas fa-info-circle"></i> Інформація <i class="fas fa-chevron-down text-xs ml-1 transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+                            <a href="javascript:void(0)" onclick="showPage('Plate')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
+                                <i class="fas fa-heartbeat w-5 text-center mr-2 text-red-400"></i> Тарілка харчування
+                            </a>
+                            <a href="javascript:void(0)" onclick="showPage('Carbohydrates')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
+                                <i class="fas fa-bread-slice w-5 text-center mr-2 text-amber-400"></i> Вуглеводи
+                            </a>
+                            <a href="javascript:void(0)" onclick="showPage('Protein')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
+                                <i class="fas fa-drumstick-bite w-5 text-center mr-2 text-blue-400"></i> Білок
+                            </a>
+                            <a href="javascript:void(0)" onclick="showPage('Fat')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
+                                <i class="fas fa-oil-can w-5 text-center mr-2 text-yellow-400"></i> Жири
+                            </a>
+                            <a href="javascript:void(0)" onclick="showPage('Vegetables')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
+                                <i class="fas fa-carrot w-5 text-center mr-2 text-orange-400"></i> Овочі та фрукти
+                            </a>
+                            <a href="javascript:void(0)" onclick="showPage('Vitamins')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
+                                <i class="fas fa-capsules w-5 text-center mr-2 text-purple-400"></i> Вітаміни
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="javascript:void(0)" onclick="showPage('calculator')" class="text-gray-700 hover:text-green-600 font-medium transition-colors dark:text-gray-200 dark:hover:text-green-400 flex items-center gap-2">
+                        <i class="fas fa-calculator"></i> Калькулятор
+                    </a>
+                    <a href="javascript:void(0)" onclick="showPage('diet')" class="text-gray-700 hover:text-green-600 font-medium transition-colors dark:text-gray-200 dark:hover:text-green-400 flex items-center gap-2">
+                        <i class="fas fa-apple-alt"></i> Дієта
+                    </a>
+                        <!-- Help Link -->
+                    <button onclick="window.open('https://docs.google.com/document/d/1UPbdkt7Y1IJbC59--ixaxV3fOf-1_gSCwDEDmHsPV4I/edit?usp=sharing', '_blank')" 
+                            class="w-6 h-6 rounded-full bg-gray-200 text-gray-600 text-xs flex items-center justify-center hover:bg-green-500 hover:text-white transition" title="Довідка">
+                        <i class="fas fa-question"></i>
+                    </button>
+                </div>
+
+                <!-- Права частина: Кнопки налаштувань -->
+                <div class="flex items-center gap-3">
+                    <button id="lang-toggle" onclick="toggleLanguage()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-bold hover:border-green-500 hover:text-green-600 transition-all text-sm">
+                        <i class="fas fa-globe"></i>
+                        <span id="lang-text">UA</span>
+                    </button>
+
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-yellow-400 transition transform hover:scale-110">
+                        <i class="fas fa-moon text-lg"></i>
+                    </button>
+
+                    <!-- Бургер тільки для мобільних (lg:hidden) -->
+                    <button onclick="toggleMenu()" class="lg:hidden p-2 text-gray-900 dark:text-white hover:text-green-500 transition">
+                        <i id="menu-icon" class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
-
-    <!-- Overlay -->
-    <div id="menu-overlay" onclick="toggleMenu()"></div>
-
-    <!-- Бургер Меню -->
-    <div id="mobile-menu" class="fixed top-0 right-0 h-full z-50 bg-white dark:bg-gray-800 w-full sm:w-1/2 lg:w-1/4 flex flex-col p-8 pt-24 shadow-2xl">
-        <div class="flex flex-col space-y-6 text-lg font-semibold text-gray-800 dark:text-gray-100">
-            <a href="javascript:void(0)" onclick="showPage('home'); toggleMenu();" class="menu-item delay-1 hover:text-green-500 flex items-center space-x-4">
-                <i class="fas fa-home w-6"></i> <span data-lang-key="menu_home">Головна</span>
-            </a>
-
-            <div class="menu-item-group">
-                <button onclick="document.getElementById('info-submenu').classList.toggle('hidden'); document.getElementById('info-arrow').classList.toggle('rotate-180');" class="w-full text-left menu-item delay-2 hover:text-green-500 flex items-center justify-between focus:outline-none group">
-                    <div class="flex items-center space-x-4">
-                        <i class="fas fa-info-circle w-6"></i>
-                        <span data-lang-key="menu_info">Інформація</span>
-                    </div>
-                    <i class="fas fa-chevron-down transition-transform duration-300" id="info-arrow"></i>
-                </button>
-                <!-- Випадаючий список кнопок -->
-                <div id="info-submenu" class="hidden pl-10 space-y-3 mt-3 text-base border-l-2 border-gray-100 dark:border-gray-700 ml-3 transition-all duration-300">
-                    <a href="javascript:void(0)" onclick="showPage('Plate'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_1">Тарілка та піраміда для здорового харчування</a>
-                    <a href="javascript:void(0)" onclick="showPage('Carbohydrates'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_2">Вуглеводи</a>
-                    <a href="javascript:void(0)" onclick="showPage('Protein'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_3">Білок</a>
-                    <a href="javascript:void(0)" onclick="showPage('Fat'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_4">Жири та холестерин</a>
-                    <a href="javascript:void(0)" onclick="showPage('Vegetables'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_5">Овочі та фрукти</a>
-                    <a href="javascript:void(0)" onclick="showPage('Vitamins'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_6">Вітаміни та мінерали</a>
-                </div>
-            </div>
-            
-            <!-- Новий пункт: Калькулятор -->
-            <a href="javascript:void(0)" onclick="showPage('calculator'); toggleMenu();" class="menu-item delay-3 hover:text-green-500 flex items-center space-x-4">
-                <i class="fas fa-calculator w-6"></i> <span data-lang-key="menu_calc">Калькулятор</span>
-            </a>
-            <!-- Новий пункт: Дієта -->
-            <a href="javascript:void(0)" onclick="showPage('diet'); toggleMenu();" class="menu-item delay-4 hover:text-green-500 flex items-center space-x-4">
-                <i class="fas fa-apple-alt w-6"></i> <span data-lang-key="menu_diet">Дієта</span>
-            </a>
-
-            <div class="flex items-center border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                
-                <!--<a href="javascript:void(0)" onclick="showPage('About'); toggleMenu();" class="menu-item delay-5 hover:text-red-500 flex items-center space-x-4">
-                    <i class="fa fa-address-card-o w-6"></i> 
-                    <span data-lang-key="menu_info_sub_7">Про нас</span>
-                </a>-->
-
-                <button onclick="toggleMenu(); window.open('https://docs.google.com/document/d/1UPbdkt7Y1IJbC59--ixaxV3fOf-1_gSCwDEDmHsPV4I/edit?usp=sharing', '_blank')" 
-                        class="ml-2 w-5 h-5 rounded-full bg-gray-400 text-white text-xs menu-item delay-5 flex items-center space-x-4 justify-center hover:bg-green-500 transition" 
-                        style="min-width: 20px; min-height: 20px;">
-                    ?
-                </button>
-            </div>
-
-            <!-- Адмін Панель!!! -->
-            <!--<a href="javascript:void(0)" onclick="openAdminAuth(); toggleMenu();" class="menu-item delay-5 hover:text-red-500 flex items-center space-x-4 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                <i class="fas fa-cogs w-6"></i> <span data-lang-key="menu_admin">Адмін Панель</span>
-            </a>-->
-        </div>
-    </div>
+    <!-- -->
 
     <!-- MAIN CONTENT AREA -->
     <div id="content-area">
