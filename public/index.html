@@ -153,20 +153,23 @@
         <!-- ГОЛОВНА СТОРІНКА -->
         <main id="home-page" class="page-content active pt-16">
             <!-- Hero Section -->
-            <header class="hero-gradient-bg text-white py-24 px-4 text-center relative overflow-hidden">
-                <div class="container mx-auto relative z-10">
-                    <h1 class="text-4xl md:text-6xl font-black mb-6 editable-text drop-shadow-md">Nutriway</h1>
-                    <p class="text-lg opacity-90 mb-10 max-w-2xl mx-auto italic editable-text drop-shadow-sm" data-lang-key="hero_subtitle">Ваш персональний шлях до здоров'я та ідеальної форми.</p>
+             <div class="space-y-24">
+                <header class="hero-gradient-bg text-white py-24 px-4 text-center relative overflow-hidden">
+                    <div class="container mx-auto relative z-10">
+                        <h1 class="text-4xl md:text-6xl font-black mb-6 editable-text drop-shadow-md">Nutriway</h1>
+                        <p class="text-lg opacity-90 mb-10 max-w-2xl mx-auto italic editable-text drop-shadow-sm" data-lang-key="hero_subtitle">Ваш персональний шлях до здоров'я та ідеальної форми.</p>
+                    </div>
+                </header>
+                
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 dark:bg-indigo-50 dark:border-indigo-100">
+                    <h3 class="font-bold text-indigo-800 text-lg mb-4 flex items-center gap-2 dark:text-indigo-300">
+                        <span>Nutriway</span>
+                    </h3>
+                    <div class="space-y-3 text-sm text-slate-700 dark:text-white">
+                        <p data-lang-key="about_us_text"></p>
+                    </div>
                 </div>
-            </header>
-            <div class="bg-indigo-50 rounded-2xl p-6 border border-indigo-100 dark:bg-gray-800 dark:border-gray-700">
-                            <h3 class="font-bold text-indigo-800 text-lg mb-4 flex items-center gap-2 dark:text-indigo-300">
-                                <span>Nutriway</span>
-                            </h3>
-                            <div class="space-y-3 text-sm text-slate-700 dark:text-white">
-                                <p data-lang-key="about_us_text"></p>
-                            </div>
-                        </div>
+            </div>
             
             <div class="sticky top-[83px] z-[49] flex justify-center py-4 backdrop-blur-md transition-colors duration-300 w-full">
                 <button onclick="showPage('calculator')" class="bg-blue-600 text-white dark:bg-white dark:text-blue-600 px-8 py-3 rounded-full font-bold hover:shadow-xl transition hover:scale-105 z-49" data-lang-key="hero_btn">
