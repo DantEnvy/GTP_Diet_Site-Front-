@@ -6,80 +6,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutriway</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS Config for Dark Mode -->
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Manrope:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'], // Основной шрифт как в Framer
+                        display: ['Manrope', 'sans-serif'],
+                    },
                     colors: {
+                        // Точные цвета из макета Framer
+                        framer: {
+                            dark: '#111111',       // Основной текст заголовков
+                            green: '#003E30',      // Темно-зеленый (Hero Title)
+                            text: '#515151',       // Серый текст описаний
+                            sub: '#474D4B',        // Подзаголовки
+                            active: '#2E6328',     // Активная ссылка
+                            bg: '#FFFFFF',         // Фон
+                        },
                         dark: {
-                            bg: '#111827', // gray-900
-                            card: '#1f2937', // gray-800
-                            input: '#374151', // gray-700
+                            bg: '#111827', 
+                            card: '#1f2937', 
+                            input: '#374151', 
                         }
                     },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.5s ease-out',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
+                    borderRadius: {
+                        '4xl': '2rem',
                     }
                 }
             }
         }
     </script>
-    <!-- Marked.js for Markdown Parsing -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <script src="script.js" defer></script>
     <script src="diet.js" defer></script>
-    
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <script src="style.css" defer></script> -->
-    <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Roboto:wght=400;700&family=Open+Sans&family=Oswald&family=Pacifico&family=Lobster&family=Amatic+SC&family=Merriweather&family=Comfortaa&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Play&family=Inter&family=Poppins&family=Lato&family=Nunito&family=Raleway&family=Ubuntu&family=DM+Sans&family=Manrope&family=Bebas+Neue&family=Anton&family=Playfair+Display&family=Cinzel&family=Dancing+Script&family=Great+Vibes&family=Indie+Flower&family=JetBrains+Mono&family=Fira+Code&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
-    <header class="header">
-        <div class="container header-content">
-            <a href="#" class="logo">
-                <img src="https://framerusercontent.com/images/7kkJbsdLzeMdrxXP1AiD1ANuwyk.png" alt="Nutriway Logo">
+    <header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 dark:bg-gray-900/90 dark:border-gray-800 transition-colors duration-300">
+    <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+        <a href="#" class="flex-shrink-0">
+            <img src="https://framerusercontent.com/images/7kkJbsdLzeMdrxXP1AiD1ANuwyk.png" alt="Nutriway Logo" class="h-10 w-auto object-contain">
+        </a>
+        
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="#" class="text-[18px] font-medium text-[#2E6328] dark:text-green-400 hover:text-green-600 transition-colors">Головна</a>
+            <a href="#" class="text-[18px] font-medium text-[#111111] dark:text-gray-300 hover:text-green-600 transition-colors">Про Нас</a>
+            <a href="#" class="text-[18px] font-medium text-[#111111] dark:text-gray-300 hover:text-green-600 transition-colors flex items-center gap-1">
+                База Знань <i class="fas fa-chevron-down text-xs opacity-50"></i>
             </a>
-            
-            <nav class="nav">
-                <ul class="nav-list">
-                    <li><a href="#" class="nav-link active">Головна</a></li>
-                    <li><a href="#" class="nav-link">Про Нас</a></li>
-                    <li><a href="#" class="nav-link">База Знань</a></li>
-                    <li><a href="#" class="nav-link">Раціон</a></li>
-                    <li><a href="#" class="nav-link">Дієта</a></li>
-                </ul>
-            </nav>
+            <a href="#" class="text-[18px] font-medium text-[#111111] dark:text-gray-300 hover:text-green-600 transition-colors">Раціон</a>
+            <a href="#" class="text-[18px] font-medium text-[#111111] dark:text-gray-300 hover:text-green-600 transition-colors">Дієта</a>
+        </nav>
 
-            <div class="header-actions">
-                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-yellow-400 transition transform hover:scale-110">
-                    <i class="fas fa-moon text-lg"></i>
-                </button>
-                <span class="lang-switch">🇺🇦 Укр</span>
-                <a href="#" class="btn btn-primary">Мій Раціон</a>
-            </div>
+        <div class="flex items-center gap-4">
+            <button id="theme-toggle" class="p-2 text-gray-500 hover:text-[#2E6328] dark:text-gray-400 dark:hover:text-yellow-400 transition-colors">
+                <i class="fas fa-moon text-lg"></i>
+            </button>
             
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <span class="hidden lg:flex items-center gap-2 text-[18px] font-medium text-[#111111] dark:text-white">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg" class="w-6 h-4 rounded-sm shadow-sm" alt="UA">
+                Укр
+            </span>
+            
+            <a href="#" class="hidden sm:inline-flex bg-gradient-to-r from-blue-600 to-green-600 text-white text-[18px] font-medium px-6 py-2.5 rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300">
+                Мій Раціон
+            </a>
+
+            <button class="md:hidden text-2xl text-[#111111] dark:text-white" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-    </header>
+    </div>
+</header>
 
     <main>
         <section class="hero">
