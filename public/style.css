@@ -777,7 +777,7 @@ html.dark .faq-item.active {
   height: 40px;
   color: white; /* меняет цвет лого */
 }
-/* Выпадающее меню */
+/* u know */
 .dropdown:hover .dropdown-menu {
     display: block;
     opacity: 1;
@@ -789,3 +789,4 @@ html.dark .faq-item.active {
     transform: translateY(10px);
     transition: all 0.3s ease;
 }
+/* */
