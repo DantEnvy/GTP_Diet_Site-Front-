@@ -24,14 +24,13 @@
                         display: ['Manrope', 'sans-serif'],
                     },
                     colors: {
-                        // Точные цвета из макета Framer
+                        // Цвета из макета Framer
                         framer: {
-                            dark: '#111111',       // Основной текст заголовков
-                            green: '#003E30',      // Темно-зеленый (Hero Title)
-                            text: '#515151',       // Серый текст описаний
+                            dark: '#111111',       // Заголовки
+                            green: '#003E30',      // Hero Title (Темно-зеленый)
+                            text: '#515151',       // Основной текст
                             sub: '#474D4B',        // Подзаголовки
                             active: '#2E6328',     // Активная ссылка
-                            bg: '#FFFFFF',         // Фон
                         },
                         dark: {
                             bg: '#111827', 
@@ -40,7 +39,7 @@
                         }
                     },
                     borderRadius: {
-                        '4xl': '2rem',
+                        '4xl': '2.5rem', // Большие скругления как в Framer
                     }
                 }
             }
@@ -52,18 +51,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
-    <header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 dark:bg-gray-900/90 dark:border-gray-800 transition-colors duration-300">
+    <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 dark:bg-gray-900/90 dark:border-gray-800 transition-colors duration-300">
     <div class="container mx-auto px-6 h-20 flex items-center justify-between">
         <a href="#" class="flex-shrink-0">
             <img src="https://framerusercontent.com/images/7kkJbsdLzeMdrxXP1AiD1ANuwyk.png" alt="Nutriway Logo" class="h-10 w-auto object-contain">
         </a>
         
-        <nav class="hidden md:flex items-center gap-8">
+        <nav class="hidden lg:flex items-center gap-8">
             <a href="#" class="text-[18px] font-medium text-[#2E6328] dark:text-green-400 hover:text-green-600 transition-colors">Головна</a>
             <a href="#" class="text-[18px] font-medium text-[#111111] dark:text-gray-300 hover:text-green-600 transition-colors">Про Нас</a>
-            <a href="#" class="text-[18px] font-medium text-[#111111] dark:text-gray-300 hover:text-green-600 transition-colors flex items-center gap-1">
-                База Знань <i class="fas fa-chevron-down text-xs opacity-50"></i>
-            </a>
+            <a href="#" class="text-[18px] font-medium text-[#111111] dark:text-gray-300 hover:text-green-600 transition-colors">База Знань</a>
             <a href="#" class="text-[18px] font-medium text-[#111111] dark:text-gray-300 hover:text-green-600 transition-colors">Раціон</a>
             <a href="#" class="text-[18px] font-medium text-[#111111] dark:text-gray-300 hover:text-green-600 transition-colors">Дієта</a>
         </nav>
@@ -74,101 +71,151 @@
             </button>
             
             <span class="hidden lg:flex items-center gap-2 text-[18px] font-medium text-[#111111] dark:text-white">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg" class="w-6 h-4 rounded-sm shadow-sm" alt="UA">
-                Укр
+                🇺🇦 Укр
             </span>
             
-            <a href="#" class="hidden sm:inline-flex bg-gradient-to-r from-blue-600 to-green-600 text-white text-[18px] font-medium px-6 py-2.5 rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300">
+            <a href="#" class="hidden sm:inline-flex bg-[#2E6328] hover:bg-[#245020] text-white text-[18px] font-medium px-6 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
                 Мій Раціон
             </a>
 
-            <button class="md:hidden text-2xl text-[#111111] dark:text-white" id="mobileMenuBtn">
+            <button class="lg:hidden text-2xl text-[#111111] dark:text-white" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </div>
 </header>
 
-    <main>
-        <section class="hero">
-            <div class="hero-bg">
-                <img src="https://framerusercontent.com/images/7HeT7f9HknIc6ZbFuHGYFIFoDs.png" alt="Healthy Food">
+    <main id="home-page" class="page-content active pt-16">
+    <section class="relative pt-32 pb-20 overflow-hidden">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1440px] h-[800px] -z-10 opacity-100 pointer-events-none">
+                <img src="https://framerusercontent.com/images/7HeT7f9HknIc6ZbFuHGYFIFoDs.png" class="w-full h-full object-cover object-top opacity-90" alt="Hero BG">
             </div>
-            <div class="container hero-content">
-                <h1>Досить складних дієт.<br>Просто їжте правильно.</h1>
-                <p>Забудьте про голодування та ручний підрахунок калорій. Отримайте науково обґрунтований план харчування, адаптований під ваш спосіб життя, смаки та цілі.</p>
-                <a href="#" class="btn btn-large">Розрахувати мій раціон</a>
-            </div>
-        </section>
 
-        <section class="section features">
-            <div class="container grid-3">
-                <div class="feature-card">
-                    <img src="https://framerusercontent.com/images/LfgsTaODjZSDUVbgZp96HYHZnc.png" alt="Icon">
-                    <h3>Ніяких шаблонів</h3>
-                    <p>Враховуємо ваші параметри, активність, алергії та навіть нелюбов до броколі (ми розуміємо).</p>
-                </div>
-                <div class="feature-card">
-                    <img src="https://framerusercontent.com/images/RAFxQpiR4DhLfZa45PyinLQxc4.png" alt="Icon">
-                    <h3>Схуднення без страждань</h3>
-                    <p>Збалансоване меню, де є місце для ваших улюблених продуктів, а не лише вареної курячої грудки.</p>
-                </div>
-                <div class="feature-card">
-                    <img src="https://framerusercontent.com/images/3TBHhHy3oBW7RLvXQvRCWNCZDUo.png" alt="Icon">
-                    <h3>Доказова нутриціологія</h3>
-                    <p>Наші алгоритми базуються на перевірених наукових даних, а не на модних марафонах.</p>
-                </div>
-            </div>
-        </section>
+            <h1 class="text-[48px] md:text-[64px] font-bold text-[#003E30] dark:text-white leading-[1.1] md:leading-[80px] mb-6 animate-fade-in-up">
+                Досить складних дієт.<br>Просто їжте правильно.
+            </h1>
+            <p class="text-[18px] text-[#474D4B] dark:text-gray-300 leading-[24px] max-w-2xl mx-auto mb-10">
+                Забудьте про голодування та ручний підрахунок калорій. Отримайте науково обґрунтований план харчування, адаптований під ваш спосіб життя, смаки та цілі.
+            </p>
+            <a href="#" class="inline-block bg-[#003E30] text-white text-[20px] font-bold uppercase tracking-wide px-10 py-5 rounded-2xl hover:bg-[#005c4b] transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+                Розрахувати мій раціон
+            </a>
+        </div>
+    </section>
 
-        <section class="section about">
-            <div class="container grid-2">
-                <div class="text-block">
-                    <h2>Більше, ніж просто калькулятор калорій</h2>
-                    <p>Nutriway — це ваш персональний навігатор у світі здорового харчування. Ми віримо, що їжа має бути джерелом енергії та задоволення, а не стресу та обмежень.</p>
-                    <a href="#" class="btn btn-secondary">Дізнатися Більше</a>
+    <section class="py-20 bg-white dark:bg-gray-900 transition-colors">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="flex flex-col items-start text-left group">
+                    <div class="w-full aspect-square rounded-[32px] overflow-hidden mb-6 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+                        <img src="https://framerusercontent.com/images/LfgsTaODjZSDUVbgZp96HYHZnc.png" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" alt="Feature 1">
+                    </div>
+                    <h3 class="text-[24px] font-bold text-[#111111] dark:text-white mb-3">Ніяких шаблонів</h3>
+                    <p class="text-[18px] text-[#515151] dark:text-gray-400 leading-[150%]">
+                        Враховуємо ваші параметри, активність, алергії та навіть нелюбов до броколі (ми розуміємо).
+                    </p>
                 </div>
-                <div class="image-block">
-                    <img src="https://framerusercontent.com/images/z87rN0IjOeSVWRl2iW2fXtSBc.png" alt="About us">
+                <div class="flex flex-col items-start text-left group">
+                    <div class="w-full aspect-square rounded-[32px] overflow-hidden mb-6 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+                        <img src="https://framerusercontent.com/images/RAFxQpiR4DhLfZa45PyinLQxc4.png" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" alt="Feature 2">
+                    </div>
+                    <h3 class="text-[24px] font-bold text-[#111111] dark:text-white mb-3">Схуднення без страждань</h3>
+                    <p class="text-[18px] text-[#515151] dark:text-gray-400 leading-[150%]">
+                        Збалансоване меню, де є місце для ваших улюблених продуктів, а не лише вареної курячої грудки.
+                    </p>
+                </div>
+                <div class="flex flex-col items-start text-left group">
+                    <div class="w-full aspect-square rounded-[32px] overflow-hidden mb-6 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+                        <img src="https://framerusercontent.com/images/3TBHhHy3oBW7RLvXQvRCWNCZDUo.png" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" alt="Feature 3">
+                    </div>
+                    <h3 class="text-[24px] font-bold text-[#111111] dark:text-white mb-3">Доказова нутриціологія</h3>
+                    <p class="text-[18px] text-[#515151] dark:text-gray-400 leading-[150%]">
+                        Наші алгоритми базуються на перевірених наукових даних, а не на модних марафонах.
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="section cta-bg">
-            <div class="container text-center">
-                <h2>Розрахуйте свій ідеальний раціон за 1 хвилину</h2>
-                <p>Це не просто калькулятор калорій. Наш алгоритм враховує ваші унікальні параметри, спосіб життя та цілі.</p>
-                <a href="#" class="btn btn-primary mt-20">Почати Розрахунок</a>
-            </div>
-        </section>
-
-        <section class="section articles">
-            <div class="container">
-                <h2 class="text-center">Корисні статті та поради</h2>
-                <p class="text-center subtitle">Прості відповіді на складні питання про їжу, здоров'я та звички.</p>
-                
-                <div class="grid-1 mt-40">
-                    <article class="article-row">
-                        <img src="https://framerusercontent.com/images/5BIjt2VfbUSj98hnep0DVDaTcA.jpg" alt="Healthy Plate">
-                        <div class="article-content">
-                            <h3>Принцип "Здорової тарілки"</h3>
-                            <p>Забудьте про складний підрахунок калорій. Дізнайтеся про простий візуальний метод.</p>
-                            <a href="#" class="btn btn-secondary">Читати Повністю</a>
-                        </div>
-                    </article>
-                    
-                    <article class="article-row reverse">
-                        <img src="https://framerusercontent.com/images/fBhzpF3vRYrcHHRFDp4gzXAAug.png" alt="Sport Food">
-                        <div class="article-content">
-                            <h3>Харчування та спорт</h3>
-                            <p>Чи потрібен вам протеїновий коктейль? Коли краще їсти вуглеводи?</p>
-                            <a href="#" class="btn btn-secondary">Дізнатися Більше</a>
-                        </div>
-                    </article>
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <h2 class="text-[48px] font-bold text-[#111111] dark:text-white leading-[64px] mb-6">
+                        Більше, ніж просто калькулятор калорій
+                    </h2>
+                    <p class="text-[18px] text-[#515151] dark:text-gray-400 leading-[150%] mb-8">
+                        Nutriway — це ваш персональний навігатор у світі здорового харчування. Ми віримо, що їжа має бути джерелом енергії та задоволення, а не стресу та обмежень.
+                    </p>
+                    <a href="#" class="inline-block bg-blue-600 text-white text-[20px] font-medium px-8 py-4 rounded-2xl hover:bg-blue-700 transition shadow-lg">
+                        Дізнатися Більше
+                    </a>
+                </div>
+                <div class="order-1 md:order-2 rounded-[40px] overflow-hidden">
+                    <img src="https://framerusercontent.com/images/z87rN0IjOeSVWRl2iW2fXtSBc.png" class="w-full object-cover" alt="About App">
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <section class="py-24 relative overflow-hidden bg-gray-50 dark:bg-gray-800">
+        <div class="absolute inset-0 z-0 opacity-50 pointer-events-none">
+             <img src="https://framerusercontent.com/images/d4llAbIalSgbyPoCX58AWy9Gz7I.png" class="absolute top-0 left-0 w-full h-full object-cover opacity-20" alt="bg-deco">
+        </div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-[48px] font-bold text-[#111111] dark:text-white leading-[64px] mb-6 max-w-4xl mx-auto">
+                Розрахуйте свій ідеальний раціон за 1 хвилину
+            </h2>
+            <p class="text-[18px] text-[#515151] dark:text-gray-400 leading-[150%] max-w-2xl mx-auto mb-10">
+                Це не просто калькулятор калорій. Наш алгоритм враховує ваші унікальні параметри, спосіб життя та цілі. Ніяких здогадок — тільки точний розрахунок.
+            </p>
+            <a href="#" class="inline-block bg-[#003E30] text-white text-[20px] font-medium px-10 py-5 rounded-2xl hover:bg-[#005c4b] transition shadow-xl hover:scale-105 transform duration-300">
+                Почати Розрахунок
+            </a>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-[48px] font-bold text-[#111111] dark:text-white mb-4">Корисні статті та поради</h2>
+                <p class="text-[18px] text-[#515151] dark:text-gray-400 max-w-2xl mx-auto">
+                    Прості відповіді на складні питання про їжу, здоров'я та звички.
+                </p>
+            </div>
+
+            <div class="space-y-16">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="rounded-[40px] overflow-hidden shadow-2xl">
+                        <img src="https://framerusercontent.com/images/5BIjt2VfbUSj98hnep0DVDaTcA.jpg" class="w-full h-full object-cover" alt="Healthy Plate">
+                    </div>
+                    <div>
+                        <h3 class="text-[32px] font-bold text-[#111111] dark:text-white mb-4">Принцип "Здорової тарілки"</h3>
+                        <p class="text-[18px] text-[#515151] dark:text-gray-400 leading-[150%] mb-8">
+                            Забудьте про складний підрахунок калорій. Дізнайтеся про простий візуальний метод, який допоможе збалансувати кожен прийом їжі.
+                        </p>
+                        <a href="#" class="text-[20px] font-medium text-blue-600 dark:text-blue-400 hover:underline">Читати Повністю -></a>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="md:order-2 rounded-[40px] overflow-hidden shadow-2xl">
+                        <img src="https://framerusercontent.com/images/fBhzpF3vRYrcHHRFDp4gzXAAug.png" class="w-full h-full object-cover" alt="Sport Food">
+                    </div>
+                    <div class="md:order-1">
+                        <h3 class="text-[32px] font-bold text-[#111111] dark:text-white mb-4">Харчування та спорт</h3>
+                        <p class="text-[18px] text-[#515151] dark:text-gray-400 leading-[150%] mb-8">
+                            Чи потрібен вам протеїновий коктейль? Коли краще їсти вуглеводи? Розбираємося, як їжа впливає на відновлення.
+                        </p>
+                        <a href="#" class="text-[20px] font-medium text-blue-600 dark:text-blue-400 hover:underline">Дізнатися Більше -></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 
         <!-- СТОРІНКА: ІНФОРМАЦІЯ -->
         <main id="info-page" class="page-content pt-32 pb-20">
