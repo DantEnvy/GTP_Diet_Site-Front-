@@ -777,3 +777,15 @@ html.dark .faq-item.active {
   height: 40px;
   color: white; /* меняет цвет лого */
 }
+/* Выпадающее меню */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+.dropdown-menu {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
