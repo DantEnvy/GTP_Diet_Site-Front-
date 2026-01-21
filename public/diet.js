@@ -387,23 +387,34 @@ async function generateDiet() {
             // Стало:
             resultDiv.className = "prose-content bg-white dark:bg-gray-800 text-gray-800 dark:text-white [&_*]:dark:text-white p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700 h-auto text-left transition-colors duration-300 shadow-lg";
             
+            const contentWrapper = document.createElement('div');
+            contentWrapper.id = "diet-content";
+            // nada
+            const downloadBtn = document.createElement('button');
+            downloadBtn.innerText = "Завантажити у PDF";
+            downloadBtn.className = "mb-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl transition duration-300";
+            downloadBtn.onclick = downloadPDF;
+
+            resultDiv.appendChild(downloadBtn);
+            resultDiv.appendChild(contentWrapper);
             // Вставляємо згенерований текст (Markdown -> HTML)
             resultDiv.innerHTML = marked.parse(data.diet);
-            const images = resultDiv.querySelectorAll('img');
-    images.forEach(img => {
-        img.style.width = "100%";
-        img.style.maxWidth = "500px";
-        img.style.height = "300px"; // Фіксована висота для стабільності
-        img.style.objectFit = "cover"; // Щоб фото не розтягувалось
-        img.style.borderRadius = "15px";
-        img.style.margin = "15px 0";
-        img.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
-        
-        // Обробка помилки завантаження (якщо сайт не відповів)
-        img.onerror = function() {
-            this.style.display = 'none'; // Приховати биту картинку
-        };
-    });
+            // const images = resultDiv.querySelectorAll('img');
+            const images = contentWrapper.querySelectorAll('img');
+            images.forEach(img => {
+                img.style.width = "100%";
+                img.style.maxWidth = "500px";
+                img.style.height = "300px"; // Фіксована висота для стабільності
+                img.style.objectFit = "cover"; // Щоб фото не розтягувалось
+                img.style.borderRadius = "15px";
+                img.style.margin = "15px 0";
+                img.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
+                
+                // Обробка помилки завантаження (якщо сайт не відповів)
+                img.onerror = function() {
+                    this.style.display = 'none'; // Приховати биту картинку
+                };
+            });
             console.log("Відповідь отримана"); 
         } else {
             resultDiv.innerText = "Сталася помилка при генерації (відсутнє поле diet).";
@@ -415,4 +426,24 @@ async function generateDiet() {
         resultDiv.innerText = "Помилка: " + error.message;
         console.error("Помилка fetch:", error);
     }
+}
+
+function downloadPDF() {
+    const element = document.getElementById('result');
+    if (!element || element.innerText.trim() === "" || element.querySelector('.loader-container')) {
+        alert("Спочатку згенеруйте дієту!");
+        return;
+    }
+
+    // Налаштування PDF
+    const opt = {
+        margin:       [10, 10, 10, 10], // відступи
+        filename:     'my_diet_plan.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true }, // useCORS потрібен для завантаження картинок
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    // Запуск процесу створення
+    html2pdf().set(opt).from(element).save();
 }
