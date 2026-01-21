@@ -389,7 +389,21 @@ async function generateDiet() {
             
             // Вставляємо згенерований текст (Markdown -> HTML)
             resultDiv.innerHTML = marked.parse(data.diet);
-            
+            const images = resultDiv.querySelectorAll('img');
+    images.forEach(img => {
+        img.style.width = "100%";
+        img.style.maxWidth = "500px";
+        img.style.height = "300px"; // Фіксована висота для стабільності
+        img.style.objectFit = "cover"; // Щоб фото не розтягувалось
+        img.style.borderRadius = "15px";
+        img.style.margin = "15px 0";
+        img.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
+        
+        // Обробка помилки завантаження (якщо сайт не відповів)
+        img.onerror = function() {
+            this.style.display = 'none'; // Приховати биту картинку
+        };
+    });
             console.log("Відповідь отримана"); 
         } else {
             resultDiv.innerText = "Сталася помилка при генерації (відсутнє поле diet).";
