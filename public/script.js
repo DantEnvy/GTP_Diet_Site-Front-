@@ -160,7 +160,7 @@ const translations = {
         "disclaimer_btn": "Погоджуюсь із умовами",
         "menu_home": "Головна",
         "menu_info": "Інформація",
-        "menu_info_sub_1": "Тарілка та піраміда для здорового харчування",
+        "menu_info_sub_1": "Тарілка харчування",
         "menu_info_sub_2": "Вуглеводи",
         "menu_info_sub_3": "Білок",
         "menu_info_sub_4": "Жири та холестерин",
@@ -1958,3 +1958,43 @@ function closeInfo(event) {
         toggleInfo();
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Мобільне меню
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const nav = document.querySelector('.nav');
+
+    if(mobileBtn) {
+        mobileBtn.addEventListener('click', () => {
+            // У реальному проекті тут краще додавати клас 'is-open'
+            if (nav.style.display === 'block') {
+                nav.style.display = 'none';
+            } else {
+                nav.style.display = 'block';
+                nav.style.position = 'absolute';
+                nav.style.top = '100%';
+                nav.style.left = '0';
+                nav.style.width = '100%';
+                nav.style.background = '#fff';
+                nav.style.padding = '20px';
+                nav.style.boxShadow = '0 5px 10px rgba(0,0,0,0.1)';
+            }
+        });
+    }
+
+    // Плавний скрол до якорів (якщо будуть посилання типу #about)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});

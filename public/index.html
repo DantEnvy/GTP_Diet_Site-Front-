@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutriway</title>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Tailwind CSS Config for Dark Mode -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -53,188 +53,111 @@
     
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
+    <header class="header">
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <img src="https://framerusercontent.com/images/7kkJbsdLzeMdrxXP1AiD1ANuwyk.png" alt="Nutriway Logo">
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link active">Головна</a></li>
+                    <li><a href="#" class="nav-link">Про Нас</a></li>
+                    <li><a href="#" class="nav-link">База Знань</a></li>
+                    <li><a href="#" class="nav-link">Раціон</a></li>
+                    <li><a href="#" class="nav-link">Дієта</a></li>
+                </ul>
+            </nav>
 
-    <div id="disclaimer-overlay">
-        <div class="disclaimer-box">
-            <h1 style="color: #FBBF24" data-lang-key="disclaimer_title">Зверніть увагу!</h1>
-            <p style="margin: 15px 0; color: #E5E7EB" data-lang-key="disclaimer_text_1">Інформація на сайті має виключно ознайомчий характер і не є медичною порадою. Використовуючи сервіс, ви берете відповідальність за своє здоров'я на себе. Перед будь-якими змінами в харчуванні обов'язково порадьтеся з лікарем.</p>
-            <p style="margin: 15px 0; color: #E5E7EB" data-lang-key="disclaimer_text_2">Адміністрація сайту не несе відповідальності за будь-які наслідки, прямі або непрямі, що можуть виникнути в результаті використання інформації з цього сайту.</p>
-            <button class="disclaimer-btn" onclick="closeDisclaimer()" data-lang-key="disclaimer_btn">Погоджуюсь із умовами</button>
-        </div>
-    </div>
-
-    <!-- Навігація -->
-    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-md border-b border-gray-100 transition-colors duration-300 dark:bg-gray-900/95 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                
-                <!-- Логотип -->
-                <div class="flex items-center cursor-pointer gap-2" onclick="showPage('home')">
-                    <!-- Якщо є картинка -->
-                    <img src="pictures/nutriway-logo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" alt="Nutriway" class="h-10 w-auto">
-                    <!-- Запасний варіант логотипу текстом -->
-                    <div class="hidden items-center gap-2">
-                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">NW</div>
-                        <span class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">Nutriway</span>
-                    </div>
-                </div>
-
-                <!-- ГОЛОВНЕ МЕНЮ (По центру, завжди видиме на великих екранах) -->
-                <div class="hidden lg:flex items-center space-x-8">
-                    <a href="javascript:void(0)" onclick="showPage('home')" class="text-gray-700 hover:text-green-600 font-medium transition-colors dark:text-gray-200 dark:hover:text-green-400 flex items-center gap-2">
-                        <i class="fas fa-home"></i> Головна
-                    </a>
-
-                    <!-- Випадаюче меню "Інформація" -->
-                    <div class="relative dropdown group">
-                        <button class="text-gray-700 hover:text-green-600 font-medium transition-colors dark:text-gray-200 dark:hover:text-green-400 flex items-center gap-2 py-6">
-                            <i class="fas fa-info-circle"></i> Інформація <i class="fas fa-chevron-down text-xs ml-1 transition-transform group-hover:rotate-180"></i>
-                        </button>
-                        <div class="dropdown-menu absolute top-full left-0 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
-                            <a href="javascript:void(0)" onclick="showPage('Plate')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
-                                <i class="fas fa-heartbeat w-5 text-center mr-2 text-red-400"></i> Тарілка харчування
-                            </a>
-                            <a href="javascript:void(0)" onclick="showPage('Carbohydrates')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
-                                <i class="fas fa-bread-slice w-5 text-center mr-2 text-amber-400"></i> Вуглеводи
-                            </a>
-                            <a href="javascript:void(0)" onclick="showPage('Protein')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
-                                <i class="fas fa-drumstick-bite w-5 text-center mr-2 text-blue-400"></i> Білок
-                            </a>
-                            <a href="javascript:void(0)" onclick="showPage('Fat')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
-                                <i class="fas fa-oil-can w-5 text-center mr-2 text-yellow-400"></i> Жири
-                            </a>
-                            <a href="javascript:void(0)" onclick="showPage('Vegetables')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
-                                <i class="fas fa-carrot w-5 text-center mr-2 text-orange-400"></i> Овочі та фрукти
-                            </a>
-                            <a href="javascript:void(0)" onclick="showPage('Vitamins')" class="block px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 text-sm hover:text-green-600 dark:text-gray-200 transition-colors">
-                                <i class="fas fa-capsules w-5 text-center mr-2 text-purple-400"></i> Вітаміни
-                            </a>
-                        </div>
-                    </div>
-
-                    <a href="javascript:void(0)" onclick="showPage('calculator')" class="text-gray-700 hover:text-green-600 font-medium transition-colors dark:text-gray-200 dark:hover:text-green-400 flex items-center gap-2">
-                        <i class="fas fa-calculator"></i> Калькулятор
-                    </a>
-                    <a href="javascript:void(0)" onclick="showPage('diet')" class="text-gray-700 hover:text-green-600 font-medium transition-colors dark:text-gray-200 dark:hover:text-green-400 flex items-center gap-2">
-                        <i class="fas fa-apple-alt"></i> Дієта
-                    </a>
-                        <!-- Help Link -->
-                    <button onclick="window.open('https://docs.google.com/document/d/1UPbdkt7Y1IJbC59--ixaxV3fOf-1_gSCwDEDmHsPV4I/edit?usp=sharing', '_blank')" 
-                            class="w-6 h-6 rounded-full bg-gray-200 text-gray-600 text-xs flex items-center justify-center hover:bg-green-500 hover:text-white transition" title="Довідка">
-                        <i class="fas fa-question"></i>
-                    </button>
-                </div>
-
-                <!-- Права частина: Кнопки налаштувань -->
-                <div class="flex items-center gap-3">
-                    <button id="lang-toggle" onclick="toggleLanguage()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-bold hover:border-green-500 hover:text-green-600 transition-all text-sm">
-                        <i class="fas fa-globe"></i>
-                        <span id="lang-text">UA</span>
-                    </button>
-
-                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-yellow-400 transition transform hover:scale-110">
-                        <i class="fas fa-moon text-lg"></i>
-                    </button>
-
-                    <!-- Бургер тільки для мобільних (lg:hidden) -->
-                    <button onclick="toggleMenu()" class="lg:hidden p-2 text-gray-900 dark:text-white hover:text-green-500 transition">
-                        <i id="menu-icon" class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <!-- -->
-
-    <!-- MAIN CONTENT AREA -->
-    <div id="content-area">
-
-        <!-- ГОЛОВНА СТОРІНКА -->
-        <main id="home-page" class="page-content active pt-16">
-            <!-- Hero Section -->
-             <div class="space-y-6 container mx-auto px-4">
-                <header class="hero-gradient-bg text-white py-24 px-4 text-center relative overflow-hidden">
-                    <div class="container mx-auto relative z-10">
-                        <h1 class="text-4xl md:text-6xl font-black mb-6 editable-text drop-shadow-md">Nutriway</h1>
-                        <p class="text-lg opacity-90 mb-10 max-w-2xl mx-auto italic editable-text drop-shadow-sm" data-lang-key="hero_subtitle">Ваш персональний шлях до здоров'я та ідеальної форми.</p>
-                    </div>
-                </header>
-                
-                <div class="bg-blue-350 rounded-3xl p-8 border border-blue-400 dark:bg-gray-800 dark:border-gray-700">
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-gray-100">Nutriway</h3>
-                    <div class="text-slate-600 mb-4 dark:text-white">
-                        <p data-lang-key="about_us_text"></p>
-                    </div>
-                </div>
-                <div class="bg-blue-350 rounded-3xl p-8 border border-blue-400 dark:bg-gray-800 dark:border-gray-700">
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-gray-100" data-lang-key="menu_calc">Калькулятор</h3>
-                    <div class="text-slate-600 mb-4 dark:text-white">
-                        <p data-lang-key="calc_text"></p>
-                    </div>
-                </div>
+            <div class="header-actions">
+                <span class="lang-switch">🇺🇦 Укр</span>
+                <a href="#" class="btn btn-primary">Мій Раціон</a>
             </div>
             
-            <div class="sticky top-[83px] z-[49] flex justify-center py-4 backdrop-blur-md transition-colors duration-300 w-full">
-                <button onclick="showPage('calculator')" class="bg-blue-600 text-white dark:bg-white dark:text-blue-600 px-8 py-3 rounded-full font-bold hover:shadow-xl transition hover:scale-105 z-49" data-lang-key="hero_btn">
-                    Почати розрахунок
-                </button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-bg">
+                <img src="https://framerusercontent.com/images/7HeT7f9HknIc6ZbFuHGYFIFoDs.png" alt="Healthy Food">
             </div>
+            <div class="container hero-content">
+                <h1>Досить складних дієт.<br>Просто їжте правильно.</h1>
+                <p>Забудьте про голодування та ручний підрахунок калорій. Отримайте науково обґрунтований план харчування, адаптований під ваш спосіб життя, смаки та цілі.</p>
+                <a href="#" class="btn btn-large">Розрахувати мій раціон</a>
+            </div>
+        </section>
 
-
-            <!-- Діагностика -->
-            <section class="py-20 container mx-auto px-4">
-                <h2 class="text-3xl font-bold mb-12 text-center editable-text dark:text-white" data-lang-key="add_info">Куточок освіти</h2>
-                <div class="space-y-6">
-                    <div class="bg-blue-350 rounded-3xl p-8 border border-blue-400 dark:bg-gray-800 dark:border-gray-700">
-                        <div class="text-slate-600 mb-4 dark:text-white">
-                            <p data-lang-key="diet_text"></p>
-                        </div>
-                    </div>
-                    <div id="diag-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24 text-center">
-                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Plate');">
-                            <i class="fas fa-heartbeat text-red-500 text-3xl mb-4"></i>
-                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_imt">Тарілка харчування</h3>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_imt_desc">Це модель для балансу в раціоні: половину порції мають складати овочі та фрукти. Іншу половину слід порівну розділити між корисними білками та цілозерновими гарнірами.</p>
-                        </div>
-                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Carbohydrates');">
-                            <i class="fas fa-fire text-orange-500 text-3xl mb-4"></i>
-                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_carb">Вуглеводи</h3>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_carb_desc">Це головне джерело енергії, тому надавайте перевагу цілозерновим продуктам, які дають тривалу ситість. Намагайтеся мінімізувати вживання цукру та білого борошна.</p>
-                        </div>
-
-                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Protein');">
-                            <i class="fas fa-dumbbell text-blue-500 text-2xl mb-2"></i>
-                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_prot">Білок</h3>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_prot_desc">Основний будівельний матеріал для м’язів та клітин організму. Найкращими джерелами є риба, птиця, бобові та горіхи.</p>
-                        </div>
-
-                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Fat');">
-                            <i class="fas fa-tint text-yellow-500 text-2xl mb-2"></i>
-                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_fat">Жири та холестерин</h3>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_fat_desc">Жири є важливим джерелом енергії та необхідними жирними кислотами. Важливо обирати здорові джерела жиру, такі як оливкова олія, авокадо та риба.</p>
-                        </div>
-
-                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Vegetables');">
-                            <i class="fa fa-leaf text-green-500 text-3xl mb-4"></i>
-                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_Vegetable">Овочі та фрукти</h3>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_vegetable_desc">Вони повинні займати половину вашої тарілки під час кожного прийому їжі. Це головне джерело клітковини для гарного травлення.</p>
-                        </div>
-
-                        <div class="p-6 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl shadow-md border border-gray-100 info-card transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer z-25 " onclick="showPage('Vitamins');">
-                            <i class="fas fa-pills text-purple-500 text-3xl mb-4"></i>
-                            <h3 class="font-bold mb-2 editable-text dark:text-white" data-lang-key="card_vit">Вітаміни</h3>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 editable-text" data-lang-key="card_vit_desc">Життєво важливі елементи для імунітету та обміну речовин. Найкраще отримувати їх із різноманітного, кольорового раціону, а не з таблеток.</p>
-                        </div>
-                    </div>
+        <section class="section features">
+            <div class="container grid-3">
+                <div class="feature-card">
+                    <img src="https://framerusercontent.com/images/LfgsTaODjZSDUVbgZp96HYHZnc.png" alt="Icon">
+                    <h3>Ніяких шаблонів</h3>
+                    <p>Враховуємо ваші параметри, активність, алергії та навіть нелюбов до броколі (ми розуміємо).</p>
                 </div>
-            </section>
-                <div class="space-y-24 mb-14">
-                    <div class="max-w-4xl mx-auto text-center">
-                        <h2 class="text-4xl font-black text-gray-900 dark:text-white mb-4 editable-text" data-lang-key="world_title">Світ Nutriway</h2>
-                        <p class="text-gray-500 dark:text-gray-400 text-lg editable-text" data-lang-key="world_subtitle">Nutriway — це сучасна онлайн-платформа, яка допомагає створити ідеальний план харчування на основі аналізу потреб вашого організму. Сервіс автоматично розраховує індивідуальні норми калорій, білків, жирів, вуглеводів та вітамінів, перетворюючи сухі цифри на смачне й збалансоване меню. Головна перевага Nutriway полягає в уважному ставленні до вашого здоров’я: алгоритм суворо враховує наявні захворювання та медичні протипоказання при виборі страв. З Nutriway турбота про здоров'я стає простою та системною, позбавляючи вас необхідності самостійно вираховувати кожен грам їжі.</p>
-                    </div>
+                <div class="feature-card">
+                    <img src="https://framerusercontent.com/images/RAFxQpiR4DhLfZa45PyinLQxc4.png" alt="Icon">
+                    <h3>Схуднення без страждань</h3>
+                    <p>Збалансоване меню, де є місце для ваших улюблених продуктів, а не лише вареної курячої грудки.</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://framerusercontent.com/images/3TBHhHy3oBW7RLvXQvRCWNCZDUo.png" alt="Icon">
+                    <h3>Доказова нутриціологія</h3>
+                    <p>Наші алгоритми базуються на перевірених наукових даних, а не на модних марафонах.</p>
+                </div>
             </div>
-        </main>
+        </section>
+
+        <section class="section about">
+            <div class="container grid-2">
+                <div class="text-block">
+                    <h2>Більше, ніж просто калькулятор калорій</h2>
+                    <p>Nutriway — це ваш персональний навігатор у світі здорового харчування. Ми віримо, що їжа має бути джерелом енергії та задоволення, а не стресу та обмежень.</p>
+                    <a href="#" class="btn btn-secondary">Дізнатися Більше</a>
+                </div>
+                <div class="image-block">
+                    <img src="https://framerusercontent.com/images/z87rN0IjOeSVWRl2iW2fXtSBc.png" alt="About us">
+                </div>
+            </div>
+        </section>
+
+        <section class="section cta-bg">
+            <div class="container text-center">
+                <h2>Розрахуйте свій ідеальний раціон за 1 хвилину</h2>
+                <p>Це не просто калькулятор калорій. Наш алгоритм враховує ваші унікальні параметри, спосіб життя та цілі.</p>
+                <a href="#" class="btn btn-primary mt-20">Почати Розрахунок</a>
+            </div>
+        </section>
+
+        <section class="section articles">
+            <div class="container">
+                <h2 class="text-center">Корисні статті та поради</h2>
+                <p class="text-center subtitle">Прості відповіді на складні питання про їжу, здоров'я та звички.</p>
+                
+                <div class="grid-1 mt-40">
+                    <article class="article-row">
+                        <img src="https://framerusercontent.com/images/5BIjt2VfbUSj98hnep0DVDaTcA.jpg" alt="Healthy Plate">
+                        <div class="article-content">
+                            <h3>Принцип "Здорової тарілки"</h3>
+                            <p>Забудьте про складний підрахунок калорій. Дізнайтеся про простий візуальний метод.</p>
+                            <a href="#" class="btn btn-secondary">Читати Повністю</a>
+                        </div>
+                    </article>
+                    
+                    <article class="article-row reverse">
+                        <img src="https://framerusercontent.com/images/fBhzpF3vRYrcHHRFDp4gzXAAug.png" alt="Sport Food">
+                        <div class="article-content">
+                            <h3>Харчування та спорт</h3>
+                            <p>Чи потрібен вам протеїновий коктейль? Коли краще їсти вуглеводи?</p>
+                            <a href="#" class="btn btn-secondary">Дізнатися Більше</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
 
         <!-- СТОРІНКА: ІНФОРМАЦІЯ -->
         <main id="info-page" class="page-content pt-32 pb-20">
