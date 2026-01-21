@@ -688,7 +688,9 @@ const translations = {
         "~6 г": "~6 г",
         "8-9 г": "8-9 г",
         "menu_info_sub_7": "Про нас",
-        "about_us_text": "Nutriway — це інноваційна онлайн-платформа, створена для розробки ідеального плану харчування на основі специфічних потреб вашого організму. Вона автоматично розраховує ваші персональні цілі щодо калорій, білків, жирів, вуглеводів та вітамінів, перетворюючи сирі дані на смачне та збалансоване меню. Відмінною рисою Nutriway є її прихильність до вашої безпеки: наш алгоритм суворо враховує будь-які існуючі медичні умови та протипоказання при виборі ваших страв. З Nutriway турбота про ваше здоров'я стає простою та систематичною, усуваючи клопоти підрахунку кожного грама їжі самостійно."
+        "about_us_text": "Nutriway — це інноваційна онлайн-платформа, створена для розробки ідеального плану харчування на основі специфічних потреб вашого організму. Вона автоматично розраховує ваші персональні цілі щодо калорій, білків, жирів, вуглеводів та вітамінів, перетворюючи сирі дані на смачне та збалансоване меню. Відмінною рисою Nutriway є її прихильність до вашої безпеки: наш алгоритм суворо враховує будь-які існуючі медичні умови та протипоказання при виборі ваших страв. З Nutriway турбота про ваше здоров'я стає простою та систематичною, усуваючи клопоти підрахунку кожного грама їжі самостійно.",
+        "calc_text": "Ви вводите свої параметри, а калькулятор визначає вашу норму калорій, білків, жирів та вітамінів. Система автоматично враховує ваші хвороби, щоб виключити шкідливі для вас продукти. На основі цих цифр алгоритм одразу підбирає безпечні та корисні страви. Просто натисніть кнопку, щоб отримати свій персональний розрахунок.",
+    
     },
     en: {
         "disclaimer_title": "Pay attention!",
@@ -1224,7 +1226,8 @@ const translations = {
         "~6 г": "~6 g",
         "8-9 г": "8-9 g",
         "menu_info_sub_7": "About us",
-        "about_us_text": "Nutriway is your personal navigator for a balanced diet and excellent health. Our platform helps you create an ideal diet that caters to the unique needs of your body. We recreate complex nutritional plans on a comprehensive and delicious menu that focuses on your results. With Nutriway, the turbo itself becomes systemic, easy and eliminates the need to independently treat skin grams."
+        "about_us_text": "Nutriway is your personal navigator for a balanced diet and excellent health. Our platform helps you create an ideal diet that caters to the unique needs of your body. We recreate complex nutritional plans on a comprehensive and delicious menu that focuses on your results. With Nutriway, the turbo itself becomes systemic, easy and eliminates the need to independently treat skin grams.",
+        "calc_text": "You enter your parameters, and the calculator determines your calorie, protein, fat, and vitamin intake. The system automatically takes into account your illnesses to eliminate foods that are harmful to you. Based on these numbers, the algorithm immediately selects safe and healthy dishes. Just click a button to get your personal calculation."
     }
 };
 
