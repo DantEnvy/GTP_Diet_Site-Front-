@@ -169,7 +169,7 @@ const translations = {
         "menu_calc": "Калькулятор",
         "menu_diet": "Дієта",
         "menu_admin": "Адмін Панель",
-        "hero_subtitle": "Nutriway — це ваш персональний навігатор у світі збалансованого харчування та міцного здоров’я. Наша платформа допомагає створити ідеальний раціон, враховуючи унікальні особливості та потреби саме вашого організму. Ми перетворюємо складні дієтологічні розрахунки на зрозуміле та смачне меню, яке працює на ваш результат. З Nutriway турбота про себе стає системною, легкою та позбавленою необхідності самостійно вираховувати кожен грам їжі.",
+        "hero_subtitle": "Ваш персональний шлях до здоров'я та ідеальної форми.",
         "hero_btn": "Почати розрахунок",
         "section_diag": "Комплексна діагностика",
         "IMT_title": "Індекс маси тіла (ІМТ)",
@@ -688,6 +688,7 @@ const translations = {
         "~6 г": "~6 г",
         "8-9 г": "8-9 г",
         "menu_info_sub_7": "Про нас",
+        "about_us_text": "Nutriway — це інноваційна онлайн-платформа, створена для розробки ідеального плану харчування на основі специфічних потреб вашого організму. Вона автоматично розраховує ваші персональні цілі щодо калорій, білків, жирів, вуглеводів та вітамінів, перетворюючи сирі дані на смачне та збалансоване меню. Відмінною рисою Nutriway є її прихильність до вашої безпеки: наш алгоритм суворо враховує будь-які існуючі медичні умови та протипоказання при виборі ваших страв. З Nutriway турбота про ваше здоров'я стає простою та систематичною, усуваючи клопоти підрахунку кожного грама їжі самостійно."
     },
     en: {
         "disclaimer_title": "Pay attention!",
@@ -705,7 +706,7 @@ const translations = {
         "menu_calc": "Calculator",
         "menu_diet": "Diet",
         "menu_admin": "Admin Panel",
-        "hero_subtitle": "Nutriway is your personal navigator for a balanced diet and excellent health. Our platform helps you create an ideal diet that caters to the unique needs of your body. We recreate complex nutritional plans on a comprehensive and delicious menu that focuses on your results. With Nutriway, the turbo itself becomes systemic, easy and eliminates the need to independently treat skin grams.",
+        "hero_subtitle": "Your personal path to health and ideal shape.",
         "hero_btn": "Start Calculation",
         "section_diag": "Complex Diagnostics",
         "card_imt": "Plate and pyramid for a healthy diet",
@@ -1222,7 +1223,8 @@ const translations = {
         "19 г": "19 g",
         "~6 г": "~6 g",
         "8-9 г": "8-9 g",
-        "menu_info_sub_7": "About us"
+        "menu_info_sub_7": "About us",
+        "about_us_text": "Nutriway is your personal navigator for a balanced diet and excellent health. Our platform helps you create an ideal diet that caters to the unique needs of your body. We recreate complex nutritional plans on a comprehensive and delicious menu that focuses on your results. With Nutriway, the turbo itself becomes systemic, easy and eliminates the need to independently treat skin grams."
     }
 };
 
