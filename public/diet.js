@@ -430,22 +430,28 @@ async function generateDiet() {
     }
 }
 
+
 function downloadPDF() {
-    const element = document.getElementById('result');
+    // ИЗМЕНЕНИЕ 1: Берем не общий контейнер, а именно обертку с текстом
+    const element = document.getElementById('diet-content'); 
     
-    // Перевірка, чи є що завантажувати
-    if (!element || element.innerText.trim() === "" || element.querySelector('.loader-container')) {
+    if (!element) {
         alert("Спочатку згенеруйте дієту!");
         return;
     }
 
     const opt = {
-        margin: [10, 10, 10, 10],
+        margin: [10, 10, 10, 10], // Отступы (верх, лево, низ, право)
         filename: 'diet_plan.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        html2canvas: { 
+            scale: 2, 
+            useCORS: true,
+            scrollY: 0,
+            windowHeight: element.scrollHeight
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
-
     html2pdf().set(opt).from(element).save();
 }
