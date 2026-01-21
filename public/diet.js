@@ -398,11 +398,11 @@ async function generateDiet() {
             contentWrapper.innerHTML = marked.parse(data.diet);
 
             // 5. Додаємо спочатку кнопку, а потім текст у головний контейнер
-            resultDiv.appendChild(downloadBtn);
             resultDiv.appendChild(contentWrapper);
+            resultDiv.appendChild(downloadBtn);
 
             // 6. Обробляємо картинки всередині контенту
-            const images = contentWrapper.querySelectorAll('img');
+            /*const images = contentWrapper.querySelectorAll('img');
             images.forEach(img => {
                 img.style.width = "100%";
                 img.style.maxWidth = "500px";
@@ -415,7 +415,7 @@ async function generateDiet() {
                 img.onerror = function() {
                     this.style.display = 'none';
                 };
-            });
+            });*/
             
             console.log("Відповідь отримана та відображена"); 
         } else {
