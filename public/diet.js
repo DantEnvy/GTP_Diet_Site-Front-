@@ -380,42 +380,44 @@ async function generateDiet() {
         // 2. ОБРОБКА УСПІШНОЇ ВІДПОВІДІ
         // ==========================================
         if (data.diet) {
-            // Видаляємо котика (очищаємо div)
+            // 1. Очищаємо контейнер від котика
             resultDiv.innerHTML = "";
 
-            // Застосовуємо стилі для тексту результату
-            // Стало:
+            // 2. Встановлюємо стилі для картки результату
             resultDiv.className = "prose-content bg-white dark:bg-gray-800 text-gray-800 dark:text-white [&_*]:dark:text-white p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700 h-auto text-left transition-colors duration-300 shadow-lg";
             
-            const contentWrapper = document.createElement('div');
-            contentWrapper.id = "diet-content";
-            // nada
+            // 3. Створюємо кнопку завантаження
             const downloadBtn = document.createElement('button');
-            downloadBtn.innerText = "Завантажити у PDF";
-            downloadBtn.className = "mb-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl transition duration-300";
+            downloadBtn.innerText = language === 'uk' ? "📄 Завантажити у PDF" : "📄 Download PDF";
+            downloadBtn.className = "mb-6 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl transition duration-300 no-print";
             downloadBtn.onclick = downloadPDF;
 
+            // 4. Створюємо окремий контейнер для самого тексту дієти
+            const contentWrapper = document.createElement('div');
+            contentWrapper.id = "diet-content";
+            contentWrapper.innerHTML = marked.parse(data.diet);
+
+            // 5. Додаємо спочатку кнопку, а потім текст у головний контейнер
             resultDiv.appendChild(downloadBtn);
             resultDiv.appendChild(contentWrapper);
-            // Вставляємо згенерований текст (Markdown -> HTML)
-            resultDiv.innerHTML = marked.parse(data.diet);
-            // const images = resultDiv.querySelectorAll('img');
+
+            // 6. Обробляємо картинки всередині контенту
             const images = contentWrapper.querySelectorAll('img');
             images.forEach(img => {
                 img.style.width = "100%";
                 img.style.maxWidth = "500px";
-                img.style.height = "300px"; // Фіксована висота для стабільності
-                img.style.objectFit = "cover"; // Щоб фото не розтягувалось
+                img.style.height = "300px";
+                img.style.objectFit = "cover";
                 img.style.borderRadius = "15px";
                 img.style.margin = "15px 0";
                 img.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
                 
-                // Обробка помилки завантаження (якщо сайт не відповів)
                 img.onerror = function() {
-                    this.style.display = 'none'; // Приховати биту картинку
+                    this.style.display = 'none';
                 };
             });
-            console.log("Відповідь отримана"); 
+            
+            console.log("Відповідь отримана та відображена"); 
         } else {
             resultDiv.innerText = "Сталася помилка при генерації (відсутнє поле diet).";
             resultDiv.style.color = "red";
@@ -430,20 +432,20 @@ async function generateDiet() {
 
 function downloadPDF() {
     const element = document.getElementById('result');
+    
+    // Перевірка, чи є що завантажувати
     if (!element || element.innerText.trim() === "" || element.querySelector('.loader-container')) {
         alert("Спочатку згенеруйте дієту!");
         return;
     }
 
-    // Налаштування PDF
     const opt = {
-        margin:       [10, 10, 10, 10], // відступи
-        filename:     'my_diet_plan.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true }, // useCORS потрібен для завантаження картинок
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        margin: [10, 10, 10, 10],
+        filename: 'diet_plan.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // Запуск процесу створення
     html2pdf().set(opt).from(element).save();
 }
