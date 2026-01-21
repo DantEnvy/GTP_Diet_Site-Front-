@@ -149,7 +149,7 @@ async function generateDiet() {
                 </div>
                 <div class="loading-text" style="text-align: center; margin-top: 20px;">
                     Генеруємо меню<span class="dots"></span>
-                    <h6>Це може зайняти до 2-х хвилин</h6>
+                    <h6 style="text-align: center; margin-top: 12px;">Це може зайняти до 2-х хвилин</h6>
                 </div>
             </div>
         `;

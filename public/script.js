@@ -690,7 +690,8 @@ const translations = {
         "menu_info_sub_7": "Про нас",
         "about_us_text": "Nutriway — це інноваційна онлайн-платформа, створена для розробки ідеального плану харчування на основі специфічних потреб вашого організму. Вона автоматично розраховує ваші персональні цілі щодо калорій, білків, жирів, вуглеводів та вітамінів, перетворюючи сирі дані на смачне та збалансоване меню. Відмінною рисою Nutriway є її прихильність до вашої безпеки: наш алгоритм суворо враховує будь-які існуючі медичні умови та протипоказання при виборі ваших страв. З Nutriway турбота про ваше здоров'я стає простою та систематичною, усуваючи клопоти підрахунку кожного грама їжі самостійно.",
         "calc_text": "Ви вводите свої параметри, а калькулятор визначає вашу норму калорій, білків, жирів та вітамінів. Система автоматично враховує ваші хвороби, щоб виключити шкідливі для вас продукти. На основі цих цифр алгоритм одразу підбирає безпечні та корисні страви. Просто натисніть кнопку, щоб отримати свій персональний розрахунок.",
-    
+        "diet_text": "Клікайте на іконки нижче, щоб дізнатися більше про корисні дієти та компоненти їжі. Ми зібрали короткі статті про те, як білки, жири та вуглеводи впливають на ваш організм. Ці знання допоможуть вам краще розуміти свій раціон та робити свідомий вибір щодня. Обирайте цікаву для вас тему та переходьте до читання.",
+        "add_info": "Додаткова інформація"
     },
     en: {
         "disclaimer_title": "Pay attention!",
@@ -1227,7 +1228,9 @@ const translations = {
         "8-9 г": "8-9 g",
         "menu_info_sub_7": "About us",
         "about_us_text": "Nutriway is your personal navigator for a balanced diet and excellent health. Our platform helps you create an ideal diet that caters to the unique needs of your body. We recreate complex nutritional plans on a comprehensive and delicious menu that focuses on your results. With Nutriway, the turbo itself becomes systemic, easy and eliminates the need to independently treat skin grams.",
-        "calc_text": "You enter your parameters, and the calculator determines your calorie, protein, fat, and vitamin intake. The system automatically takes into account your illnesses to eliminate foods that are harmful to you. Based on these numbers, the algorithm immediately selects safe and healthy dishes. Just click a button to get your personal calculation."
+        "calc_text": "You enter your parameters, and the calculator determines your calorie, protein, fat, and vitamin intake. The system automatically takes into account your illnesses to eliminate foods that are harmful to you. Based on these numbers, the algorithm immediately selects safe and healthy dishes. Just click a button to get your personal calculation.",
+        "diet_text": "Click on the icons below to learn more about healthy diets and food components. We have collected short articles about how proteins, fats and carbohydrates affect your body. This knowledge will help you better understand your diet and make conscious choices every day. Choose a topic that interests you and start reading.",
+        "add_info": "Additional Information",
     }
 };
 
