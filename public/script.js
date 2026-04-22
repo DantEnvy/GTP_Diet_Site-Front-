@@ -691,9 +691,13 @@ const translations = {
         "about_us_text": "Nutriway — це інноваційна онлайн-платформа, створена для розробки ідеального плану харчування на основі специфічних потреб вашого організму. Вона автоматично розраховує ваші персональні цілі щодо калорій, білків, жирів, вуглеводів та вітамінів, перетворюючи сирі дані на смачне та збалансоване меню. Відмінною рисою Nutriway є її прихильність до вашої безпеки: наш алгоритм суворо враховує будь-які існуючі медичні умови та протипоказання при виборі ваших страв. З Nutriway турбота про ваше здоров'я стає простою та систематичною, усуваючи клопоти підрахунку кожного грама їжі самостійно.",
         "calc_text": "Ви вводите свої параметри, а калькулятор визначає вашу норму калорій, білків, жирів та вітамінів. Система автоматично враховує ваші хвороби, щоб виключити шкідливі для вас продукти. На основі цих цифр алгоритм одразу підбирає безпечні та корисні страви. Просто натисніть кнопку, щоб отримати свій персональний розрахунок.",
         "diet_text": "Клікайте на іконки нижче, щоб дізнатися більше про корисні дієти та компоненти їжі. Ми зібрали короткі статті про те, як білки, жири та вуглеводи впливають на ваш організм. Ці знання допоможуть вам краще розуміти свій раціон та робити свідомий вибір щодня. Обирайте цікаву для вас тему та переходьте до читання.",
-        "add_info": "Додаткова інформація"
+        "add_info": "Додаткова інформація",
+        "main_text_no_lim": "Ніяких шаблонів",
+        "main_text_no_lim_down": "Враховуємо ваші параметри, активність, алергії та навіть нелюбов до броколі(ми розуміємо)",
     },
     en: {
+        "main_text_no_lim": "No templates",
+        "main_text_no_lim_down": "We take into account your parameters, activity, allergies and even dislike of broccoli (we understand)",
         "disclaimer_title": "Pay attention!",
         "disclaimer_text_1": "The information on the site is for informational purposes only and does not constitute medical advice. By using the service, you assume responsibility for your health. Before making any changes to your diet, be sure to consult your doctor.",
         "disclaimer_text_2": "The site administration is not responsible for any consequences, direct or indirect, arising from the use of information from this site.",
