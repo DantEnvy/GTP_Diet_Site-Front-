@@ -28,6 +28,9 @@ body {
 /* Клас для градієнтів */
 .hero-gradient-bg {
     background: var(--site-gradient) !important;
+    background-image: url('/first-page/nutriway-main/high-angle-view-fruits-table.jpg'), var(--site-gradient);
+    background-size: cover;
+    background-position: center;
 }
 
 /* --- 2. СТИЛІ АНІМАЦІЙ --- */
@@ -788,4 +791,408 @@ html.dark .faq-item.active {
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.3s ease;
+}
+:root {
+    --primary-green: #2e6328; /* Колір кнопок і активних посилань */
+    --heading-dark: #003e30;  /* Темний колір заголовку Hero */
+    --text-black: #111111;    /* Основний чорний */
+    --text-grey: #515151;     /* Сірий текст описів */
+    --white: #ffffff;
+    --font-main: 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    color: var(--text-black);
+    line-height: 1.5;
+    background-color: var(--white);
+    overflow-x: hidden;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Typography */
+h1 {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 24px;
+    color: var(--heading-dark);
+}
+
+h2 {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 24px;
+    color: var(--text-black);
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 700; /* Bold for headers */
+    line-height: 1.5;
+    margin-bottom: 12px;
+    color: var(--text-black);
+}
+
+p {
+    font-size: 18px;
+    color: var(--text-grey);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: transform 0.2s ease, opacity 0.2s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    background-color: var(--primary-green);
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.btn-large {
+    background-color: var(--primary-green);
+    color: var(--white);
+    padding: 16px 32px;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+.mt-20 { margin-top: 20px; }
+.mt-60 { margin-top: 60px; }
+.text-center { text-align: center; }
+.subtitle { max-width: 800px; margin: 0 auto; }
+.relative { position: relative; z-index: 2; }
+
+/* Header */
+.header {
+    padding: 15px 0;
+    background: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+    display: block;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-black);
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.nav-link.active, .nav-link:hover {
+    color: var(--primary-green);
+    font-weight: 500;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.lang-switch {
+    font-size: 18px;
+    color: var(--text-black);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    padding: 100px 0;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+/* Sections General */
+.section {
+    padding: 80px 0;
+}
+
+/* Grids */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.grid-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+/* Features */
+.feature-card {
+    text-align: left;
+}
+
+.feature-card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 24px;
+    object-fit: contain;
+}
+
+/* About Section */
+.image-block img {
+    width: 100%;
+    border-radius: 24px;
+    display: block;
+}
+
+/* CTA Background Section */
+.cta-bg {
+    position: relative;
+    padding: 120px 0;
+}
+
+.cta-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.cta-bg-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fill the area */
+}
+
+/* Articles */
+.article-row {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.article-row.reverse {
+    flex-direction: row-reverse;
+}
+
+.article-img {
+    flex: 1;
+}
+
+.article-img img {
+    width: 100%;
+    border-radius: 24px;
+    display: block;
+    object-fit: cover;
+    height: 400px; /* Uniform height for article images */
+}
+
+.article-content {
+    flex: 1;
+}
+
+.article-content h3 {
+    font-size: 32px; /* Bigger titles for articles as per design */
+    font-weight: 500;
+}
+
+/* Team Section */
+.team-section {
+    padding-bottom: 100px;
+}
+
+.team-card {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    justify-content: center;
+}
+
+.team-img {
+    position: relative;
+    width: 360px;
+    height: 360px;
+    flex-shrink: 0;
+}
+
+.team-img .bg-shape {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.team-img .person-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%; /* Circle clip if needed, though image seems pre-clipped */
+    z-index: 2;
+}
+
+.team-content h3 {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.team-content b {
+    font-weight: 700;
+}
+
+.signature {
+    color: #333;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+/* Footer */
+.footer {
+    background: #111;
+    color: #fff;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.footer-logo img {
+    height: 40px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 32px;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: opacity 0.2s;
+}
+
+.footer-links a:hover {
+    opacity: 0.8;
+}
+
+.copyright {
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    h1 { font-size: 42px; }
+    h2 { font-size: 36px; }
+    
+    .grid-3, .grid-2, .article-row, .article-row.reverse, .team-card {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+    
+    .article-row.reverse { flex-direction: column; }
+    
+    .nav { display: none; }
+    .mobile-menu-btn { display: block; }
+    
+    .article-img img { height: auto; }
+    
+    .team-content { text-align: center; }
 }
