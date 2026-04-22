@@ -27,7 +27,7 @@ body {
 
 /* Клас для градієнтів */
 .hero-gradient-bg {
-    background-image: url('pictures/high-angle-view-fruits-table.jpg');
+    background-image: url('./pictures/high-angle-view-fruits-table.jpg') !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
