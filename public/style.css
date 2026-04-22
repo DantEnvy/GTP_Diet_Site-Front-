@@ -28,7 +28,7 @@ body {
 /* Клас для градієнтів */
 .hero-gradient-bg {
     /* background: var(--site-gradient) !important; */
-    background-image: url('../first-page/nutriway-main/high-angle-view-fruits-table.jpg');
+    background-image: url("./pictures/main-page/high-angle-view-fruits-table.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
