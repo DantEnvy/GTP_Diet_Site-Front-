@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutriway</title>
+    
+    <!-- Tailwind CSS Config for Dark Mode -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#111827', // gray-900
+                            card: '#1f2937', // gray-800
+                            input: '#374151', // gray-700
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js" defer></script>
+    <script src="diet.js" defer></script>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <script src="style.css" defer></script> -->
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Roboto:wght=400;700&family=Open+Sans&family=Oswald&family=Pacifico&family=Lobster&family=Amatic+SC&family=Merriweather&family=Comfortaa&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Play&family=Inter&family=Poppins&family=Lato&family=Nunito&family=Raleway&family=Ubuntu&family=DM+Sans&family=Manrope&family=Bebas+Neue&family=Anton&family=Playfair+Display&family=Cinzel&family=Dancing+Script&family=Great+Vibes&family=Indie+Flower&family=JetBrains+Mono&family=Fira+Code&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
+
+    <div id="disclaimer-overlay">
+        <div class="disclaimer-box">
+            <h1 style="color: #FBBF24" data-lang-key="disclaimer_title">Зверніть увагу!</h1>
+            <p style="margin: 15px 0; color: #E5E7EB" data-lang-key="disclaimer_text_1">Інформація на сайті має виключно ознайомчий характер і не є медичною порадою. Використовуючи сервіс, ви берете відповідальність за своє здоров'я на себе. Перед будь-якими змінами в харчуванні обов'язково порадьтеся з лікарем.</p>
+            <p style="margin: 15px 0; color: #E5E7EB" data-lang-key="disclaimer_text_2">Адміністрація сайту не несе відповідальності за будь-які наслідки, прямі або непрямі, що можуть виникнути в результаті використання інформації з цього сайту.</p>
+            <button class="disclaimer-btn" onclick="closeDisclaimer()" data-lang-key="disclaimer_btn">Погоджуюсь із умовами</button>
+        </div>
+    </div>
+
+    <!-- Навігація -->
+    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-md border-b border-gray-100 transition-colors duration-300 dark:bg-gray-900/90 dark:border-gray-800">
+        <div class="w-full px-4 md:px-8 py-4 flex justify-between items-center">
+            
+            <div class="flex items-center cursor-pointer" onclick="showPage('home')">
+                <img src="pictures/nutriway-logo.png" alt="Nutriway Logo" class="h-12 md:h-16">
+            </div>
+
+            <div class="flex items-center gap-2 md:gap-4">
+                
+                <button id="lang-toggle" onclick="toggleLanguage()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-green-500 text-green-600 font-bold hover:bg-green-500 hover:text-white transition-all shadow-sm">
+                    <i class="fas fa-globe"></i>
+                    <span id="lang-text">UA</span>
+                </button>
+
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 transition transform hover:scale-110">
+                    <i class="fas fa-moon text-xl"></i>
+                </button>
+
+                <button onclick="toggleMenu()" class="p-2 text-gray-900 dark:text-white hover:text-green-500 transition">
+                    <i id="menu-icon" class="fas fa-bars text-2xl"></i>
+                </button>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Overlay -->
+    <div id="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Бургер Меню -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full z-50 bg-white dark:bg-gray-800 w-full sm:w-1/2 lg:w-1/4 flex flex-col p-8 pt-24 shadow-2xl">
+        <div class="flex flex-col space-y-6 text-lg font-semibold text-gray-800 dark:text-gray-100">
+            <a href="javascript:void(0)" onclick="location.href='index.html'" toggleMenu();" class="menu-item delay-1 hover:text-green-500 flex items-center space-x-4">
+                <i class="fas fa-home w-6"></i> <span data-lang-key="menu_home">Головна</span>
+            </a>
+
+            <div class="menu-item-group">
+                <button onclick="document.getElementById('info-submenu').classList.toggle('hidden'); document.getElementById('info-arrow').classList.toggle('rotate-180');" class="w-full text-left menu-item delay-2 hover:text-green-500 flex items-center justify-between focus:outline-none group">
+                    <div class="flex items-center space-x-4">
+                        <i class="fas fa-info-circle w-6"></i>
+                        <span data-lang-key="menu_info">Інформація</span>
+                    </div>
+                    <i class="fas fa-chevron-down transition-transform duration-300" id="info-arrow"></i>
+                </button>
+                <!-- Випадаючий список кнопок -->
+                <div id="info-submenu" class="hidden pl-10 space-y-3 mt-3 text-base border-l-2 border-gray-100 dark:border-gray-700 ml-3 transition-all duration-300">
+                    <a href="javascript:void(0)" onclick="showPage('Plate'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_1">Тарілка та піраміда для здорового харчування</a>
+                    <a href="javascript:void(0)" onclick="showPage('Carbohydrates'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_2">Вуглеводи</a>
+                    <a href="javascript:void(0)" onclick="showPage('Protein'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_3">Білок</a>
+                    <a href="javascript:void(0)" onclick="showPage('Fat'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_4">Жири та холестерин</a>
+                    <a href="javascript:void(0)" onclick="showPage('Vegetables'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_5">Овочі та фрукти</a>
+                    <a href="javascript:void(0)" onclick="showPage('Vitamins'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_6">Вітаміни та мінерали</a>
+                </div>
+            </div>
+            
+            <!-- Новий пункт: Калькулятор -->
+            <a href="javascript:void(0)" onclick="showPage('calculator'); toggleMenu();" class="menu-item delay-3 hover:text-green-500 flex items-center space-x-4">
+                <i class="fas fa-calculator w-6"></i> <span data-lang-key="menu_calc">Калькулятор</span>
+            </a>
+            <!-- Новий пункт: Дієта -->
+            <a href="javascript:void(0)" onclick="showPage('diet'); toggleMenu();" class="menu-item delay-4 hover:text-green-500 flex items-center space-x-4">
+                <i class="fas fa-apple-alt w-6"></i> <span data-lang-key="menu_diet">Дієта</span>
+            </a>
+
+            <div class="flex items-center border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+                
+                <!--<a href="javascript:void(0)" onclick="showPage('About'); toggleMenu();" class="menu-item delay-5 hover:text-red-500 flex items-center space-x-4">
+                    <i class="fa fa-address-card-o w-6"></i> 
+                    <span data-lang-key="menu_info_sub_7">Про нас</span>
+                </a>-->
+
+                <button onclick="toggleMenu(); window.open('https://docs.google.com/document/d/1UPbdkt7Y1IJbC59--ixaxV3fOf-1_gSCwDEDmHsPV4I/edit?usp=sharing', '_blank')" 
+                        class="ml-2 w-5 h-5 rounded-full bg-gray-400 text-white text-xs menu-item delay-5 flex items-center space-x-4 justify-center hover:bg-green-500 transition" 
+                        style="min-width: 20px; min-height: 20px;">
+                    ?
+                </button>
+            </div>
+
+            <!-- Адмін Панель!!! -->
+            <!--<a href="javascript:void(0)" onclick="openAdminAuth(); toggleMenu();" class="menu-item delay-5 hover:text-red-500 flex items-center space-x-4 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+                <i class="fas fa-cogs w-6"></i> <span data-lang-key="menu_admin">Адмін Панель</span>
+            </a>-->
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <div id="content-area">
+
+            <section class="max-w-4xl mx-auto pt-32 px-6 mb-20 md:mb-24 pt-10 text-center">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-black text-slate-900 mb-8 leading-tight tracking-tight">
+                    <span class="dark:text-gray-100" data-lang-key="hero_label">Білок:</span><br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600" data-lang-key="hero_title">Будівельний матеріал тіла</span>
+                </h1>
+                <p class="text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto dark:text-white" data-lang-key="hero_desc">
+                    Це не просто їжа для м'язів. Це фундамент, з якого будується кожна клітина вашого організму: від шкіри та кісток до гормонів та імунітету.
+                </p>
+            </section>
+
+            <section class="max-w-3xl mx-auto px-6 mb-20">
+                <div class="prose prose-lg prose-slate mx-auto">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 mb-6 flex items-center gap-3">
+                        <span class="w-2 h-8 bg-blue-600 rounded-full"></span>
+                        <span class="dark:text-gray-100" data-lang-key="why_title">Чому це так важливо?</span>
+                    </h2>
+
+                    <p class="mb-6 text-lg leading-relaxed text-slate-600 dark:text-white" data-lang-key="why_text">
+                        Білок складається з амінокислот — «цеглинок» життя. Він критично важливий для відновлення тканин, вироблення ферментів та захисту організму від інфекцій.
+                    </p>
+
+                    <div class="space-y-8 my-10">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                                <i class="fa-solid fa-dumbbell text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2 dark:text-gray-100" data-lang-key="feature_growth_title">Регенерація та ріст</h3>
+                                <p class="text-slate-600 leading-relaxed dark:text-white" data-lang-key="feature_growth_desc">Сприяє відновленню пошкоджених тканин і розвитку м'язів. Це критично важливо не тільки для спортсменів, але й для дітей у період росту та відновлення після травм.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                                <i class="fa-solid fa-bone text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2 dark:text-gray-100" data-lang-key="feature_structure_title">Структурна підтримка</h3>
+                                <p class="text-slate-600 leading-relaxed dark:text-white" data-lang-key="feature_structure_desc">Зміцнює скелет, шкіру, волосся та нігті. Достатня кількість білка запобігає втраті м'язової маси, яка природно відбувається з віком (саркопенія).</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                                <i class="fa-solid fa-shield-virus text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2 dark:text-gray-100" data-lang-key="feature_immunity_title">Імунітет та метаболізм</h3>
+                                <p class="text-slate-600 leading-relaxed dark:text-white" data-lang-key="feature_immunity_desc">Антитіла, що борються з вірусами, мають білкову природу. Також білок є основою для гормонів (наприклад, інсуліну) та ферментів, що регулюють обмін речовин.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="max-w-4xl mx-auto px-6 mb-24">
+                <h2 class="text-2xl font-display font-bold text-slate-900 mb-6 pl-4 border-l-4 border-blue-600 dark:text-gray-100" data-lang-key="table_heading">
+                    Вміст білка в продуктах (на 100 г)
+                </h2>
+                <div class="overflow-x-auto shadow-lg shadow-slate-200/50 rounded-xl border border-slate-200 bg-white">
+                    <table class="w-full text-left border-black dark:bg-gray-800 dark:border-gray-700 w-full">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider font-semibold border-b border-slate-200">
+                                <th class="p-4 w-1/3" data-lang-key="th_product">Продукт</th>
+                                <th class="p-4 w-1/4" data-lang-key="th_content">Вміст білка</th>
+                                <th class="p-4" data-lang-key="th_source">Тип джерела</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-700 text-sm md:text-base divide-y divide-slate-100">
+                            <tr>
+                                <td class="p-4 font-bold text-slate-900 dark:text-gray-100" data-lang-key="food_parmesan">Сир Пармезан</td>
+                                <td class="p-4 font-mono text-blue-700 font-bold" data-lang-key="36 г">36 г</td>
+                                <td class="p-4 text-slate-500"><span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-bold" data-lang-key="type_animal">Тваринний</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-900 dark:text-gray-100" data-lang-key="food_soy">Соя (суха)</td>
+                                <td class="p-4 font-mono text-blue-700 font-bold" data-lang-key="36 г">36 г</td>
+                                <td class="p-4 text-slate-500"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold" data-lang-key="type_plant">Рослинний</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-900 dark:text-gray-100" data-lang-key="food_chicken">Куряча грудка</td>
+                                <td class="p-4 font-mono text-blue-700 font-bold" data-lang-key="31 г">31 г</td>
+                                <td class="p-4 text-slate-500"><span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-bold" data-lang-key="type_animal">Тваринний</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-900 dark:text-gray-100" data-lang-key="food_beef_turkey">Яловичина / Індичка</td>
+                                <td class="p-4 font-mono text-blue-700 font-bold" data-lang-key="26-29 г">26-29 г</td>
+                                <td class="p-4 text-slate-500"><span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-bold" data-lang-key="type_animal">Тваринний</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-900 dark:text-gray-100" data-lang-key="food_tuna">Тунець / Сардини</td>
+                                <td class="p-4 font-mono text-blue-700 font-bold" data-lang-key="23-25 г">23-25 г</td>
+                                <td class="p-4 text-slate-500"><span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-bold" data-lang-key="type_animal">Тваринний</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-900 dark:text-gray-100" data-lang-key="food_almond">Мигдаль</td>
+                                <td class="p-4 font-mono text-blue-700 font-bold" data-lang-key="21 г">21 г</td>
+                                <td class="p-4 text-slate-500"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold" data-lang-key="type_plant">Рослинний</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-900 dark:text-gray-100" data-lang-key="food_salmon">Лосось</td>
+                                <td class="p-4 font-mono text-blue-700 font-bold" data-lang-key="20 г">20 г</td>
+                                <td class="p-4 text-slate-500"><span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-bold" data-lang-key="type_animal">Тваринний</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-900 dark:text-gray-100" data-lang-key="food_pumpkin_seeds">Гарбузове насіння</td>
+                                <td class="p-4 font-mono text-blue-700 font-bold" data-lang-key="19 г">19 г</td>
+                                <td class="p-4 text-slate-500"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold" data-lang-key="type_plant">Рослинний</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-900 dark:text-gray-100" data-lang-key="food_egg">Яйце (1 шт)</td>
+                                <td class="p-4 font-mono text-blue-700 font-bold" data-lang-key="~6 г">~6 г</td>
+                                <td class="p-4 text-slate-500"><span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-bold" data-lang-key="type_animal">Тваринний</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-slate-900 dark:text-gray-100" data-lang-key="food_beans">Сочевиця / Квасоля (варені)</td>
+                                <td class="p-4 font-mono text-blue-700 font-bold" data-lang-key="8-9 г">8-9 г</td>
+                                <td class="p-4 text-slate-500"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold" data-lang-key="type_plant">Рослинний</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="max-w-6xl mx-auto px-6 mb-24">
+                <div class="flex items-end justify-between mb-10">
+                    <h2 class="text-3xl font-display font-bold text-slate-900" data-lang-key="tips_title">Практичні поради</h2>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <div class="bg-white rounded-2xl overflow-hidden border border-black shadow-lg shadow-slate-200/50 article-card flex flex-col h-full group dark:bg-gray-600 dark:border-gray-450 w-full">
+                        <div class="h-48 overflow-hidden relative bg-slate-100">
+                            <img src="pictures/balanced_meal.avif" alt="Balanced Meal" class="w-full h-full object-cover article-image">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-blue-600 text-[10px] font-extrabold px-2 py-1 rounded-full shadow-sm tracking-wide" data-lang-key="badge_balance">БАЛАНС</div>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-lg font-bold text-slate-800 mb-2" data-lang-key="card_consistency_title">Рівномірність</h3>
+                            <p class="text-slate-500 dark:text-white text-sm leading-relaxed flex-grow" data-lang-key="card_consistency_desc">
+                                Не їжте весь білок за один раз. Розподіляйте його на кожен прийом їжі для стабільної енергії та кращого засвоєння.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl overflow-hidden border border-black shadow-lg shadow-slate-200/50 article-card flex flex-col h-full group dark:bg-gray-600 dark:border-gray-450 w-full">
+                        <div class="h-48 overflow-hidden relative bg-slate-100">
+                            <img src="pictures/salad.avif" alt="Salad Mix" class="w-full h-full object-cover article-image">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-emerald-600 text-[10px] font-extrabold px-2 py-1 rounded-full shadow-sm tracking-wide" data-lang-key="badge_variety">РІЗНОМАНІТТЯ</div>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-lg font-bold text-slate-800 mb-2" data-lang-key="card_mix_title">Міксуйте джерела</h3>
+                            <p class="text-slate-500 dark:text-white text-sm leading-relaxed flex-grow" data-lang-key="card_mix_desc">
+                                Поєднуйте тваринні та рослинні білки. Наприклад, курка з кіноа або салат з горіхами. Це забезпечить повний спектр амінокислот.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl overflow-hidden border border-black shadow-lg shadow-slate-200/50 article-card flex flex-col h-full group dark:bg-gray-600 dark:border-gray-450 w-full">
+                        <div class="h-48 overflow-hidden relative bg-slate-100">
+                            <img src="pictures/yogurt.jpg" alt="Greek Yogurt" class="w-full h-full object-cover article-image">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-indigo-600 text-[10px] font-extrabold px-2 py-1 rounded-full shadow-sm tracking-wide" data-lang-key="badge_snack">ПЕРЕКУС</div>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-lg font-bold text-slate-800 mb-2" data-lang-key="card_healthy_snack_title">Здорові перекуси</h3>
+                            <p class="text-slate-500 dark:text-white text-sm leading-relaxed flex-grow" data-lang-key="card_healthy_snack_desc">
+                                Замініть печиво на грецький йогурт, горіхи або хумус. Це дасть відчуття ситості набагато довше, ніж прості вуглеводи.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl overflow-hidden border border-black shadow-lg shadow-slate-200/50 article-card flex flex-col h-full group dark:bg-gray-600 dark:border-gray-450 w-full">
+                        <div class="h-48 overflow-hidden relative bg-slate-100">
+                            <img src="pictures/sport.jpg" alt="Sport" class="w-full h-full object-cover article-image">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-rose-600 text-[10px] font-extrabold px-2 py-1 rounded-full shadow-sm tracking-wide" data-lang-key="badge_sport">СПОРТ</div>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-lg font-bold text-slate-800 mb-2" data-lang-key="card_active_title">Для активних</h3>
+                            <p class="text-slate-500 dark:text-white text-sm leading-relaxed flex-grow" data-lang-key="card_active_desc">
+                                Спортсмени потребують більше: 1.2–2 г/кг. Особливо важливо споживати білок після тренування для відновлення м'язів.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="max-w-3xl mx-auto px-6 mb-16">
+                <h2 class="text-2xl font-display font-bold text-slate-900 mb-8 text-center" data-lang-key="faq_title">Питання та відповіді</h2>
+                    <div class="space-y-6"> 
+                        <div class="space-y-6">
+                            <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_elderly_q">● Скільки білка потрібно літнім людям?</h4>
+                                    <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
+                                </div>
+                                <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
+                                    <div class="overflow-hidden">
+                                        <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-white" data-lang-key="faq_elderly_a">
+                                        Літнім людям рекомендовано трохи більше норми: 1–1.2 г на 1 кг ваги. Це допомагає запобігти втраті м'язової маси та зберегти силу, що критично важливо для активного довголіття.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_meatless_q">● Чи можна набрати норму без м'яса?</h4>
+                                <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
+                            </div>
+                            <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
+                                <div class="overflow-hidden">
+                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-white" data-lang-key="faq_meatless_a">
+                                    Так! Але потрібно бути уважнішим. Рослинні білки (окрім сої та кіноа) часто не мають повного набору амінокислот. Тому вегетаріанцям важливо комбінувати різні джерела: бобові, горіхи, насіння та цільні злаки протягом дня.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item group border border-gray-100 rounded-[2rem] p-8 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="this.classList.toggle('active')">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg dark:text-white" data-lang-key="faq_pregnant_q">● Що щодо вагітних та жінок, що годують?</h4> 
+                                <i class="fas fa-plus text-green-500 transition-transform duration-300 group-[.active]:rotate-45"></i>
+                            </div>
+                            <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-[.active]:grid-rows-[1fr]">
+                                <div class="overflow-hidden">
+                                    <div class="faq-answer pt-4 text-gray-600 leading-relaxed dark:text-white" data-lang-key="faq_pregnant_a"> 
+                                    Потреба у білку зростає, оскільки він потрібен для розвитку дитини та вироблення молока. Рекомендована норма становить 1.2–1.5 г на 1 кг ваги.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+            </section>
+</body>
+</html> 
