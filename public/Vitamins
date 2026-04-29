@@ -53,14 +53,6 @@
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
 
-    <div id="disclaimer-overlay">
-        <div class="disclaimer-box">
-            <h1 style="color: #FBBF24" data-lang-key="disclaimer_title">Зверніть увагу!</h1>
-            <p style="margin: 15px 0; color: #E5E7EB" data-lang-key="disclaimer_text_1">Інформація на сайті має виключно ознайомчий характер і не є медичною порадою. Використовуючи сервіс, ви берете відповідальність за своє здоров'я на себе. Перед будь-якими змінами в харчуванні обов'язково порадьтеся з лікарем.</p>
-            <p style="margin: 15px 0; color: #E5E7EB" data-lang-key="disclaimer_text_2">Адміністрація сайту не несе відповідальності за будь-які наслідки, прямі або непрямі, що можуть виникнути в результаті використання інформації з цього сайту.</p>
-            <button class="disclaimer-btn" onclick="closeDisclaimer()" data-lang-key="disclaimer_btn">Погоджуюсь із умовами</button>
-        </div>
-    </div>
 
     <!-- Навігація -->
     <nav class="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-md border-b border-gray-100 transition-colors duration-300 dark:bg-gray-900/90 dark:border-gray-800">
