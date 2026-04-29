@@ -109,12 +109,12 @@
                 </button>
                 <!-- Випадаючий список кнопок -->
                 <div id="info-submenu" class="hidden pl-10 space-y-3 mt-3 text-base border-l-2 border-gray-100 dark:border-gray-700 ml-3 transition-all duration-300">
-                    <a href="javascript:void(0)" onclick="showPage('Plate'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_1">Тарілка та піраміда для здорового харчування</a>
-                    <a href="javascript:void(0)" onclick="showPage('Carbohydrates'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_2">Вуглеводи</a>
-                    <a href="javascript:void(0)" onclick="showPage('Protein'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_3">Білок</a>
-                    <a href="javascript:void(0)" onclick="showPage('Fat'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_4">Жири та холестерин</a>
-                    <a href="javascript:void(0)" onclick="showPage('Vegetables'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_5">Овочі та фрукти</a>
-                    <a href="javascript:void(0)" onclick="showPage('Vitamins'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_6">Вітаміни та мінерали</a>
+                    <a href="javascript:void(0)" onclick="location.href='Plate-page.html'; toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_1">Тарілка та піраміда для здорового харчування</a>
+                    <a href="javascript:void(0)" onclick="location.href='Carbohydrates.html'; toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_2">Вуглеводи</a>
+                    <a href="javascript:void(0)" onclick="location.href='Protein.html'; toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_3">Білок</a>
+                    <a href="javascript:void(0)" onclick="location.href='fat.html'; toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_4">Жири та холестерин</a>
+                    <a href="javascript:void(0)" onclick="location.href='Vegetables.html'; toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_5">Овочі та фрукти</a>
+                    <a href="javascript:void(0)" onclick="location.href='Vitamins.html'; toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_6">Вітаміни та мінерали</a>
                 </div>
             </div>
             
