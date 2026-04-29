@@ -53,14 +53,6 @@
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
 
-    <div id="disclaimer-overlay">
-        <div class="disclaimer-box">
-            <h1 style="color: #FBBF24" data-lang-key="disclaimer_title">Зверніть увагу!</h1>
-            <p style="margin: 15px 0; color: #E5E7EB" data-lang-key="disclaimer_text_1">Інформація на сайті має виключно ознайомчий характер і не є медичною порадою. Використовуючи сервіс, ви берете відповідальність за своє здоров'я на себе. Перед будь-якими змінами в харчуванні обов'язково порадьтеся з лікарем.</p>
-            <p style="margin: 15px 0; color: #E5E7EB" data-lang-key="disclaimer_text_2">Адміністрація сайту не несе відповідальності за будь-які наслідки, прямі або непрямі, що можуть виникнути в результаті використання інформації з цього сайту.</p>
-            <button class="disclaimer-btn" onclick="closeDisclaimer()" data-lang-key="disclaimer_btn">Погоджуюсь із умовами</button>
-        </div>
-    </div>
 
     <!-- Навігація -->
     <nav class="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-md border-b border-gray-100 transition-colors duration-300 dark:bg-gray-900/90 dark:border-gray-800">
@@ -109,12 +101,12 @@
                 </button>
                 <!-- Випадаючий список кнопок -->
                 <div id="info-submenu" class="hidden pl-10 space-y-3 mt-3 text-base border-l-2 border-gray-100 dark:border-gray-700 ml-3 transition-all duration-300">
-                    <a href="javascript:void(0)" onclick="showPage('Plate'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_1">Тарілка та піраміда для здорового харчування</a>
-                    <a href="javascript:void(0)" onclick="showPage('Carbohydrates'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_2">Вуглеводи</a>
-                    <a href="javascript:void(0)" onclick="showPage('Protein'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_3">Білок</a>
-                    <a href="javascript:void(0)" onclick="showPage('Fat'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_4">Жири та холестерин</a>
-                    <a href="javascript:void(0)" onclick="showPage('Vegetables'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_5">Овочі та фрукти</a>
-                    <a href="javascript:void(0)" onclick="showPage('Vitamins'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_6">Вітаміни та мінерали</a>
+                    <a href="javascript:void(0)" onclick="location.href='Plate-page.html'" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_1">Тарілка та піраміда для здорового харчування</a>
+                    <a href="javascript:void(0)" onclick="location.href='Carbohydrates.html'" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_2">Вуглеводи</a>
+                    <a href="javascript:void(0)" onclick="location.href='Protein.html'" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_3">Білок</a>
+                    <a href="javascript:void(0)" onclick="location.href='fat.html'" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_4">Жири та холестерин</a>
+                    <a href="javascript:void(0)" onclick="location.href='Vegetables.html'" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_5">Овочі та фрукти</a>
+                    <a href="javascript:void(0)" onclick="location.href='Vitamins.html'" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_6">Вітаміни та мінерали</a>
                 </div>
             </div>
             
@@ -147,9 +139,6 @@
             </a>-->
         </div>
     </div>
-
-    <!-- MAIN CONTENT AREA -->
-    <div id="content-area">
 
             <section class="max-w-4xl mx-auto pt-32 px-6 mb-20 md:mb-24 pt-10 text-center">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-black text-slate-900 mb-8 leading-tight tracking-tight">
