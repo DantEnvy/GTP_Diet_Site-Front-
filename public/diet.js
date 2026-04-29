@@ -441,7 +441,7 @@ function downloadPDF() {
     }
 
     const opt = {
-        margin: [10, 10, 10, 10], // Отступы (верх, лево, низ, право)
+        margin: [10, 10, 10, 10], 
         filename: 'diet_plan.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
