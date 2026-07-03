@@ -37,7 +37,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="script.js" defer></script>
     <script src="diet.js" defer></script>
-    
+    <script src="autorisation.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- <script src="style.css" defer></script> -->
@@ -109,6 +109,7 @@
                 </button>
                 <!-- Випадаючий список кнопок -->
                 <div id="info-submenu" class="hidden pl-10 space-y-3 mt-3 text-base border-l-2 border-gray-100 dark:border-gray-700 ml-3 transition-all duration-300">
+                    <a href="javascript:void(0)" onclick="showPage('registration'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_7">Регестрація</a>
                     <a href="javascript:void(0)" onclick="showPage('Plate'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_1">Тарілка та піраміда для здорового харчування</a>
                     <a href="javascript:void(0)" onclick="showPage('Carbohydrates'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_2">Вуглеводи</a>
                     <a href="javascript:void(0)" onclick="showPage('Protein'); toggleMenu();" class="block hover:text-green-500 py-1 transition-colors" data-lang-key="menu_info_sub_3">Білок</a>
@@ -1889,8 +1890,25 @@
             </div>
         </main>
         <!-- Про Нас-->
-        <main id="about-page" class="page-content pt-32 pb-20">
+        <main id="registration-page" class="page-content pt-32 pb-20">
+            <div id="auth-container">
+                <div id="register-box">
+                    <h3>Регистрация</h3>
+                    <input type="email" id="reg-email" placeholder="Email" required>
+                    <input type="password" id="reg-password" placeholder="Пароль" required>
+                    <button onclick="handleRegister()">Создать аккаунт</button>
+                </div>
 
+                <div id="login-box" style="margin-top: 20px;">
+                    <h3>Вход</h3>
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Пароль" required>
+                    <button onclick="handleLogin()">Войти</button>
+                </div>
+                <p id="auth-status" style="margin-top: 10px; font-weight: bold;"></p>
+            </div>
+
+            <button id="logout-btn" onclick="handleLogout()" style="display: none;">Выйти из аккаунта</button>
         </main>
         <!-- КАЛЬКУЛЯТОР (ЯК БУЛО) -->
         <main id="calculator-page" class="page-content pt-32 pb-20">
