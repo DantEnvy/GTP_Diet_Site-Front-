@@ -65,33 +65,29 @@ async function send() {
 
     const totalCalories = calculateBMR(age, height, weight, gender, activity); // Ваша цель калорий
 
-    // 1. Считаем белки (приоритет №1) - по вашей формуле от веса
+   
     const proteinGrams = prot(activity, weight);
-    const proteinKcal = proteinGrams * 4; // В 1г белка 4 ккал
+    const proteinKcal = proteinGrams * 4;
 
-    // 2. Считаем жиры (приоритет №2) - берем 30% от калорийности
+  
     const fatKcal = totalCalories * 0.3;
-    const fatGrams = fatKcal / 9; // В 1г жира 9 ккал
+    const fatGrams = fatKcal / 9; 
 
-    // 3. Считаем углеводы (приоритет №3) - всё оставшееся место
-    // Отнимаем от общих калорий калории белков и жиров
     const carbKcal = totalCalories - proteinKcal - fatKcal;
-    const carbGrams = carbKcal / 4; // В 1г углеводов 4 ккал
+    const carbGrams = carbKcal / 4; 
 
-    // Формируем объект (не забудьте округлять и про витамины!)
-    // ... (ваш код вычислений)
     const requestData = {
-        age: age,          // <--- ДОБАВИТЬ ЭТО
-        height: height,    // <--- ДОБАВИТЬ ЭТО
-        weight: weight,    // <--- ДОБАВИТЬ ЭТО
-        gender: gender,    // <--- ДОБАВИТЬ ЭТО
+        age: age,         
+        height: height,   
+        weight: weight,  
+        gender: gender,    
         bmr: Math.round(totalCalories),
         protein: Math.round(proteinGrams),
         fat: Math.round(fatGrams),
         carb: Math.round(Math.max(0, carbGrams)), 
         allergy: allergy || "немає",
         health: health || "немає",
-        vitamins: vitam(age, gender, weight, activity) // Исправленный вызов
+        vitamins: vitam(age, gender, weight, activity) 
     };
 
     console.log("POST DATA:", requestData);
