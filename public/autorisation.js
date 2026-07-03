@@ -1,10 +1,10 @@
-const BACKEND_URL = 'http://localhost:3000'; // Порт 3000, как на сервере
+const BACKEND_URL = 'http://localhost:3000';
 
 // Функция отправки данных на регистрацию
 async function handleRegister(event) {
-    if (event) event.preventDefault(); // Останавливаем перезагрузку, если кнопка в форме
+    event.preventDefault(); 
 
-    // ИСПРАВЛЕНО: Берем правильные ID из HTML для регистрации
+    // Берем правильные ID из твоего HTML
     const email = document.getElementById('reg-email').value;
     const password = document.getElementById('reg-password').value;
 
@@ -25,19 +25,19 @@ async function handleRegister(event) {
         if (response.ok) {
             alert('Ура! Регистрация успешна. Теперь войдите.');
         } else {
-            alert(data.error || 'Ошибка регистрации'); 
+            alert(data.message || 'Ошибка регистрации'); 
         }
     } catch (error) {
         console.error('Ошибка:', error);
-        alert('Не удалось связаться с сервером');
+        alert('Не удалось связаться с сервером. Убедись, что бэкенд запущен!');
     }
 }
 
 // Функция для Входа (Логина)
 async function handleLogin(event) {
-    if (event) event.preventDefault();
+    event.preventDefault();
 
-    // ИСПРАВЛЕНО: Берем правильные ID из HTML для логина
+    // Берем правильные ID из твоего HTML
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
@@ -56,15 +56,13 @@ async function handleLogin(event) {
         const data = await response.json();
 
         if (response.ok) {
-            // Сохраняем токен и ID в память браузера
             localStorage.setItem('token', data.token);
             localStorage.setItem('userId', data.userId);
 
             alert('Вход выполнен!');
-            // Перенаправляем пользователя на главную страницу диеты
             window.location.href = 'Plate-page.html';
         } else {
-            alert(data.error || 'Неверный логин или пароль');
+            alert(data.message || 'Неверный логин или пароль');
         }
     } catch (error) {
         console.error('Ошибка:', error);
