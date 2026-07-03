@@ -69,7 +69,20 @@ async function handleLogin(event) {
         alert('Не удалось связаться с сервером');
     }
 }
-
-// Привязываем клики к кнопкам
+// Привязываем клики к кнопкам (это у тебя уже есть)
 document.getElementById('reg-btn').addEventListener('click', handleRegister);
 document.getElementById('login-btn').addEventListener('click', handleLogin);
+
+// ДОБАВЬ ЭТО: Привязываем клик к кнопке выхода
+const logoutBtn = document.getElementById('logout-btn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', handleLogout);
+}
+
+// Сама функция выхода (если её еще не было в JS)
+function handleLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    alert('Вы вышли из аккаунта');
+    window.location.reload(); // Перезагрузит страницу, чтобы обновить интерфейс
+}
